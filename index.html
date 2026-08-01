@@ -29,8 +29,8 @@
     --bg:#0d1830; --surface:rgba(255,255,255,.045); --hairline:rgba(255,255,255,.07);
     --rule:rgba(255,255,255,.22); --ink:#ffffff; --ink-2:#e8eefa; --muted:#93a6c8;
     --label:#7d94bd; --muted-3:#5f739a;
-    --gold:#dcb54a; --gold-ink:#f6d78a; --gold-fill:rgba(220,181,74,.16); --gold-line:rgba(220,181,74,.5);
-    --dock:#f7f9fc; --dock-muted:#7d8ba6; --dock-2:#4a5a76; --dock-rule:#e2e7ef;
+    --gold:#dcb54a; --gold-ink:#0d1830; --gold-fill:#f2d27a; --gold-line:#f2d27a;
+    --cool:#7fa8e6; --dock:#f7f9fc; --dock-muted:#7d8ba6; --dock-2:#4a5a76; --dock-rule:#e2e7ef;
     --r-card:20px; --r-field:12px; --r-dock:26px;
   }
   *{box-sizing:border-box}
@@ -56,7 +56,7 @@
   .card{margin:0 14px 12px;border:1px solid rgba(255,255,255,.09);border-radius:var(--r-card);background:var(--surface)}
   .card-hd{display:flex;align-items:baseline;justify-content:space-between;padding:15px 18px 9px}
   .card-hd h2{margin:0;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--label)}
-  .hint{font-size:11px;color:var(--gold)}
+  .hint{font-size:11px;color:var(--gold-fill)}
 
   .row{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:10px 18px;border-top:1px solid var(--hairline)}
   .row.editable{padding:8px 14px 8px 18px}
@@ -67,22 +67,22 @@
   .rs.quiet{color:var(--muted-3)}
   .amt{font-size:16px;font-weight:600;color:#fff;font-variant-numeric:tabular-nums}
   .amt.quiet{font-weight:400;color:var(--muted)}
-  .row.total{border-top:1px solid var(--rule)}
+  .row.total{border-top:1px solid var(--rule);background:rgba(255,255,255,.06)}
   .row.total .rl{font-size:15px;font-weight:700}
-  .row.total .amt{font-size:18px;font-weight:700;color:var(--gold)}
-  .badge{font-size:10.5px;font-weight:700;letter-spacing:.07em;color:var(--bg);background:var(--gold);padding:3px 7px;border-radius:6px;margin-left:5px;vertical-align:1px}
+  .row.total .amt{font-size:18px;font-weight:700;color:#fff}
+  .badge{font-size:10.5px;font-weight:700;letter-spacing:.07em;color:var(--bg);background:var(--cool);padding:3px 7px;border-radius:6px;margin-left:5px;vertical-align:1px}
 
-  /* ---- editable fields (the old yellow tabs) ---- */
-  .field{display:flex;align-items:center;background:var(--gold-fill);border:1px solid var(--gold-line);border-radius:var(--r-field);padding:0 12px;min-height:44px}
-  .field .pre{font-size:15px;color:rgba(246,215,138,.7)}
-  .field input{width:72px;border:none;background:transparent;padding:10px 0 10px 4px;font:600 16px/1 inherit;color:var(--gold-ink);text-align:right;font-variant-numeric:tabular-nums}
-  .field.wide input{width:84px;padding-left:0}
+  /* ---- editable fields ---- */
+  .field{display:flex;align-items:center;justify-content:flex-end;gap:1px;background:var(--gold-fill);border:1px solid var(--gold-line);border-radius:var(--r-field);padding:0 14px;min-height:44px;min-width:96px}
+  .field .pre{font-size:16px;font-weight:700;color:#0d1830}
+  .field input{width:5ch;border:none;background:transparent;padding:10px 0;font:700 16px/1 inherit;color:var(--gold-ink);text-align:right;font-variant-numeric:tabular-nums}
   .field input:focus{outline:none}
-  select.field{-webkit-appearance:none;appearance:none;min-width:104px;padding:10px 32px 10px 14px;font:600 16px/1 inherit;color:var(--gold-ink);text-align:right;
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='16' viewBox='0 0 11 16' fill='none' stroke='%23dcb54a' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M2 6.2 5.5 2.7 9 6.2'/%3E%3Cpath d='M2 9.8 5.5 13.3 9 9.8'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 11px center;background-size:11px 16px}
+  select.field{-webkit-appearance:none;appearance:none;min-width:104px;padding:10px 34px 10px 14px;font:700 16px/1 inherit;color:var(--gold-ink);text-align:right;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='16' viewBox='0 0 11 16' fill='none' stroke='%230d1830' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M2 6.2 5.5 2.7 9 6.2'/%3E%3Cpath d='M2 9.8 5.5 13.3 9 9.8'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;background-size:11px 16px}
   select.field:focus{outline:none}
   select.field option{color:#0d1830}
-  .field:focus-within{border-color:var(--gold);box-shadow:0 0 0 3px rgba(220,181,74,.18)}
+  .field:focus-within{border-color:#fff;box-shadow:0 0 0 3px rgba(242,210,122,.4)}
+  .row[hidden]{display:none}
 
   .foot{padding:2px 22px 8px;font-size:12px;line-height:1.55;color:var(--muted-3)}
 
@@ -140,13 +140,13 @@
     </div>
 
     <div class="row editable">
-      <div><label class="rl" for="airfare">Airfare</label><div class="rs">round trip, per couple</div></div>
-      <div class="field"><span class="pre">$</span><input id="airfare" inputmode="numeric" value="1750" /></div>
+      <div><label class="rl" for="airfare">Airfare</label><div class="rs">round trip, per couple · $50 steps</div></div>
+      <select class="field" id="airfare"></select>
     </div>
 
     <div class="row editable">
-      <div><label class="rl" for="taxis">Car taxis</label><div class="rs">$30 each way</div></div>
-      <div class="field"><span class="pre">$</span><input id="taxis" inputmode="numeric" value="60" /></div>
+      <div><label class="rl" for="taxis">Car taxis</label><div class="rs">$30 each way · $20 steps</div></div>
+      <select class="field" id="taxis"></select>
     </div>
 
     <div class="row">
@@ -155,23 +155,28 @@
     </div>
 
     <div class="row editable">
-      <div><label class="rl" for="parking">Airport parking</label><div class="rs">MSY ≈ $100</div></div>
-      <div class="field"><span class="pre">$</span><input id="parking" inputmode="numeric" value="100" /></div>
+      <div><label class="rl" for="parking">Airport parking</label><div class="rs">MSY ≈ $100 · $20 steps</div></div>
+      <select class="field" id="parking"></select>
     </div>
 
     <div class="row editable">
-      <label class="rl" for="food">Airport food &amp; drink</label>
-      <div class="field"><span class="pre">$</span><input id="food" inputmode="numeric" value="75" /></div>
+      <div><label class="rl" for="food">Airport food &amp; drink</label><div class="rs">$20 steps</div></div>
+      <select class="field" id="food"></select>
     </div>
 
     <div class="row editable">
-      <div><label class="rl" for="level">Daily spending</label><div class="rs">Low $50 · Mid $100 · High $150</div></div>
-      <select class="field" id="level"><option>Low</option><option selected>Mid</option><option>High</option></select>
+      <div><label class="rl" for="level">Daily spending</label><div class="rs">Low $50 · Mid $100 · High $150 · Custom</div></div>
+      <select class="field" id="level"><option>Low</option><option selected>Mid</option><option>High</option><option>Custom</option></select>
     </div>
 
-    <div class="row editable">
-      <label class="rl" for="nights">Nights</label>
-      <div class="field wide"><input id="nights" inputmode="numeric" value="5" /></div>
+    <div class="row editable" id="customRow" hidden>
+      <div><label class="rl" for="customDaily">Your amount</label><div class="rs">per couple, per day</div></div>
+      <div class="field"><span class="pre">$</span><input id="customDaily" inputmode="numeric" value="125" /></div>
+    </div>
+
+    <div class="row">
+      <div class="rl quiet">Nights</div>
+      <div class="amt quiet">5 &nbsp;<span style="color:var(--muted-3);font-weight:400">fixed</span></div>
     </div>
 
     <div class="row">
@@ -204,24 +209,38 @@
 
 <script>
 (function () {
-  var FIXED = 6091.91, WATER_TAXI = 500;
+  var FIXED = 6091.91, WATER_TAXI = 500, NIGHTS = 5;
   var $ = function (id) { return document.getElementById(id); };
   var num = function (v) { var n = parseFloat(String(v).replace(/[^0-9.]/g, "")); return isNaN(n) ? 0 : n; };
   var money = function (n) { return "$" + n.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 }); };
   var money0 = function (n) { return "$" + Math.round(n).toLocaleString("en-US"); };
 
+  // Build the scroll-wheel selects (native iOS picker): min→max in `step` increments.
+  function wheel(id, min, max, step, def) {
+    var s = $(id), html = "";
+    for (var v = min; v <= max; v += step) {
+      html += '<option value="' + v + '"' + (v === def ? " selected" : "") + '>$' + v.toLocaleString("en-US") + "</option>";
+    }
+    s.innerHTML = html;
+  }
+  wheel("airfare", 500, 5000, 50, 1750);   // $50 steps
+  wheel("taxis",    60,  400, 20,   60);   // $20 steps, starts at prefill
+  wheel("parking", 100,  400, 20,  100);   // $20 steps, starts at prefill
+  wheel("food",     75,  375, 20,   75);   // $20 steps, starts at prefill
+
   function render() {
-    var level = $("level").value;
-    var daily = level === "Low" ? 50 : level === "High" ? 150 : 100;
-    var nights = num($("nights").value);
-    var dailyTotal = daily * nights;
+    var level = $("level").value, daily;
+    if (level === "Custom") { $("customRow").hidden = false; daily = num($("customDaily").value); }
+    else { $("customRow").hidden = true; daily = level === "Low" ? 50 : level === "High" ? 150 : 100; }
+
+    var dailyTotal = daily * NIGHTS;
     var water = $("airport").value === "STT" ? WATER_TAXI : 0;
     var varSub = num($("airfare").value) + num($("taxis").value) + num($("parking").value) + num($("food").value) + dailyTotal + water;
     var allIn = FIXED + varSub;
 
     $("waterVal").textContent = water ? money(water) : "N/A";
     $("waterNote").textContent = water ? "St. Thomas ferry, per couple · estimate*" : "not needed — flying into Tortola";
-    $("dailyNote").textContent = "$" + daily + "/day × " + nights + (nights === 1 ? " night" : " nights");
+    $("dailyNote").textContent = "$" + daily.toLocaleString("en-US") + "/day × " + NIGHTS + " nights";
     $("dailyTotal").textContent = money(dailyTotal);
     $("varSub").textContent = money(varSub);
     $("brVar").textContent = money(varSub);
@@ -229,10 +248,11 @@
     $("allIn").textContent = money0(allIn);
   }
 
-  ["airport", "airfare", "taxis", "parking", "food", "level", "nights"].forEach(function (id) {
-    $(id).addEventListener("input", render);
+  ["airport", "airfare", "taxis", "parking", "food", "level"].forEach(function (id) {
     $(id).addEventListener("change", render);
+    $(id).addEventListener("input", render);
   });
+  $("customDaily").addEventListener("input", render);
 
   $("toggle").addEventListener("click", function () {
     var b = $("breakdown"), open = b.hidden;
