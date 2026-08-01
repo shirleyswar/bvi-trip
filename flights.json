@@ -1,0 +1,39 @@
+{
+ "updated": "2026-08-01",
+ "checkedNote": "Fares checked Aug 1, 2026 on aa.com. Per person, round trip, Main cabin, non-refundable. Nothing held.",
+ "homes": [["MSY", "New Orleans"], ["JAN", "Jackson"], ["CHA", "Chattanooga"]],
+ "outboundLabel": "OUTBOUND \u00b7 JUN 9",
+ "returnLabel": "RETURN \u00b7 JUN 16",
+ "trips": [
+  {
+   "home": "MSY",
+   "island": "EIS",
+   "airline": "American",
+   "price": 833,
+   "note": "MIA\u2013EIS is an Embraer 175 operated by Envoy Air as American Eagle.",
+   "out": [
+    {"from": "MSY", "dep": "6:00a", "to": "MIA", "arr": "9:07a", "flight": "AA 867"},
+    {"from": "MIA", "dep": "10:41a", "to": "EIS", "arr": "1:42p", "flight": "AA 4237"}
+   ],
+   "back": [
+    {"from": "EIS", "dep": "2:22p", "to": "MIA", "arr": "5:24p", "flight": "AA 4237"},
+    {"from": "MIA", "dep": "8:13p", "to": "MSY", "arr": "9:20p", "flight": "AA 3278"}
+   ]
+  },
+  {
+   "home": "MSY",
+   "island": "STT",
+   "airline": "American",
+   "price": 855,
+   "note": "48-minute connection in Miami on the way out \u2014 tight for MIA.",
+   "out": [
+    {"from": "MSY", "dep": "6:00a", "to": "MIA", "arr": "9:07a", "flight": "AA 867"},
+    {"from": "MIA", "dep": "9:55a", "to": "STT", "arr": "12:44p", "flight": "AA 2962"}
+   ],
+   "back": [
+    {"from": "STT", "dep": "11:43a", "to": "CLT", "arr": "3:48p", "flight": "AA 1466"},
+    {"from": "CLT", "dep": "4:30p", "to": "MSY", "arr": "5:32p", "flight": "AA 1943"}
+   ]
+  }
+ ]
+}

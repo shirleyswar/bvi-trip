@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#04263c" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="BEANLAND + BVI" />
+<link rel="apple-touch-icon" href="apple-touch-icon.png" />
+<link rel="icon" href="apple-touch-icon.png" />
+<title>BEANLAND + BVI — Cost</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#04263c; --surface:rgba(255,255,255,.055); --border:rgba(255,255,255,.1);
+    --hairline:rgba(255,255,255,.08); --rule:rgba(255,255,255,.22); --raise:rgba(255,255,255,.06);
+    --ink:#ffffff; --soft:#b3d7e8; --mute:#7ba6bd;
+    --pink:#ff4d8d; --pink-ink:#3d0620;
+    --aqua:#3ee6c4; --aqua-ink:#04332a;
+    --amber:#ffb03a; --amber-ink:#43290a;
+    --idle:rgba(255,255,255,.06); --idle-line:rgba(255,255,255,.12); --idle-ink:#9dc4d6; --idle-sub:#a8cadb;
+    --dock:#f2fbff; --dock-ink:#04263c; --dock-2:#39586b; --dock-mute:#5b8299; --dock-rule:#d9e9f2;
+    --r-card:20px; --r-field:12px; --r-dock:26px; --r-tab:12px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);font-family:Outfit,system-ui,sans-serif;-webkit-text-size-adjust:100%;
+       padding-bottom:calc(292px + env(safe-area-inset-bottom))}
+  .wrap{max-width:520px;margin:0 auto}
+  h1,h2{margin:0}
+  a{color:var(--soft)}a:hover{color:#fff}
+  button,input,select{font-family:inherit}
+  input:focus,select:focus{outline:none}
+
+  /* tabs + chat badge */
+  .tabs{display:flex;gap:7px;margin-bottom:20px}
+  .tab{display:inline-block;text-decoration:none;padding:10px 15px;border:none;border-radius:var(--r-tab);background:var(--idle);color:var(--idle-ink);font-size:11.5px;font-weight:700;letter-spacing:.1em;cursor:pointer}
+  .tab.on{background:var(--pink);color:var(--pink-ink);font-weight:800}
+  .tab-wrap{position:relative}
+  .badge{position:absolute;top:-6px;right:-6px;min-width:21px;height:21px;padding:0 6px;border-radius:11px;background:var(--pink);border:2px solid var(--bg);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:var(--pink-ink);font-variant-numeric:tabular-nums}
+  .badge.dot{top:-3px;right:-3px;min-width:0;width:11px;height:11px;padding:0;border-radius:6px}
+  .badge[hidden]{display:none}
+
+  .hdr{padding:10px 20px 4px}
+  .h1{font-family:'Bricolage Grotesque',Outfit,sans-serif;font-size:38px;line-height:.98;font-weight:800;letter-spacing:-.035em}
+  .sub{font-size:14.5px;line-height:1.5;color:var(--soft);margin-top:10px}
+
+  .card{margin:14px 16px 0;border:1px solid var(--border);border-radius:var(--r-card);background:var(--surface)}
+  .card:first-of-type{margin-top:22px}
+  .card-hd{display:flex;align-items:baseline;justify-content:space-between;padding:15px 18px 9px}
+  .card-hd h2{font-size:11.5px;font-weight:800;letter-spacing:.13em;color:var(--mute)}
+  .hint{font-size:11.5px;font-weight:700;color:var(--aqua)}
+
+  .row{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:10px 18px;border-top:1px solid var(--hairline)}
+  .row.editable{padding:8px 14px 8px 18px;gap:14px}
+  .row[hidden]{display:none}
+  .rl{font-size:16px;color:var(--ink)}
+  .rl.quiet{color:var(--mute);font-size:15px}
+  .rs{font-size:12.5px;color:var(--mute);margin-top:2px}
+  .amt{font-size:16px;font-weight:600;color:#fff;font-variant-numeric:tabular-nums}
+  .amt.quiet{font-weight:400;color:var(--mute);font-size:15px}
+  .amt.fee{color:var(--amber)}
+  .row.total{border-top:1px solid var(--rule);background:var(--raise);border-radius:0 0 var(--r-card) var(--r-card);padding:13px 18px}
+  .row.total .rl{font-size:15px;font-weight:800}
+  .row.total .amt{font-size:19px;font-weight:800}
+  .badge-due{font-size:10.5px;font-weight:800;letter-spacing:.07em;color:var(--amber-ink);background:var(--amber);padding:3px 7px;border-radius:6px;margin-left:5px;vertical-align:1px}
+
+  /* payment selector */
+  .pay{padding:16px 16px 15px}
+  .pay .plabel{font-size:11.5px;font-weight:800;letter-spacing:.13em;color:var(--mute)}
+  .payrow{display:flex;gap:8px;margin-top:12px}
+  .paybtn{flex:1;border:1px solid var(--idle-line);background:var(--idle);border-radius:14px;padding:13px 8px;text-align:center;cursor:pointer;min-height:44px}
+  .paybtn .t{font-size:14.5px;font-weight:800;color:var(--ink)}
+  .paybtn .s{font-size:12px;font-weight:600;color:var(--idle-sub);margin-top:4px}
+  #payAch.on{background:var(--aqua);border-color:var(--aqua)}
+  #payAch.on .t{color:var(--aqua-ink)} #payAch.on .s{color:rgba(4,51,42,.75)}
+  #payCc.on{background:var(--amber);border-color:var(--amber)}
+  #payCc.on .t{color:var(--amber-ink)} #payCc.on .s{color:rgba(67,41,10,.78)}
+  .paynote{font-size:13px;line-height:1.5;color:var(--soft);margin:12px 0 0}
+
+  /* editable fields — aqua means "you can change this" */
+  .field{display:flex;align-items:center;justify-content:flex-end;gap:1px;min-width:96px;background:var(--aqua);border:none;border-radius:var(--r-field);padding:0 14px;min-height:44px}
+  .field .pre{font-size:16px;font-weight:800;color:var(--aqua-ink)}
+  .field input{width:4ch;border:none;background:transparent;padding:12px 0;font:800 16px/1 inherit;color:var(--aqua-ink);text-align:right;font-variant-numeric:tabular-nums}
+  select.field{-webkit-appearance:none;appearance:none;min-width:104px;padding:12px 32px 12px 14px;font:800 16px/1 inherit;color:var(--aqua-ink);text-align:right;cursor:pointer;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='16' viewBox='0 0 11 16' fill='none' stroke='%2304332a' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M2 6.2 5.5 2.7 9 6.2'/%3E%3Cpath d='M2 9.8 5.5 13.3 9 9.8'/%3E%3C/svg%3E");
+    background-repeat:no-repeat;background-position:right 11px center;background-size:11px 16px}
+  .field:focus-within{box-shadow:0 0 0 3px rgba(62,230,196,.35)}
+
+  .resetwrap{padding:16px 16px 0}
+  .reset{width:100%;border:1px solid rgba(255,77,141,.5);background:rgba(255,77,141,.1);color:var(--pink);
+         border-radius:14px;padding:14px;font:800 13px/1 inherit;letter-spacing:.09em;cursor:pointer;min-height:44px}
+  .reset:active{background:var(--pink);color:var(--pink-ink)}
+  .resetnote{padding:9px 20px 0;font-size:12.5px;line-height:1.5;color:var(--mute);text-align:center}
+  .note{padding:14px 20px 10px;font-size:12.5px;line-height:1.6;color:var(--mute)}
+
+  /* total dock — the one light surface on the page */
+  .dock{position:fixed;left:10px;right:10px;bottom:calc(12px + env(safe-area-inset-bottom));max-width:500px;margin:0 auto;
+        background:var(--dock);border-radius:var(--r-dock);padding:16px 18px;box-shadow:0 14px 40px rgba(0,0,0,.45)}
+  .dock-top{display:flex;align-items:flex-end;justify-content:space-between;gap:14px}
+  .dock-label{font-size:11.5px;font-weight:800;letter-spacing:.13em;color:var(--dock-mute)}
+  .dock-split{font-size:13px;color:var(--dock-2);margin-top:5px}
+  .dock-total{font-family:'Bricolage Grotesque',Outfit,sans-serif;font-size:44px;line-height:.92;font-weight:800;letter-spacing:-.035em;color:var(--dock-ink);font-variant-numeric:tabular-nums}
+  .dock-break{margin-top:13px;padding-top:12px;border-top:1px solid var(--dock-rule);display:flex;flex-direction:column;gap:8px}
+  .dock-break[hidden]{display:none}
+  .dock-break div{display:flex;justify-content:space-between}
+  .dock-break span{font-size:14px;color:var(--dock-2)}
+  .dock-break b{font-size:14px;font-weight:700;color:var(--dock-ink);font-variant-numeric:tabular-nums}
+  .dock-btn{width:100%;margin-top:13px;border:none;background:var(--pink);color:var(--pink-ink);border-radius:14px;padding:14px;font:800 15px/1 inherit;cursor:pointer;min-height:44px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hdr">
+    <nav class="tabs">
+      <a class="tab" href="index.html">FLIGHTS</a>
+      <a class="tab on" href="cost.html">COST ESTIMATOR</a>
+      <span class="tab-wrap"><a class="tab" href="https://padlet.com/contactmrshirley/beanland-bvi-t5mmxgl5c6kl5ezh" target="_blank" rel="noopener">CHAT</a><span class="badge" id="chatBadge" hidden></span></span>
+    </nav>
+    <h1 class="h1">Cost per couple</h1>
+    <p class="sub">Moorings 5000, crewed · Jun 10–15, 2027 · Quote SZ3375</p>
+  </header>
+
+  <section class="card">
+    <div class="pay">
+      <h2 class="plabel">PAYING BY</h2>
+      <div class="payrow">
+        <button class="paybtn on" id="payAch"><div class="t">ACH / Venmo</div><div class="s">No fee</div></button>
+        <button class="paybtn" id="payCc"><div class="t">Credit card</div><div class="s">Adds 3%</div></button>
+      </div>
+      <p class="paynote" id="payNote">Bank transfer or Venmo to Genny — no processing fee, so the card-fee line drops off the breakdown entirely.</p>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="card-hd"><h2>FIXED BOAT COST</h2></div>
+    <div class="row"><div class="rl quiet">Boat, all 4 couples</div><div class="amt quiet">$19,811.10</div></div>
+    <div class="row"><div class="rl">Per couple ÷ 4</div><div class="amt">$4,952.77</div></div>
+    <div class="row" id="feeRow" hidden><div><div class="rl">Credit card fee</div><div class="rs">3% — skip it by paying ACH</div></div><div class="amt fee">$148.58</div></div>
+    <div class="row"><div class="rl">Crew tip <span style="color:var(--mute)">20%, cash</span></div><div class="amt">$990.56</div></div>
+    <div class="row total"><div class="rl">Fixed subtotal</div><div class="amt" id="fixedSub">$5,943.33</div></div>
+  </section>
+
+  <section class="card">
+    <div class="card-hd"><h2>PAYMENT SCHEDULE</h2></div>
+    <div class="row"><div><div class="rl">Deposit <span class="badge-due">DUE NOW</span></div><div class="rs" id="depNote">50% · non-refundable</div></div><div class="amt" id="deposit">$2,476.39</div></div>
+    <div class="row"><div><div class="rl">Balance</div><div class="rs">Feb 10, 2027</div></div><div class="amt" id="balance">$2,476.39</div></div>
+    <div class="row" style="padding-bottom:15px"><div><div class="rl">Crew tip, cash</div><div class="rs">Jun 15, 2027 · USD on the boat</div></div><div class="amt">$990.56</div></div>
+  </section>
+
+  <section class="card">
+    <div class="card-hd"><h2>YOUR TRAVEL</h2><span class="hint">tap aqua to edit</span></div>
+
+    <div class="row editable">
+      <div><label class="rl" for="airport">Arrival airport</label><div class="rs">EIS is Tortola · STT adds a boat</div></div>
+      <select class="field" id="airport"><option>EIS</option><option>STT</option></select>
+    </div>
+    <div class="row editable">
+      <div><label class="rl" for="airfare">Airfare</label><div class="rs">round trip, both of you</div></div>
+      <div class="field"><span class="pre">$</span><input id="airfare" inputmode="numeric" value="1,750" /></div>
+    </div>
+    <div class="row editable">
+      <div><label class="rl" for="taxis">Car taxis</label><div class="rs">$30 each way</div></div>
+      <div class="field"><span class="pre">$</span><input id="taxis" inputmode="numeric" value="60" /></div>
+    </div>
+    <div class="row">
+      <div><div class="rl quiet" style="font-size:16px">Water taxi</div><div class="rs" id="waterNote">not needed — flying into Tortola</div></div>
+      <div class="amt quiet" id="waterVal" style="font-size:16px">N/A</div>
+    </div>
+    <div class="row editable">
+      <div><label class="rl" for="parking">Airport parking</label><div class="rs">MSY ≈ $100 for the week</div></div>
+      <div class="field"><span class="pre">$</span><input id="parking" inputmode="numeric" value="100" /></div>
+    </div>
+    <div class="row editable">
+      <label class="rl" for="food">Airport food &amp; drink</label>
+      <div class="field"><span class="pre">$</span><input id="food" inputmode="numeric" value="75" /></div>
+    </div>
+    <div class="row editable">
+      <div><label class="rl" for="level">Daily spending</label><div class="rs">Low $50 · Mid $100 · High $150</div></div>
+      <select class="field" id="level"><option>Low</option><option selected>Mid</option><option>High</option></select>
+    </div>
+    <div class="row editable">
+      <label class="rl" for="nights">Nights</label>
+      <div class="field"><input id="nights" inputmode="numeric" value="5" /></div>
+    </div>
+    <div class="row"><div><div class="rl">Spending total</div><div class="rs" id="dailyNote">$100/day × 5 nights</div></div><div class="amt" id="dailyTotal">$500.00</div></div>
+    <div class="row total"><div class="rl">Travel subtotal</div><div class="amt" id="varSub">$2,485.00</div></div>
+  </section>
+
+  <div class="resetwrap">
+    <button class="reset" id="reset">RESET MY TRAVEL NUMBERS</button>
+    <p class="resetnote">Clears the seven fields above back to their defaults. Your payment method and the boat cost stay put.</p>
+  </div>
+
+  <p class="note">Fixed figures from Quote SZ3375. Travel numbers are your estimates — nobody else sees them. The Moorings <a href="tel:8005357289">800.535.7289</a>.</p>
+</div>
+
+<div class="dock" role="region" aria-label="Trip total">
+  <div class="dock-top">
+    <div>
+      <div class="dock-label">ALL-IN PER COUPLE</div>
+      <div class="dock-split" id="split">Boat $5,943 · Travel $2,485</div>
+    </div>
+    <div class="dock-total" id="allIn" aria-live="polite">$8,428</div>
+  </div>
+  <div class="dock-break" id="breakdown">
+    <div><span>Deposit due now</span><b id="brDep">$2,476.39</b></div>
+    <div><span>Balance Feb 10, 2027</span><b id="brBal">$2,476.39</b></div>
+    <div><span>Cash on the boat</span><b>$990.56</b></div>
+    <div><span>Your travel</span><b id="brVar">$2,485.00</b></div>
+  </div>
+  <button class="dock-btn" id="toggle" aria-expanded="true" aria-controls="breakdown">Hide breakdown</button>
+</div>
+
+<script>
+(function(){
+  var BOAT_PP = 4952.77, FEE = 148.58, TIP = 990.56, WATER_TAXI = 120;
+  var pay = "ach";
+  var $ = function(id){ return document.getElementById(id); };
+  var num = function(v){ var n = parseFloat(String(v).replace(/[^0-9.]/g,"")); return isNaN(n) ? 0 : n; };
+  var money = function(n){ return "$" + n.toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2}); };
+  var money0 = function(n){ return "$" + Math.round(n).toLocaleString("en-US"); };
+
+  function fmtField(el){
+    var d = el.value.replace(/[^0-9]/g,"").replace(/^0+(?=\d)/,"");
+    el.value = d ? parseInt(d,10).toLocaleString("en-US") : "";
+    el.style.width = Math.max(1, el.value.length - (el.value.split(",").length - 1) * 0.45) + "ch";
+  }
+
+  function render(){
+    var ach = pay === "ach";
+    $("payAch").classList.toggle("on", ach);
+    $("payCc").classList.toggle("on", !ach);
+    $("feeRow").hidden = ach;
+    $("payNote").textContent = ach
+      ? "Bank transfer or Venmo to Genny — no processing fee, so the card-fee line drops off the breakdown entirely."
+      : "The Moorings adds 3% to every card payment. That's $148.58 a couple, split across the deposit and the balance.";
+    $("depNote").textContent = ach ? "50% · non-refundable" : "50% + card fee · non-refundable";
+
+    var fixed = BOAT_PP + TIP + (ach ? 0 : FEE);
+    var half = (BOAT_PP + (ach ? 0 : FEE)) / 2;
+
+    var daily = $("level").value === "Low" ? 50 : $("level").value === "High" ? 150 : 100;
+    var nights = num($("nights").value);
+    var dailyTotal = daily * nights;
+    var water = $("airport").value === "STT" ? WATER_TAXI : 0;
+    var varSub = num($("airfare").value) + num($("taxis").value) + num($("parking").value) + num($("food").value) + dailyTotal + water;
+
+    $("fixedSub").textContent = money(fixed);
+    $("deposit").textContent = $("balance").textContent = $("brDep").textContent = $("brBal").textContent = money(half);
+    $("waterVal").textContent = water ? money(water) : "N/A";
+    $("waterNote").textContent = water ? "ferry from St. Thomas, per couple" : "not needed — flying into Tortola";
+    $("dailyNote").textContent = "$" + daily + "/day × " + nights + (nights === 1 ? " night" : " nights");
+    $("dailyTotal").textContent = money(dailyTotal);
+    $("varSub").textContent = $("brVar").textContent = money(varSub);
+    $("split").textContent = "Boat " + money0(fixed) + " · Travel " + money0(varSub);
+    $("allIn").textContent = money0(fixed + varSub);
+  }
+
+  $("payAch").onclick = function(){ pay = "ach"; render(); };
+  $("payCc").onclick = function(){ pay = "cc"; render(); };
+
+  ["airfare","taxis","parking","food","nights"].forEach(function(id){
+    var el = $(id); fmtField(el);
+    el.addEventListener("input", function(){ fmtField(el); render(); });
+  });
+  ["airport","level"].forEach(function(id){ $(id).addEventListener("change", render); });
+
+  $("toggle").onclick = function(){
+    var b = $("breakdown"), open = b.hidden;
+    b.hidden = !open;
+    this.textContent = open ? "Hide breakdown" : "Show breakdown";
+    this.setAttribute("aria-expanded", String(open));
+    document.body.style.paddingBottom = "calc(" + (open ? 292 : 152) + "px + env(safe-area-inset-bottom))";
+  };
+
+  var DEFAULTS = { airfare:"1,750", taxis:"60", parking:"100", food:"75", nights:"5", airport:"EIS", level:"Mid" };
+  $("reset").onclick = function(){
+    ["airfare","taxis","parking","food","nights"].forEach(function(id){ $(id).value = DEFAULTS[id]; fmtField($(id)); });
+    $("airport").value = DEFAULTS.airport;
+    $("level").value = DEFAULTS.level;
+    render();
+  };
+
+  /* CHAT badge — set from your own unread count.
+     n > 0  -> numbered (caps at "9+");  n === -1 -> dot only;  n === 0 -> hidden */
+  window.setChatBadge = function(n){
+    var b = $("chatBadge");
+    if (n === 0){ b.hidden = true; return; }
+    b.hidden = false;
+    if (n === -1){ b.classList.add("dot"); b.textContent = ""; }
+    else { b.classList.remove("dot"); b.textContent = n > 9 ? "9+" : String(n); }
+  };
+
+  render();
+})();
+</script>
+</body>
+</html>
