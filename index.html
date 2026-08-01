@@ -85,6 +85,8 @@
   .row[hidden]{display:none}
 
   .foot{padding:2px 22px 8px;font-size:12px;line-height:1.55;color:var(--muted-3)}
+  .reset-btn{display:block;width:calc(100% - 28px);margin:6px 14px 10px;background:transparent;color:var(--muted);border:1px solid rgba(255,255,255,.2);border-radius:12px;padding:13px;font:600 14px/1 inherit;cursor:pointer;min-height:44px}
+  .reset-btn:active{background:rgba(255,255,255,.06)}
 
   /* ---- fixed total dock ---- */
   .dock{
@@ -187,6 +189,8 @@
     <div class="row total"><div class="rl">Variable subtotal</div><div class="amt" id="varSub">$2,485.00</div></div>
   </section>
 
+  <button id="reset" class="reset-btn" type="button">↺  Restore defaults</button>
+
   <p class="foot">* Water-taxi cost is an estimate. Fixed figures from Quote SZ3375; other variable amounts are placeholders. The Moorings <a href="tel:8005357289">800.535.7289</a>.</p>
 </div>
 
@@ -252,6 +256,12 @@
   ["airport", "airfare", "taxis", "parking", "food", "level", "customDaily"].forEach(function (id) {
     $(id).addEventListener("change", render);
     $(id).addEventListener("input", render);
+  });
+
+  var DEFAULTS = { airport: "EIS", airfare: "1750", taxis: "60", parking: "100", food: "75", level: "Mid", customDaily: "100" };
+  $("reset").addEventListener("click", function () {
+    Object.keys(DEFAULTS).forEach(function (id) { $(id).value = DEFAULTS[id]; });
+    render();
   });
 
   $("toggle").addEventListener("click", function () {
