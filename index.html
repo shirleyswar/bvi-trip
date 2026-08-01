@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#1F3864">
+<title>BVI Trip Cost Calculator</title>
+<style>
+  :root{
+    --navy:#1F3864; --steel:#2E5496; --bright:#3D6FBF;
+    --bg:#eef2f8; --card:#ffffff; --line:#dbe2ee;
+    --yellow:#FFF2CC; --yellowline:#e6c200; --ink:#1b2431; --mute:#6b7688;
+    --lightblue:#E4EEF8; --total:#DCE6F1; --green:#E2EFDA;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  html,body{margin:0;padding:0;}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+    background:var(--bg); color:var(--ink);
+    padding-bottom:96px; -webkit-text-size-adjust:100%;
+  }
+  .wrap{max-width:520px;margin:0 auto;}
+  header{
+    background:var(--navy); color:#fff; padding:18px 18px 14px;
+    padding-top:calc(18px + env(safe-area-inset-top));
+  }
+  header h1{margin:0;font-size:22px;font-weight:800;letter-spacing:.2px;}
+  header .sub{margin-top:5px;font-size:12.5px;color:#c7d4ea;line-height:1.45;}
+  .howto{background:var(--lightblue);border-left:5px solid var(--navy);
+    margin:0;padding:11px 16px;font-size:12.5px;color:#27374d;line-height:1.5;}
+  .howto b{color:var(--navy);}
+  section{background:var(--card);margin:14px 12px;border-radius:14px;
+    box-shadow:0 1px 3px rgba(20,40,80,.08);overflow:hidden;}
+  .sec-h{background:var(--navy);color:#fff;font-weight:700;font-size:14px;
+    padding:11px 15px;}
+  .sec-h small{display:block;font-weight:400;font-size:11.5px;color:#b9c8e4;margin-top:2px;}
+  .row{display:flex;align-items:center;gap:10px;padding:11px 15px;border-top:1px solid var(--line);}
+  .row:first-of-type{border-top:none;}
+  .row .lbl{flex:1;font-size:14px;line-height:1.3;}
+  .row .lbl .hint{display:block;font-size:11px;color:var(--mute);margin-top:2px;}
+  .row .val{font-variant-numeric:tabular-nums;font-weight:600;font-size:15px;text-align:right;white-space:nowrap;}
+  .row.zebra{background:#f7faff;}
+  .row.total{background:var(--total);font-weight:800;}
+  .row.total .val{font-weight:800;}
+  .row.ref .lbl,.row.ref .val{color:var(--mute);font-style:italic;}
+  .tag{display:inline-block;font-size:10.5px;color:var(--mute);background:#eef2f8;
+    border-radius:6px;padding:1px 7px;margin-left:0;white-space:nowrap;}
+  /* inputs */
+  input[type="number"],select{
+    font-size:16px;/* >=16px stops iOS auto-zoom */
+    font-family:inherit;font-weight:600;color:#14428f;
+    background:var(--yellow);border:1px solid var(--yellowline);border-radius:9px;
+    padding:9px 10px;width:118px;text-align:right;-moz-appearance:textfield;
+  }
+  input[type="number"]:focus,select:focus{outline:2px solid var(--bright);outline-offset:1px;}
+  select{text-align-last:right;padding-right:8px;background-image:none;appearance:auto;}
+  .curwrap{position:relative;}
+  .curwrap::before{content:"$";position:absolute;left:11px;top:50%;transform:translateY(-50%);
+    color:#14428f;font-weight:600;font-size:15px;pointer-events:none;}
+  .curwrap input{padding-left:20px;text-align:right;}
+  .na{color:var(--mute);font-weight:600;font-size:14px;}
+  /* sticky total */
+  .bar{position:fixed;left:0;right:0;bottom:0;background:var(--navy);color:#fff;
+    padding:12px 18px calc(12px + env(safe-area-inset-bottom));
+    box-shadow:0 -3px 14px rgba(15,30,60,.28);z-index:20;}
+  .bar .inner{max-width:520px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;}
+  .bar .cap{font-size:12.5px;color:#c7d4ea;}
+  .bar .cap b{display:block;color:#fff;font-size:14px;font-weight:700;}
+  .bar .amt{font-size:27px;font-weight:800;font-variant-numeric:tabular-nums;}
+  footer{padding:4px 22px 10px;font-size:10.5px;color:#9aa4b4;text-align:center;line-height:1.5;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>BVI Crewed Sailing Trip</h1>
+    <div class="sub">Per-Couple Cost Calculator · The Moorings 5000 (captain &amp; crew, all-inclusive) · Road Town, Tortola BVI · Jun 10–15, 2027 (5 nights) · Quote SZ3375</div>
+  </header>
+
+  <div class="howto"><b>HOW TO USE</b> &nbsp;Tap the yellow fields to edit. Airport &amp; spending are dropdowns. Your total updates live at the bottom.</div>
+
+  <!-- FIXED -->
+  <section>
+    <div class="sec-h">1 · Fixed Boat Cost <small>Per couple — fixed, same for everyone</small></div>
+    <div class="row ref"><div class="lbl">Total boat cost — all 4 couples</div><div class="val" id="v_total4"></div></div>
+    <div class="row zebra"><div class="lbl">Per couple cost (÷ 4)</div><div class="val" id="v_percouple"></div></div>
+    <div class="row"><div class="lbl">Credit card fee (3%) <span class="hint">with card payments</span></div><div class="val" id="v_ccfee"></div></div>
+    <div class="row zebra"><div class="lbl">Crew tip (20%, cash) <span class="hint">cash USD on the boat</span></div><div class="val" id="v_tip"></div></div>
+    <div class="row total"><div class="lbl">Total fixed boat cost</div><div class="val" id="v_fixed"></div></div>
+  </section>
+
+  <!-- PAYMENTS -->
+  <section>
+    <div class="sec-h">2 · Payment Schedule <small>Fixed boat — when the money is due</small></div>
+    <div class="row"><div class="lbl">Deposit (50% + fee) <span class="tag">Due NOW</span><span class="hint">Non-refundable</span></div><div class="val" id="v_dep"></div></div>
+    <div class="row zebra"><div class="lbl">Balance (50% + fee) <span class="tag">Feb 10, 2027</span></div><div class="val" id="v_bal"></div></div>
+    <div class="row"><div class="lbl">Crew tip (cash) <span class="tag">Jun 15, 2027</span><span class="hint">Cash USD on the last day</span></div><div class="val" id="v_tip2"></div></div>
+  </section>
+
+  <!-- VARIABLE -->
+  <section>
+    <div class="sec-h">3 · Variable Cost <small>Per couple — edit the yellow fields</small></div>
+
+    <div class="row"><div class="lbl">Arrival airport
+        <span class="hint">STT adds a water taxi · EIS is Tortola direct</span></div>
+      <select id="airport">
+        <option value="EIS">EIS</option>
+        <option value="STT">STT</option>
+      </select></div>
+
+    <div class="row zebra"><div class="lbl">Airfare <span class="hint">round trip, per couple</span></div>
+      <div class="curwrap"><input type="number" id="airfare" inputmode="decimal" value="1750" min="0" step="50"></div></div>
+
+    <div class="row"><div class="lbl">Car taxis <span class="hint">$30 each way — one each way</span></div>
+      <div class="curwrap"><input type="number" id="cartaxi" inputmode="decimal" value="60" min="0" step="10"></div></div>
+
+    <div class="row zebra"><div class="lbl">Water taxi <span class="hint" id="wt_hint">Only if flying into STT</span></div>
+      <div id="wt_cell"></div></div>
+
+    <div class="row"><div class="lbl">Airport parking <span class="hint">home airport, e.g. MSY ≈ $100</span></div>
+      <div class="curwrap"><input type="number" id="parking" inputmode="decimal" value="100" min="0" step="10"></div></div>
+
+    <div class="row zebra"><div class="lbl">Airport food &amp; beverage</div>
+      <div class="curwrap"><input type="number" id="fnb" inputmode="decimal" value="75" min="0" step="5"></div></div>
+
+    <div class="row"><div class="lbl">Daily spending level
+        <span class="hint">Low $50 · Mid $100 · High $150 per day</span></div>
+      <select id="level">
+        <option value="50">Low</option>
+        <option value="100" selected>Mid</option>
+        <option value="150">High</option>
+      </select></div>
+
+    <div class="row zebra"><div class="lbl">Number of nights</div>
+      <input type="number" id="nights" inputmode="numeric" value="5" min="0" step="1" style="width:80px;"></div>
+
+    <div class="row"><div class="lbl">Daily spending total <span class="hint" id="spend_hint"></span></div><div class="val" id="v_spend"></div></div>
+
+    <div class="row total"><div class="lbl">Variable subtotal</div><div class="val" id="v_var"></div></div>
+  </section>
+
+  <footer>Fixed figures from The Moorings Quote SZ3375. Estimates are placeholders — adjust as you book. Charter questions: The Moorings 800.535.7289.</footer>
+</div>
+
+<div class="bar"><div class="inner">
+  <div class="cap">All-in <b>per couple</b></div>
+  <div class="amt" id="v_allin">$0</div>
+</div></div>
+
+<script>
+  // ---- fixed assumptions (from the quote) ----
+  var CHARTER = 19811.10, COUPLES = 4, CCFEE = 0.03, TIP = 0.20, WATERTAXI_DEFAULT = 300;
+
+  var $ = function(id){return document.getElementById(id);};
+  function money(n){return '$' + (Math.round(n*100)/100).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});}
+  function money0(n){return '$' + Math.round(n).toLocaleString('en-US');}
+  function num(id){var v=parseFloat($(id).value);return isFinite(v)?v:0;}
+
+  function calc(){
+    // fixed
+    var per = CHARTER/COUPLES;
+    var fee = per*CCFEE;
+    var tip = per*TIP;
+    var fixed = per+fee+tip;
+    var half = (per+fee)*0.5;
+    $('v_total4').textContent = money(CHARTER);
+    $('v_percouple').textContent = money(per);
+    $('v_ccfee').textContent = money(fee);
+    $('v_tip').textContent = money(tip);
+    $('v_fixed').textContent = money(fixed);
+    $('v_dep').textContent = money(half);
+    $('v_bal').textContent = money(half);
+    $('v_tip2').textContent = money(tip);
+
+    // water taxi cell depends on airport
+    var stt = $('airport').value === 'STT';
+    var wtCell = $('wt_cell');
+    var wt = 0;
+    if(stt){
+      if(!$('watertaxi')){
+        wtCell.innerHTML = '<div class="curwrap"><input type="number" id="watertaxi" inputmode="decimal" value="'+WATERTAXI_DEFAULT+'" min="0" step="50"></div>';
+        $('watertaxi').addEventListener('input', calc);
+      }
+      wt = num('watertaxi');
+      $('wt_hint').textContent = 'STT round trip (≈$300; up to $600 if $300 each way)';
+    } else {
+      wtCell.innerHTML = '<span class="na">N/A</span>';
+      $('wt_hint').textContent = 'Not needed — flying into Tortola (EIS)';
+    }
+
+    // spending
+    var rate = parseFloat($('level').value);
+    var nights = num('nights');
+    var spend = rate*nights;
+    $('spend_hint').textContent = money0(rate)+'/day × '+nights+' nights';
+    $('v_spend').textContent = money(spend);
+
+    // variable subtotal
+    var variable = num('airfare')+num('cartaxi')+wt+num('parking')+num('fnb')+spend;
+    $('v_var').textContent = money(variable);
+
+    // all-in
+    $('v_allin').textContent = money0(fixed+variable);
+  }
+
+  // wire up
+  ['airport','airfare','cartaxi','parking','fnb','level','nights'].forEach(function(id){
+    var el=$(id); el.addEventListener('input',calc); el.addEventListener('change',calc);
+  });
+  calc();
+</script>
+</body>
+</html>
