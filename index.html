@@ -39,8 +39,8 @@
     background:var(--bg); color:var(--ink);
     font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Helvetica,Arial,sans-serif;
     -webkit-text-size-adjust:100%;
-    /* room for the fixed dock (expanded) + iOS home indicator */
-    padding-bottom:calc(300px + env(safe-area-inset-bottom));
+    /* room for the fixed dock (collapsed by default) + iOS home indicator */
+    padding-bottom:calc(160px + env(safe-area-inset-bottom));
   }
   .wrap{max-width:520px;margin:0 auto}
   a{color:var(--muted)}
@@ -193,13 +193,13 @@
     </div>
     <div class="dock-total" id="allIn" aria-live="polite">$8,577</div>
   </div>
-  <div class="dock-break" id="breakdown">
+  <div class="dock-break" id="breakdown" hidden>
     <div><span>Deposit due now</span><b>$2,550.68</b></div>
     <div><span>Balance Feb 10, 2027</span><b>$2,550.68</b></div>
     <div><span>Cash on the boat</span><b>$990.56</b></div>
     <div><span>Travel &amp; spending</span><b id="brVar">$2,485.00</b></div>
   </div>
-  <button class="dock-btn" id="toggle" aria-expanded="true" aria-controls="breakdown">Hide breakdown</button>
+  <button class="dock-btn" id="toggle" aria-expanded="false" aria-controls="breakdown">Show breakdown</button>
 </div>
 
 <script>
