@@ -9,10 +9,11 @@
 <meta name="apple-mobile-web-app-title" content="BEANLAND + BVI" />
 <link rel="apple-touch-icon" href="apple-touch-icon.png" />
 <link rel="icon" href="apple-touch-icon.png" />
-<title>BEANLAND + BVI</title><meta property="og:type" content="website" />
+<title>BEANLAND + BVI</title>
+<meta property="og:type" content="website" />
 <meta property="og:url" content="https://shirleyswar.github.io/bvi-trip/" />
 <meta property="og:title" content="BEANLAND + BVI" />
-<meta property="og:description" content="Crewed sailing trip · Jun 10–15, 2027 · three ways in, flights, and the numbers." />
+<meta property="og:description" content="Crewed sailing trip · Jun 10–15, 2027 · three ways in." />
 <meta property="og:image" content="https://shirleyswar.github.io/bvi-trip/preview.jpg" />
 <meta property="og:image:secure_url" content="https://shirleyswar.github.io/bvi-trip/preview.jpg" />
 <meta property="og:image:type" content="image/jpeg" />
@@ -21,9 +22,8 @@
 <meta property="og:site_name" content="BEANLAND + BVI" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="BEANLAND + BVI" />
-<meta name="twitter:description" content="Crewed sailing trip · Jun 10–15, 2027 · three ways in, flights, and the numbers." />
+<meta name="twitter:description" content="Crewed sailing trip · Jun 10–15, 2027 · three ways in." />
 <meta name="twitter:image" content="https://shirleyswar.github.io/bvi-trip/preview.jpg" />
-
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&display=swap" rel="stylesheet" />
@@ -36,17 +36,16 @@
     --aqua:#3ee6c4; --aqua-ink:#04332a;
     --amber:#ffb03a; --amber-ink:#43290a;
     --idle:rgba(255,255,255,.06); --idle-line:rgba(255,255,255,.12); --idle-ink:#9dc4d6; --idle-sub:#a8cadb;
-    --r-card:22px; --r-ctl:15px; --r-tab:12px;
+    --r-card:20px; --r-ctl:13px; --r-tab:12px;
   }
   *{box-sizing:border-box}
   html,body{margin:0;padding:0}
   body{background:var(--bg);color:var(--ink);font-family:Outfit,system-ui,sans-serif;-webkit-text-size-adjust:100%}
-  .wrap{max-width:520px;margin:0 auto;padding-bottom:calc(30px + env(safe-area-inset-bottom))}
-  h1,h2,h3,p{margin:0}
+  .wrap{max-width:520px;margin:0 auto;padding-bottom:calc(28px + env(safe-area-inset-bottom))}
+  h1,h2,p{margin:0}
   a{color:var(--soft)}a:hover{color:#fff}
   button{font-family:inherit;cursor:pointer}
 
-  /* tab bar */
   .tabbar{position:sticky;top:0;z-index:20;background:rgba(4,38,60,.92);backdrop-filter:saturate(1.4) blur(14px);
           -webkit-backdrop-filter:saturate(1.4) blur(14px);border-bottom:1px solid rgba(255,255,255,.12);
           padding:calc(14px + env(safe-area-inset-top)) 20px 12px}
@@ -57,102 +56,97 @@
   .tab.on{background:var(--pink);color:var(--pink-ink);font-weight:800;box-shadow:0 2px 10px rgba(255,77,141,.35)}
   .tab-wrap{position:relative;flex:1;display:flex}
   .badge{position:absolute;top:-5px;right:-4px;min-width:21px;height:21px;padding:0 6px;border-radius:11px;background:var(--pink);border:2px solid var(--bg);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:var(--pink-ink);font-variant-numeric:tabular-nums;z-index:2}
+  .badge.dot{top:-2px;right:-2px;min-width:0;width:11px;height:11px;padding:0;border-radius:6px}
   .badge[hidden]{display:none}
 
-  .hdr{padding:16px 20px 4px}
-  .h1{font-family:'Bricolage Grotesque',Outfit,sans-serif;font-size:31px;line-height:1;font-weight:800;letter-spacing:-.02em;white-space:nowrap}
-  .sub{font-size:14px;line-height:1.5;color:var(--soft);margin-top:11px}
+  .hdr{padding:15px 20px 0}
+  .h1{font-family:'Bricolage Grotesque',Outfit,sans-serif;font-size:29px;line-height:1;font-weight:800;letter-spacing:-.02em;white-space:nowrap}
+  /* orientation, not restatement: the three nouns map to the three things every card shows */
+  .sub{font-size:13.5px;line-height:1.5;color:var(--soft);margin-top:8px}
   .sub strong{color:#fff;font-weight:700}
 
-  /* home-airport picker */
-  .picker{padding:18px 20px 0}
-  .plabel{font-size:11.5px;font-weight:800;letter-spacing:.13em;color:var(--mute)}
-  .prow{display:flex;gap:6px;margin-top:11px}
-  .chip{flex:1;min-width:0;border:1px solid var(--idle-line);background:var(--idle);border-radius:var(--r-ctl);padding:12px 4px;text-align:center;min-height:44px}
-  .chip .code{font-size:16px;font-weight:800;letter-spacing:-.01em;color:var(--ink)}
-  .chip .city{font-size:10.5px;font-weight:600;color:var(--idle-sub);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .prow{display:flex;gap:6px;padding:13px 16px 0}
+  .chip{flex:1;min-width:0;border:1px solid var(--idle-line);background:var(--idle);border-radius:var(--r-ctl);padding:9px 4px;text-align:center;min-height:44px}
+  .chip .code{font-size:15px;font-weight:800;color:var(--ink)}
+  .chip .city{font-size:10px;font-weight:600;color:var(--idle-sub);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .chip.on{background:var(--pink);border-color:var(--pink)}
   .chip.on .code{color:var(--pink-ink)}
   .chip.on .city{color:rgba(61,6,32,.75)}
 
-  /* path card */
-  .path{margin:14px 16px 0;border:1px solid var(--border);border-radius:var(--r-card);background:var(--surface);overflow:hidden}
-  .path.open{background:var(--surface-open)}
-  .phd{padding:16px 18px 0}
-  .kick{display:flex;align-items:center;justify-content:space-between;gap:10px}
-  .kickl{display:flex;align-items:center;gap:8px}
-  .dot{width:9px;height:9px;border-radius:5px}
-  .kicker{font-size:11.5px;font-weight:800;letter-spacing:.11em}
-  .flag{font-size:10.5px;font-weight:800;letter-spacing:.07em;padding:4px 8px;border-radius:6px}
-  .flag.out{color:var(--soft);border:1px solid rgba(255,255,255,.28)}
-  .ptop{display:flex;align-items:flex-end;justify-content:space-between;gap:14px;margin-top:9px}
-  .pname{font-size:19px;font-weight:700;line-height:1.2}
-  .proute{font-size:12.5px;line-height:1.45;color:var(--mute);margin-top:4px}
-  .ptotal{font-family:'Bricolage Grotesque',Outfit,sans-serif;font-size:29px;line-height:1;font-weight:800;letter-spacing:-.025em;font-variant-numeric:tabular-nums;text-align:right}
-  .ptotal.na{font-weight:400;color:var(--mute)}
-  .ptotalsub{font-size:11.5px;color:var(--mute);margin-top:4px;text-align:right}
+  .srow{display:flex;gap:8px;padding:10px 16px 0}
+  .sbtn{flex:1;border:1px solid var(--pink);background:transparent;color:var(--pink-lift);border-radius:var(--r-ctl);
+        padding:10px 6px;min-height:44px;font-size:11.5px;font-weight:800;letter-spacing:.06em}
+  .sbtn.on{background:var(--pink);color:var(--pink-ink)}
+  .sheet{margin:10px 16px 0;border-radius:18px;padding:15px 17px 16px}
+  .sheet-hd{display:flex;align-items:baseline;justify-content:space-between;gap:10px}
+  .sheet-hd .t{font-size:17px;font-weight:800}
+  .sheet-hd .s{font-size:11.5px;font-weight:700;color:var(--mute)}
+  .fact{display:flex;gap:10px;margin-top:10px}
+  .fact i{flex:none;width:5px;height:5px;border-radius:3px;margin-top:7px;display:block}
+  .fact span{flex:1;font-size:13.5px;line-height:1.45;color:#e4f1f4}
 
-  .meta{display:flex;margin:14px 18px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
-  .meta div{flex:1;padding:11px 0}
-  .meta div + div{padding-left:14px;border-left:1px solid var(--border)}
-  .mk{font-size:10.5px;font-weight:800;letter-spacing:.1em;color:var(--mute)}
-  .mv{font-size:16px;font-weight:700;margin-top:5px;font-variant-numeric:tabular-nums}
+  .path{margin:10px 16px 0;border:1px solid var(--border);border-radius:var(--r-card);background:var(--surface);overflow:hidden}
+  .phd{display:block;width:100%;text-align:left;border:none;background:transparent;padding:14px 16px 13px;color:inherit}
+  .phd.static{cursor:default}
+  .ptop{display:flex;align-items:baseline;justify-content:space-between;gap:12px}
+  .pname{font-size:18px;font-weight:700;line-height:1.25}
+  .pprice{font-family:'Bricolage Grotesque',Outfit,sans-serif;font-size:25px;line-height:1;font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums;text-align:right}
+  .pprice.na{font-weight:400;color:var(--mute)}
+  .psub{font-size:10.5px;color:var(--mute);margin-top:4px;text-align:right}
+  /* recovery = chip + one line. no pips: the count is already in the sentence. */
+  .verdict{display:inline-block;margin-top:11px;font-size:10px;font-weight:800;letter-spacing:.06em;padding:4px 7px;border-radius:5px}
+  .verdict.out{color:var(--soft);border:1px solid rgba(255,255,255,.28)}
+  .pline{font-size:13px;line-height:1.4;color:var(--dim);margin-top:8px}
+  .pmeta{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:10px}
+  .pmeta .m{font-size:11.5px;color:var(--mute)}
+  .pmeta .more{font-size:11.5px;font-weight:700;color:var(--idle-ink);display:flex;align-items:center;gap:5px}
+  .pmeta .caret{font-size:9px;line-height:1;transition:transform .18s ease}
+  .path.open .caret{transform:rotate(180deg)}
 
-  /* recovery strip */
-  .risk{padding:13px 18px 0}
-  .riskhd{display:flex;align-items:center;justify-content:space-between;gap:10px}
-  .riskhd .k{font-size:10.5px;font-weight:800;letter-spacing:.1em;color:var(--mute)}
-  .leg{display:flex;align-items:center;gap:11px;margin-top:11px}
-  .leg .ln{flex:none;width:74px;font-size:12px;color:var(--soft)}
-  .pips{flex:none;display:flex;gap:4px}
-  .pip{width:16px;height:6px;border-radius:3px;background:transparent}
-  .leg .note{flex:1;font-size:12px;color:var(--mute);text-align:right}
-  .conseq{font-size:13px;line-height:1.5;color:var(--dim);margin-top:12px;padding:11px 13px;border-radius:12px}
-
-  .toggle{width:100%;margin-top:14px;border:none;border-top:1px solid var(--border);background:transparent;color:var(--idle-ink);
-          padding:14px;font-size:12.5px;font-weight:700;letter-spacing:.06em;min-height:44px;
-          display:flex;align-items:center;justify-content:center;gap:7px}
-  .toggle .caret{font-size:10px;line-height:1;transition:transform .18s ease}
-  .path.open .toggle .caret{transform:rotate(180deg)}
-
-  .drawer{background:rgba(0,0,0,.16)}
+  .drawer{background:rgba(0,0,0,.18)}
   .drawer[hidden]{display:none}
-  .dhd{padding:14px 18px 4px;font-size:10.5px;font-weight:800;letter-spacing:.1em;color:var(--mute)}
-  .itin{display:block;width:100%;text-align:left;border:none;border-top:1px solid var(--hairline);background:transparent;padding:13px 18px;color:inherit}
-  .itin.on{background:rgba(255,255,255,.05)}
-  .itop{display:flex;align-items:baseline;justify-content:space-between;gap:12px}
-  .iarr{font-size:17px;font-weight:800;font-variant-numeric:tabular-nums}
-  .ilab{font-size:12.5px;color:var(--mute)}
-  .ibody[hidden]{display:none}
+  .dirs{display:flex;gap:5px;padding:13px 16px 3px}
+  .dir{flex:1;border:1px solid rgba(255,255,255,.16);background:transparent;color:var(--idle-ink);border-radius:11px;
+       padding:9px 6px;min-height:38px;font-size:10.5px;font-weight:800;letter-spacing:.07em}
+  #dirOut.on{background:var(--aqua);border-color:var(--aqua);color:var(--aqua-ink)}
+  #dirRet.on{background:var(--amber);border-color:var(--amber);color:var(--amber-ink)}
+  /* the only unit label the flight list needs — one caption, not one per row */
+  .farecap{display:flex;justify-content:flex-end;padding:7px 16px 1px;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:var(--mute)}
+  .fl{padding:11px 16px;border-top:1px solid var(--hairline)}
+  .fl-top{display:flex;align-items:baseline;gap:10px}
+  .fl-t{flex:none;width:48px;font-size:15px;font-weight:800;font-variant-numeric:tabular-nums}
+  .fl-l{flex:1;min-width:0;font-size:13px;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .fl-f{flex:none;font-size:14px;font-weight:700;font-variant-numeric:tabular-nums}
+  .fl-n{margin-top:5px;padding-left:58px;font-size:12px;color:var(--mute)}
+  .fl-n.warn{color:var(--pink-lift)}
 
-  /* cost rows — shared spec */
-  .r{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:10px 18px;border-top:1px solid var(--hairline)}
+  .dhd{padding:14px 16px 2px;font-size:10.5px;font-weight:800;letter-spacing:.1em;color:var(--mute)}
+  .r{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:10px 16px;border-top:1px solid var(--hairline)}
   .rl{font-size:15px;color:var(--ink)}
   .rl.na{color:var(--mute)}
   .rs{font-size:12.5px;line-height:1.4;color:var(--mute);margin-top:2px}
   .amt{font-size:15px;font-weight:600;color:#fff;font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap}
   .amt.tbd{font-size:13px;font-weight:800;letter-spacing:.08em;color:var(--pink)}
   .amt.na{font-weight:400;color:var(--mute)}
-  .rtotal{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:12px 18px;border-top:1px solid var(--rule);background:rgba(255,255,255,.06)}
-  .rtotal .rl{font-size:14.5px;font-weight:800}
-  .rtotal .amt{font-size:18px;font-weight:800}
-  .checked{display:flex;align-items:center;gap:8px;padding:11px 18px 12px}
+  .rtotal{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:12px 16px;border-top:1px solid var(--rule);background:rgba(255,255,255,.06)}
+  .rtotal .t{font-size:14px;font-weight:800}
+  .rtotal .s{font-size:11.5px;color:var(--mute);margin-top:3px}
+  .rtotal .v{font-size:17px;font-weight:800;font-variant-numeric:tabular-nums;white-space:nowrap}
+  .rtotal .v.tbd{font-size:13px;letter-spacing:.08em;color:var(--pink)}
+  .checked{display:flex;align-items:center;gap:8px;padding:11px 16px 13px}
   .checked i{width:6px;height:6px;border-radius:3px;background:var(--mute);flex:none;display:block}
   .checked span{font-size:12px;color:var(--mute)}
 
-  /* unavailable state — per-element de-emphasis, never group opacity */
-  .why{margin:14px 18px 0;padding:13px 15px;border-radius:14px;border:1px dashed rgba(255,255,255,.22);
-       font-size:13.5px;line-height:1.55;color:var(--soft)}
-  .next{display:flex;align-items:center;gap:9px;padding:13px 18px 16px}
-  .next .arrow{font-size:15px;color:var(--mute);line-height:1}
-  .next p{font-size:13px;line-height:1.45;color:var(--mute)}
+  /* unavailable path — per-element de-emphasis, NEVER a group opacity */
+  .why{margin:12px 16px 0;padding:12px 14px;border-radius:14px;border:1px dashed rgba(255,255,255,.22);
+       font-size:13px;line-height:1.5;color:var(--soft)}
+  .next{display:flex;align-items:center;gap:9px;padding:12px 16px 15px}
+  .next i{font-size:15px;color:var(--mute);line-height:1;font-style:normal}
+  .next p{font-size:12.5px;line-height:1.45;color:var(--mute)}
+  .foot{margin:13px 16px 0;padding:11px 14px;border-radius:13px;border:1px dashed rgba(255,255,255,.2);font-size:12.5px;line-height:1.5;color:var(--idle-ink)}
 
-  .foot{padding:16px 20px 10px;font-size:12.5px;line-height:1.6;color:var(--mute)}
-
-  .notice{margin:0 16px 14px;padding:13px 15px;border:1px dashed rgba(255,77,141,.45);
-          border-radius:14px;font-size:13px;line-height:1.55;color:#ffb8d0;background:none}
-  .ptotal.tbd{color:#ff4d8d}
-  .amt.tbd{color:#ff4d8d}
+  .notice{margin:0 16px 12px;padding:12px 14px;border:1px dashed rgba(255,77,141,.45);
+          border-radius:14px;font-size:12.5px;line-height:1.5;color:#ffb8d0}
 </style>
 </head>
 <body>
@@ -167,44 +161,45 @@
 
   <header class="hdr">
     <h1 class="h1">THREE WAYS IN</h1>
-    <p class="sub">Same destination, Jun 9. They differ in what you pay, how long the day is, and <strong>how much room you have if something slips.</strong></p>
+    <p class="sub">Everyone lands Jun 9, books their own. These differ in <strong>cost</strong>, <strong>hours</strong>, and <strong>what happens if a flight slips</strong>.</p>
   </header>
 
-  <section class="picker">
-    <h2 class="plabel">FLYING OUT OF</h2>
-    <div class="prow" id="deps"></div>
-  </section>
+  <div class="prow" id="deps"></div>
+  <div class="srow">
+    <button class="sbtn" id="sbEis">ABOUT EIS</button>
+    <button class="sbtn" id="sbStt">ABOUT STT</button>
+  </div>
+  <div id="sheet"></div>
 
   <p class="notice" id="notice" hidden></p>
   <div id="paths"></div>
 
-  <p class="foot">Airfares are the lowest listed on Google Flights, checked 2 Aug 2026 — expect to pay more at booking once bags and seats are added. Recovery counts are Jun 9 schedules and change with the timetable. Nothing is held; everyone books their own.</p>
+  <p class="foot">Fares are real. Crossings and lodging aren't quoted yet.</p>
 </div>
 
 <script>
 /* ---------------------------------------------------------------------------
-   Recovery is a property of the ITINERARY, not the path.
-   A path card shows the RANGE across its itineraries; the verdict chip always
-   takes the worst case. Pip vocabulary:
-     solid  — guaranteed on every itinerary in this path
-     hollow — a real remaining alternative        (itinerary level only)
-     dashed — exists only on earlier departures   (path level only)
+   RECOVERY = chip + one line. The chip is the WORST case across the visible
+   flights; when severity varies it names the spread and the line names both
+   ends. The line is DERIVED whenever it mentions a time, so it can never drift
+   from the list rendered beneath it.
+
+   SAMPLE DATA — replace the two blocks below wholesale.
+   Keyed departure -> path -> direction. Availability AND recovery both vary by
+   home airport (MSY has two EIS arrivals, BHM has one); keying by path alone
+   silently flattens Path A to a single verdict everywhere.
 --------------------------------------------------------------------------- */
 var AQUA = "#3ee6c4", AMBER = "#ffb03a", PINK = "#ff4d8d";
-var SEV = {
-  room:  { color: AQUA,  ink: "#04332a", label: "ROOM TO RECOVER" },
-  tight: { color: AMBER, ink: "#43290a", label: "TIGHT" },
-  none:  { color: PINK,  ink: "#3d0620", label: "NO SECOND CHANCE" }
-};
-var RANK = { room: 0, tight: 1, none: 2 };
-var VERD = { room:"room to spare", tight:"one fallback left", none:"nothing behind it" };
+var SEV = { room:{c:AQUA,ink:"#04332a"}, tight:{c:AMBER,ink:"#43290a"}, none:{c:PINK,ink:"#3d0620"} };
+var RANK = { room:0, tight:1, none:2 };
+var VERDICT = { room:"BACKUPS", tight:"TIGHT", none:"NO BACKUP" };
+var SPREAD  = { room:"WORST TIGHT", tight:"WORST TIGHT", none:"WORST NONE" };
 
 var DEPS = [["MSY","New Orleans"],["JAN","Jackson"],["BHM","Birmingham"],["CHA","Chattanooga"]];
-var TRIPS = [], CROSS = null, PATHS = {};
+var TRIPS = [], CROSS = null, DEPHUB = {}, SCHED = {}, ROWS = {};
 
 var TZ = {MSY:-5,BHM:-5,JAN:-5,IAH:-5,DFW:-5,ORD:-5,BNA:-5,CHA:-4,CLT:-4,MIA:-4,ATL:-4,
           JFK:-4,EWR:-4,PHL:-4,DCA:-4,BOS:-4,DTW:-4,RDU:-4,SJU:-4,STT:-4,EIS:-4,DEN:-6};
-var CITY = {MIA:"MIA",ATL:"ATL",CLT:"CLT",IAH:"IAH",DFW:"DFW",SJU:"SJU"};
 
 function toMin(t){
   var m=String(t).trim().toLowerCase().match(/^(\d{1,2}):(\d{2})\s*([ap])/);
@@ -214,365 +209,325 @@ function toMin(t){
 }
 function fromMin(n){
   n=((n%1440)+1440)%1440;
-  var h=Math.floor(n/60), m=n%60, ap=h<12?"a":"p", hh=h%12; if(!hh) hh=12;
+  var h=Math.floor(n/60),m=n%60,ap=h<12?"a":"p",hh=h%12||12;
   return hh+":"+(m<10?"0":"")+m+ap;
 }
-function fmtDur(n){
-  if(n==null) return "\u2014";
-  var h=Math.floor(n/60), m=n%60;
-  return h?h+"h "+(m<10?"0":"")+m+"m":m+"m";
+function hm(n){ var h=Math.floor(n/60),m=n%60; return h?h+"h"+(m<10?"0":"")+m:m+"m"; }
+function lay(legs){
+  if(legs.length<2) return "nonstop";
+  var a=toMin(legs[0].arr),d=toMin(legs[1].dep),g=d-a; if(g<0)g+=1440;
+  return hm(g);
 }
-function durMins(legs){
-  if(!legs||!legs.length) return null;
-  var f=legs[0], l=legs[legs.length-1], d=toMin(f.dep), a=toMin(l.arr);
-  if(d==null||a==null) return null;
-  var oD=TZ[f.from]===undefined?-4:TZ[f.from], oA=TZ[l.to]===undefined?-4:TZ[l.to];
-  var uD=d-oD*60, uA=a-oA*60;
-  while(uA<uD) uA+=1440;
-  return uA-uD;
+
+/* Which sailings are still catchable, each direction. */
+function ferryOutAfter(arr){
+  var f=CROSS.ferrySchedule;
+  return f.outbound.departures.map(toMin).filter(function(d){ return d>=arr+f.bufferMins; });
 }
-function money(n){ return "$"+Math.round(n).toLocaleString("en-US"); }
-
-/* Which ferries can you still catch after landing at `arr`? */
-function ferriesAfter(arrMin){
-  var f=CROSS.ferrySchedule, buf=f.bufferMins;
-  return f.outbound.departures.map(toMin).filter(function(d){ return d>=arrMin+buf; });
+/* Coming home: the ferry has to land early enough to make the flight. */
+function ferryRetBefore(dep){
+  var f=CROSS.ferrySchedule, ride=f.return.crossingMins+90;
+  return f.return.departures.map(toMin).filter(function(d){ return d+ride<=dep; });
 }
-function sevFor(alts){ return alts>=2?"room":alts===1?"tight":"none"; }
-function worseOf(a,b){ return RANK[a]>=RANK[b]?a:b; }
+function sevFor(n){ return n>=2?"room":n===1?"tight":"none"; }
+function worse(a,b){ return RANK[a]>=RANK[b]?a:b; }
 
-/* Build the three paths for every home airport out of the real data. */
-function buildPaths(){
-  var ferryLast=Math.max.apply(null,CROSS.ferrySchedule.outbound.departures.map(toMin));
-  var buf=CROSS.ferrySchedule.bufferMins, cross=CROSS.ferrySchedule.outbound.crossingMins;
+function build(){
+  var f=CROSS.ferrySchedule, lastOut=Math.max.apply(null,f.outbound.departures.map(toMin));
 
-  function itinsFor(dep, island, mode){
+  function pull(dep, island, dir){
     var rows=TRIPS.filter(function(t){ return t.home===dep && t.island===island; })
       .map(function(t){
-        var legs=t.out, last=legs[legs.length-1];
-        return { arrMin:toMin(last.arr), arr:last.arr, price:t.price, airline:t.airline,
-                 label:last.flight+" via "+(CITY[last.from]||last.from), dur:durMins(legs) };
+        var lg = dir==="out" ? t.out : t.back;
+        var edge = dir==="out" ? lg[lg.length-1] : lg[0];
+        var key  = dir==="out" ? toMin(lg[lg.length-1].arr) : toMin(lg[0].dep);
+        return { key:key, time:fromMin(key), fn:edge.flight,
+                 via:(dir==="out"? lg[lg.length-1].from : lg[0].to),
+                 lay:lay(lg), fare:t.price };
       });
-    if(mode==="ferry") rows=rows.filter(function(r){ return r.arrMin+buf<=ferryLast; });
-    /* Several fares can share one outbound. Recovery is about the flight, not the
-       ticket, so collapse to unique departures and keep the cheapest fare. */
     var seen={};
-    rows = rows.filter(function(r){
-      var k=r.arr+"|"+r.label;
-      if(seen[k]){ if(r.price<seen[k].price) seen[k].price=r.price; return false; }
+    rows=rows.filter(function(r){
+      var k=r.time+"|"+r.fn;
+      if(seen[k]){ if(r.fare<seen[k].fare) seen[k].fare=r.fare; return false; }
       seen[k]=r; return true;
     });
-    rows.sort(function(a,b){ return a.arrMin-b.arrMin; });
-
-    return rows.map(function(r){
-      /* flights still departing after this one, same path */
-      var later=rows.filter(function(x){ return x.arrMin>r.arrMin; }).length;
-      var fSev=sevFor(later);
-      var legsOut=[{name:"Flights",solid:1,hollow:later,
-                    note:later?later+" more that day":"only one that day"}];
-      var sev=fSev, conseq;
-
-      if(mode==="eis"){
-        legsOut.push({name:"Crossings",solid:0,hollow:0,note:"none needed",off:true});
-        conseq=later
-          ? "Miss it and there's a later flight the same day \u2014 you still make the boat."
-          : "No later flight exists. A delay upstream costs you the first night aboard.";
-      } else if(mode==="ferry"){
-        var after=ferriesAfter(r.arrMin), spare=Math.max(0,after.length-1);
-        sev=worseOf(fSev,sevFor(spare));
-        legsOut.push({name:"Crossings",solid:1,hollow:spare,
-          note:spare?spare+" more, last at "+fromMin(ferryLast):"last ferry of the day"});
-        conseq=spare
-          ? "Catch the "+fromMin(after[0])+" with "+spare+" sailing"+(spare>1?"s":"")+" behind it."
-          : "The "+fromMin(after[0])+" is the last boat. Miss it and it's a charter or a hotel.";
-      } else {
-        legsOut.push({name:"Crossings",solid:1,hollow:2,note:"runs on demand"});
-        sev=fSev==="none"?"tight":fSev;
-        conseq=later
-          ? "A later flight and a boat that waits for you \u2014 the most forgiving way in."
-          : "Only one flight, but the crossing is booked to your arrival, not a timetable.";
-      }
-      r.sev=sev; r.legs=legsOut; r.consequence=conseq;
-      return r;
-    });
-  }
-
-  function costRows(mode, medianFare){
-    var rows=[["Airfare, both of you","round trip, lowest listed fare",
-               medianFare==null?"TBD":money(medianFare*2)]];
-    var src=mode==="eis"?CROSS.eis:mode==="ferry"?CROSS.ferry:CROSS.watertaxi;
-    src.rows.forEach(function(x){
-      rows.push([x.label,x.sub,x.amount==null?"TBD":money(x.amount)]);
-    });
-    rows.push(["Boat, deposit + balance","per couple, fixed",
-               "$"+CROSS.boat.perCouple.toLocaleString("en-US",{minimumFractionDigits:2})]);
-    rows.push(["Crew tip","20%, cash on board",
-               "$"+CROSS.boat.tip.toLocaleString("en-US",{minimumFractionDigits:2})]);
-    rows.push(["Jun 9 lodging","open decision","TBD"]);
+    rows.sort(function(a,b){ return a.key-b.key; });
     return rows;
   }
 
-  var defs=[
-    ["eis","PATH A \u00b7 NO BOAT","Fly into EIS",AQUA,"EIS","eis"],
-    ["ferry","PATH B \u00b7 PUBLIC FERRY","STT, then the ferry",AMBER,"STT","ferry"],
-    ["taxi","PATH C \u00b7 PRIVATE CROSSING","STT, then a water taxi",PINK,"STT","taxi"]
-  ];
-  PATHS={};
-  defs.forEach(function(d){
-    var key=d[0], island=d[4], mode=d[5];
-    var p={kicker:d[1],name:d[2],accent:d[3],from:{},itins:{},rows:{},
-      goneWhy:function(c){
-        return island==="EIS"
-          ? "Tortola's only US nonstop is from Miami, and there's no routing from "+c+" that connects to it on Jun 9."
-          : "No routing from "+c+" on Jun 9.";
-      }};
-    DEPS.forEach(function(dp){
-      var dep=dp[0], its=itinsFor(dep,island,mode);
-      if(!its.length) return;
-      var cheapest=its.reduce(function(a,b){ return b.price<a.price?b:a; });
-      var earliest=its[0];
-      var aboard, doorMin;
+  function make(dep, mode, dir){
+    var island = mode==="eis" ? "EIS" : "STT";
+    var rows = pull(dep, island, dir);
+    if(mode==="ferry" && dir==="out")
+      rows = rows.filter(function(r){ return r.key+f.bufferMins<=lastOut; });
+    if(mode==="ferry" && dir==="ret")
+      rows = rows.filter(function(r){ return ferryRetBefore(r.key).length>0; });
+
+    return rows.map(function(r,i){
+      var later = rows.length-1-i;                     /* flights behind this one */
+      var sev = sevFor(later), note;
       if(mode==="eis"){
-        aboard=fromMin(earliest.arrMin+25); doorMin=earliest.dur+25;
+        note = later? later+" later flight"+(later>1?"s":"")+" today"
+             : (rows.length===1
+                 ? (dir==="out"?"the only arrival":"the only departure")
+                 : (dir==="out"?"last arrival of the day":"last departure of the day"));
       } else if(mode==="ferry"){
-        var f=ferriesAfter(earliest.arrMin)[0];
-        aboard=fromMin(f+cross+15); doorMin=earliest.dur+(f-earliest.arrMin)+cross+15;
+        var boats = dir==="out" ? ferryOutAfter(r.key) : ferryRetBefore(r.key);
+        var spare = Math.max(0,boats.length-1);
+        sev = worse(sev, sevFor(spare));
+        note = dir==="out"
+          ? (spare? spare+" later ferr"+(spare>1?"ies":"y")+" behind it"
+                  : "last ferry of the day")
+          : (spare? "makes the "+fromMin(boats[0])+", "+spare+" behind it"
+                  : "only the "+fromMin(boats[0])+" works");
       } else {
-        aboard=fromMin(earliest.arrMin+30+45+10); doorMin=earliest.dur+85;
+        sev = sev==="none" ? "tight" : sev;
+        note = "charter runs on demand";
       }
-      var legs=TRIPS.filter(function(t){ return t.home===dep&&t.island===island; })[0].out;
-      var via=legs.map(function(l){ return l.from; }).concat(legs[legs.length-1].to);
-      p.from[dep]={ route:via.join(" \u2192 ")+(island==="STT"?" \u2192 Road Town":" \u00b7 Tortola"),
-                    total:"TBD", dur:fmtDur(doorMin), aboard:aboard, fare:cheapest.price };
-      p.itins[dep]=its;
-      p.rows[dep]=costRows(mode,cheapest.price);
+      return [r.time, r.fn, r.via, r.lay, r.fare, sev, note];
     });
-    PATHS[key]=p;
+  }
+
+  DEPS.forEach(function(d){
+    var dep=d[0];
+    SCHED[dep]={};
+    ["eis","ferry","taxi"].forEach(function(m){
+      SCHED[dep][m]={ out:make(dep,m,"out"), ret:make(dep,m,"ret") };
+    });
+    DEPHUB[dep]={ eis: SCHED[dep].eis.out.length>0, fare:0 };
+  });
+
+  function fmt(v){ return v==null?"TBD":"$"+v.toLocaleString("en-US"); }
+  ["eis","ferry","taxi"].forEach(function(m){
+    var src = m==="eis"?CROSS.eis : m==="ferry"?CROSS.ferry : CROSS.watertaxi;
+    var r=[["Airfare, both of you","round trip, cheapest listed",null]];
+    src.rows.forEach(function(x){ r.push([x.label,x.sub,fmt(x.amount)]); });
+    r.push(["Boat, deposit + balance","per couple, fixed","$4,952.77"]);
+    r.push(["Crew tip","20%, cash on board","$990.56"]);
+    r.push(["Jun 9 lodging","open decision","TBD"]);
+    ROWS[m]=r;
   });
 }
 
-var state = { dep:"MSY", open:"ferry", pick:{ eis:0, ferry:0, taxi:0 } };
+var PATHS = {
+  eis:   { name:"Fly into EIS",           transfer:"25 min taxi to the marina",        noun:"flight" },
+  ferry: { name:"STT, then the ferry",    transfer:"45 min ferry, then 10 min taxi",   noun:"ferry"  },
+  taxi:  { name:"STT, then a water taxi", transfer:"30 min charter, then 10 min taxi", noun:"boat"   }
+};
 
-function fade(hex, a){
-  var n = parseInt(hex.slice(1),16);
-  return "rgba(" + ((n>>16)&255) + "," + ((n>>8)&255) + "," + (n&255) + "," + a + ")";
-}
+/* authored copy is used ONLY where the line names no flight time */
+var FLAT = {
+  eis:   { out:"One flight in. Miss it and you land Jun 10.",              ret:"One flight out. No later option." },
+  ferry: { out:"Every arrival makes a ferry.",                             ret:"Both catch a morning ferry." },
+  taxi:  { out:"Flights are fine. Only one boat operator has quoted.",     ret:"One charter, one flight, no slack." }
+};
 
+/* three facts, decision-changing one last */
+var SHEETS = {
+  eis:{ t:"EIS · Tortola", s:"no boat needed", c:AQUA, facts:[
+    "One US nonstop a day, via San Juan.",
+    "25-minute taxi to the marina.",
+    "Miss it and there's no second flight."] },
+  stt:{ t:"STT · St. Thomas", s:"ferry or charter", c:AMBER, facts:[
+    "Four US carriers, flights all day.",
+    "45-minute ferry to Road Town, last one 3:30p.",
+    "After that it's a private boat, roughly $500."] }
+};
 
-function el(tag, cls, txt){ var n=document.createElement(tag); if(cls) n.className=cls; if(txt!=null) n.textContent=txt; return n; }
+var state = { dep:"MSY", open:"ferry", dir:"out", sheet:null };
 
-/* solid + hollow + dashed, capped at 5; a leg that doesn't apply gets ONE grey hollow pip */
-function pipRow(solid, hollow, dashed, color){
-  var out=[], i;
-  for(i=0;i<solid;i++)  out.push({bg:color, line:color, style:"solid"});
-  for(i=0;i<hollow;i++) out.push({bg:"transparent", line:fade(color,.5), style:"solid"});
-  for(i=0;i<dashed;i++) out.push({bg:"transparent", line:fade(AQUA,.75), style:"dashed"});
-  if(!out.length) out.push({bg:"transparent", line:"rgba(255,255,255,.22)", style:"solid"});
-  return out.slice(0,5);
-}
-function pipEls(list){
-  var box = el("div","pips");
-  list.forEach(function(p){
-    var d = el("div","pip");
-    d.style.background = p.bg;
-    d.style.border = "1px " + p.style + " " + p.line;
-    box.appendChild(d);
-  });
-  return box;
-}
-function legRow(name, pips, note, ink){
-  var row = el("div","leg");
-  row.appendChild(el("div","ln",name));
-  row.appendChild(pipEls(pips));
-  var n = el("div","note",note);
-  if(ink) n.style.color = ink;
-  row.appendChild(n);
-  return row;
+function fade(hex,a){ var n=parseInt(hex.slice(1),16);
+  return "rgba("+((n>>16)&255)+","+((n>>8)&255)+","+(n&255)+","+a+")"; }
+function el(t,c,x){ var n=document.createElement(t); if(c)n.className=c; if(x!=null)n.textContent=x; return n; }
+/* "$4,952.77" -> 4952.77 · "$60–70" -> 60 (low end) · TBD/— -> null */
+function money(s){ if(s==="TBD"||s==="—") return null;
+  var n=parseFloat(String(s).split("–")[0].replace(/[^0-9.]/g,"")); return isNaN(n)?null:n; }
+
+function legs(key,dir){
+  return (SCHED[state.dep] && SCHED[state.dep][key] && SCHED[state.dep][key][dir]) || [];
 }
 
 function render(){
-  /* home-airport chips */
+  /* home airport */
   var dw = document.getElementById("deps"); dw.innerHTML="";
   DEPS.forEach(function(d){
-    var b = el("button","chip" + (d[0]===state.dep ? " on" : ""));
+    var b = el("button","chip"+(d[0]===state.dep?" on":""));
     b.appendChild(el("div","code",d[0]));
     b.appendChild(el("div","city",d[1]));
-    b.onclick = function(){ state.dep = d[0]; render(); };
+    b.onclick = function(){ state.dep=d[0]; render(); };
     dw.appendChild(b);
   });
 
-  var city = (DEPS.filter(function(d){ return d[0]===state.dep; })[0] || DEPS[0])[1];
+  /* explainers — one at a time */
+  document.getElementById("sbEis").classList.toggle("on", state.sheet==="eis");
+  document.getElementById("sbStt").classList.toggle("on", state.sheet==="stt");
+  var sw = document.getElementById("sheet"); sw.innerHTML="";
+  if(state.sheet){
+    var sh = SHEETS[state.sheet];
+    var box = el("div","sheet");
+    box.style.background = fade(sh.c,.07);
+    box.style.border = "1px solid " + fade(sh.c,.3);
+    var hd = el("div","sheet-hd");
+    var t = el("div","t",sh.t); t.style.color = sh.c;
+    hd.appendChild(t); hd.appendChild(el("div","s",sh.s)); box.appendChild(hd);
+    sh.facts.forEach(function(f){
+      var row = el("div","fact"); var dot = el("i"); dot.style.background = sh.c;
+      row.appendChild(dot); row.appendChild(el("span",null,f)); box.appendChild(row);
+    });
+    sw.appendChild(box);
+  }
+
+  var city = (DEPS.filter(function(d){return d[0]===state.dep;})[0]||DEPS[0])[1];
   var wrap = document.getElementById("paths"); wrap.innerHTML="";
 
   ["eis","ferry","taxi"].forEach(function(key){
-    var p = PATHS[key], avail = p.from[state.dep];
-    var ITINS = p.itins[state.dep] || [], ROWS = p.rows[state.dep] || [];
+    var p = PATHS[key], hub = DEPHUB[state.dep];
     var card = el("section","path");
 
-    /* ---------- UNAVAILABLE ----------
-       Holds its slot and order. De-emphasis is per element — a group opacity
-       would composite the text toward the page navy and fail contrast. */
-    if(!avail){
-      var hd = el("div","phd");
-      var k = el("div","kick"), kl = el("div","kickl");
-      var dot = el("div","dot"); dot.style.background = "rgba(255,255,255,.28)";
-      var kick = el("div","kicker", p.kicker); kick.style.color = "#7ba6bd";
-      kl.appendChild(dot); kl.appendChild(kick);
-      var flag = el("div","flag out","NOT FROM " + state.dep);
-      k.appendChild(kl); k.appendChild(flag); hd.appendChild(k);
-
-      var top = el("div","ptop"), left = el("div");
-      var nm = el("div","pname", p.name); nm.style.color = "#7ba6bd";
-      left.style.flex = "1"; left.appendChild(nm);
-      left.appendChild(el("div","proute","No routing from " + city + " on Jun 9"));
-      var right = el("div");
-      right.appendChild(el("div","ptotal na","—"));
-      right.appendChild(el("div","ptotalsub","not available"));
-      top.appendChild(left); top.appendChild(right); hd.appendChild(top);
-      card.appendChild(hd);
-
-      card.appendChild(el("p","why", p.goneWhy(city)));
+    /* ---- unavailable: keeps its slot and order, no expand affordance ---- */
+    if(key==="eis" && !hub.eis){
+      var hd0 = el("div","phd static");
+      var top0 = el("div","ptop"), l0 = el("div");
+      l0.style.flex="1";
+      var nm0 = el("div","pname", p.name); nm0.style.color = "#7ba6bd";
+      l0.appendChild(nm0);
+      var r0 = el("div");
+      r0.appendChild(el("div","pprice na","—"));
+      r0.appendChild(el("div","psub","no routing"));
+      top0.appendChild(l0); top0.appendChild(r0); hd0.appendChild(top0);
+      hd0.appendChild(el("div","verdict out","NOT FROM " + state.dep));
+      hd0.appendChild(el("div","pline","Nothing from " + city + " connects in time."));
+      card.appendChild(hd0);
+      card.appendChild(el("p","why","No EIS itinerary from " + city + " connects before the last inbound hop on Jun 9."));
       var nx = el("div","next");
-      nx.appendChild(el("div","arrow","↓"));
-      nx.appendChild(el("p",null,"Your options from " + city + " are Path B and Path C."));
+      var ar = el("i",null,"↓"); nx.appendChild(ar);
+      nx.appendChild(el("p",null,"Your options from " + city + " are the ferry and the water taxi."));
       card.appendChild(nx);
       wrap.appendChild(card);
       return;
     }
 
-    /* ---------- AVAILABLE ---------- */
+    var list = legs(key, state.dir);
+    var worst = list.reduce(function(a,f){ return RANK[f[5]]>RANK[a[5]]?f:a; }, list[0]);
+    var best  = list.reduce(function(a,f){ return RANK[f[5]]<RANK[a[5]]?f:a; }, list[0]);
+    var sevKey = worst ? worst[5] : "none", sev = SEV[sevKey];
+    var varies = !!worst && !!best && worst[5] !== best[5];
     var open = state.open === key;
-    if(open){ card.classList.add("open"); card.style.borderColor = fade(p.accent,.38); }
+    if(open){ card.classList.add("open"); card.style.borderColor = fade(sev.c,.34); card.style.background = "rgba(255,255,255,.075)"; }
 
-    var worst = ITINS.reduce(function(a,b){ return RANK[b.sev] > RANK[a.sev] ? b : a; });
-    var best  = ITINS.reduce(function(a,b){ return RANK[b.sev] < RANK[a.sev] ? b : a; });
-    var varies = worst.sev !== best.sev;
-    var sev = SEV[worst.sev];
+    /* round trip, both people — must not move when the direction toggles */
+    /* Our fares are already round trip per person (that's how they're quoted),
+       so a couple is simply the cheapest fare doubled — and it can't move when
+       the direction toggles. */
+    var all = legs(key,"out").concat(legs(key,"ret"));
+    var couple = all.length ? Math.min.apply(null, all.map(function(f){ return f[4]; })) * 2 : 0;
 
-    var hd2 = el("div","phd");
-    var k2 = el("div","kick"), kl2 = el("div","kickl");
-    var dot2 = el("div","dot"); dot2.style.background = p.accent;
-    var kick2 = el("div","kicker", p.kicker); kick2.style.color = p.accent;
-    kl2.appendChild(dot2); kl2.appendChild(kick2); k2.appendChild(kl2); hd2.appendChild(k2);
+    var line = varies
+      ? best[0] + " has a later " + p.noun + ". " + worst[0] + " has none."
+      : FLAT[key][state.dir];
 
-    var top2 = el("div","ptop"), l2 = el("div");
-    l2.style.flex = "1";
-    l2.appendChild(el("div","pname", p.name));
-    l2.appendChild(el("div","proute", avail.route));
-    var r2 = el("div");
-    var tEl = el("div","ptotal" + (avail.total==="TBD" ? " tbd" : ""), avail.total);
-    r2.appendChild(tEl);
-    r2.appendChild(el("div","ptotalsub", avail.total==="TBD" ? "airfare " + money(avail.fare*2) + " \u00b7 rest pending" : "all-in, per couple"));
-    top2.appendChild(l2); top2.appendChild(r2); hd2.appendChild(top2);
-    card.appendChild(hd2);
+    var btn = el("button","phd");
+    var top = el("div","ptop"), lft = el("div");
+    lft.style.flex="1"; lft.style.minWidth="0";
+    lft.appendChild(el("div","pname", p.name));
+    var rgt = el("div");
+    var pr = el("div","pprice","$" + couple.toLocaleString() + "+");
+    rgt.appendChild(pr); rgt.appendChild(el("div","psub","airfare so far"));
+    top.appendChild(lft); top.appendChild(rgt); btn.appendChild(top);
 
-    var meta = el("div","meta");
-    [["DOOR TO DOCK", avail.dur],["ABOARD BY", avail.aboard]].forEach(function(m){
-      var d = el("div"); d.appendChild(el("div","mk",m[0])); d.appendChild(el("div","mv",m[1])); meta.appendChild(d);
+    var v = el("div","verdict", varies ? "VARIES · " + SPREAD[sevKey] : VERDICT[sevKey]);
+    v.style.background = sev.c; v.style.color = sev.ink; v.style.border = "1px solid " + sev.c;
+    btn.appendChild(v);
+    btn.appendChild(el("div","pline", line));
+
+    var meta = el("div","pmeta");
+    meta.appendChild(el("div","m", p.transfer));
+    var more = el("div","more");
+    more.appendChild(el("span",null, open ? "Less" : "Flights"));
+    more.appendChild(el("span","caret","▾"));
+    meta.appendChild(more); btn.appendChild(meta);
+    btn.setAttribute("aria-expanded", String(open));
+    btn.onclick = function(){ state.open = open ? null : key; render(); };
+    card.appendChild(btn);
+
+    /* ---- drawer: the itinerary browser, folded in ---- */
+    var dr = el("div","drawer"); dr.hidden = !open;
+    var dirs = el("div","dirs");
+    [["out","OUTBOUND · JUN 9","dirOut"],["ret","RETURN · JUN 16","dirRet"]].forEach(function(d){
+      var b = el("button","dir"+(state.dir===d[0]?" on":""), d[1]);
+      b.id = d[2];
+      b.onclick = function(){ state.dir = d[0]; render(); };
+      dirs.appendChild(b);
     });
-    card.appendChild(meta);
+    dr.appendChild(dirs);
+    dr.appendChild(el("div","farecap","fares below are per person, round trip"));
 
-    /* path-level RANGE strip */
-    var risk = el("div","risk");
-    var rh = el("div","riskhd");
-    rh.appendChild(el("div","k","IF SOMETHING SLIPS"));
-    var chip = el("div","flag", varies ? "VARIES — WORST IS " + (worst.sev==="none" ? "NONE" : "TIGHT") : sev.label);
-    chip.style.background = sev.color; chip.style.color = sev.ink;   /* solid fill + its own ink */
-    rh.appendChild(chip); risk.appendChild(rh);
-
-    worst.legs.forEach(function(g, i){
-      /* Range spans every itinerary in the path, not just best/worst by overall
-         severity — a flight can be worst on one leg and not the other. */
-      var counts = ITINS.map(function(it){
-        var l = it.legs[i];
-        return l.off ? 0 : Math.max(0, l.solid + l.hollow - 1);
-      });
-      var lo = Math.min.apply(null, counts), hi = Math.max.apply(null, counts);
-      var extra = Math.max(0, hi - lo);
-      var pips = g.off ? pipRow(0,0,0,sev.color) : pipRow(1, lo, varies ? extra : 0, sev.color);
-      var note = g.off ? "none needed" : (lo !== hi ? lo + "–" + hi + ", by arrival" : g.note);
-      var ink = (!g.off && lo === 0 && worst.sev === "none") ? "#ff8fb6" : null;
-      risk.appendChild(legRow(g.name, pips, note, ink));
-    });
-
-    var cq = el("div","conseq", varies
-      ? "Land at " + best.arr + " and you have " + VERD[best.sev] + ". Land at " +
-        ITINS[ITINS.length-1].arr + " and there's " + VERD[ITINS[ITINS.length-1].sev] +
-        " — pick the flight before you price the path."
-      : worst.consequence);
-    cq.style.background = fade(sev.color,.14);
-    risk.appendChild(cq);
-    card.appendChild(risk);
-
-    var tg = el("button","toggle");
-    tg.appendChild(el("span",null, open ? "Hide flights and costs" : "See flights and costs"));
-    tg.appendChild(el("span","caret","▾"));
-    tg.setAttribute("aria-expanded", String(open));
-    tg.onclick = function(){ state.open = open ? null : key; render(); };
-    card.appendChild(tg);
-
-    var drawer = el("div","drawer");
-    drawer.hidden = !open;
-
-    drawer.appendChild(el("div","dhd","PICK A FLIGHT — RECOVERY CHANGES"));
-    ITINS.forEach(function(it, i){
-      var on = state.pick[key] === i, s = SEV[it.sev];
-      var b = el("button","itin" + (on ? " on" : ""));
-      var itop = el("div","itop"), lft = el("div");
-      lft.style.display="flex"; lft.style.alignItems="baseline"; lft.style.gap="8px";
-      lft.appendChild(el("div","iarr", it.arr));
-      lft.appendChild(el("div","ilab", it.label));
-      var vf = el("div","flag", s.label);
-      vf.style.background = s.color; vf.style.color = s.ink;
-      itop.appendChild(lft); itop.appendChild(vf); b.appendChild(itop);
-
-      var body = el("div","ibody");
-      body.hidden = !on;
-      it.legs.forEach(function(g){
-        var pips = g.off ? pipRow(0,0,0,s.color) : pipRow(g.solid, g.hollow, 0, s.color);
-        var ink = (!g.off && g.hollow === 0 && it.sev === "none") ? "#ff8fb6" : null;
-        body.appendChild(legRow(g.name, pips, g.note, ink));
-      });
-      var ic = el("div","conseq", it.consequence);
-      ic.style.background = fade(s.color,.14);
-      body.appendChild(ic);
-      b.appendChild(body);
-      b.onclick = function(){ state.pick[key] = i; render(); };
-      drawer.appendChild(b);
+    if(!list.length){
+      var none = el("div","fl");
+      none.appendChild(el("div","fl-n warn", state.dir==="out"
+        ? "No " + p.noun + " works with any arrival from " + city + " that day."
+        : "No " + p.noun + " gets you to a flight home from " + city + " that day."));
+      dr.appendChild(none);
+    }
+    list.forEach(function(f){
+      var row = el("div","fl"), t = el("div","fl-top");
+      t.appendChild(el("div","fl-t", f[0]));
+      t.appendChild(el("div","fl-l", f[1] + " · " + f[2] + " " + f[3]));
+      t.appendChild(el("div","fl-f", "$" + f[4]));
+      row.appendChild(t);
+      row.appendChild(el("div","fl-n" + (f[5]==="none" ? " warn" : ""), f[6]));
+      dr.appendChild(row);
     });
 
-    drawer.appendChild(el("div","dhd","WHAT IT COSTS"));
-    ROWS.forEach(function(row){
-      var tbd = row[2] === "TBD", na = row[2] === "—";
-      var r = el("div","r"), left3 = el("div");
-      left3.appendChild(el("div","rl" + (na ? " na" : ""), row[0]));
-      left3.appendChild(el("div","rs", row[1]));
-      r.appendChild(left3);
-      r.appendChild(el("div","amt" + (tbd ? " tbd" : na ? " na" : ""), row[2]));
-      drawer.appendChild(r);
+    dr.appendChild(el("div","dhd","WHAT IT COSTS"));
+    var amounts = ROWS[key].map(function(r,i){ return i===0 ? "$"+couple : r[2]; });
+    var pending = amounts.filter(function(a){ return money(a)===null; }).length;
+    var sum = amounts.reduce(function(t,a){ return t + (money(a)||0); },0);
+    var anyRange = amounts.some(function(a){ return String(a).indexOf("–")>-1; });
+
+    ROWS[key].forEach(function(r,i){
+      var amt = amounts[i], tbd = amt==="TBD", na = amt==="—";
+      if(i===0) amt = "$" + couple.toLocaleString();
+      var row = el("div","r"), left = el("div");
+      left.appendChild(el("div","rl"+(na?" na":""), r[0]));
+      left.appendChild(el("div","rs", r[1]));
+      row.appendChild(left);
+      row.appendChild(el("div","amt"+(tbd?" tbd":na?" na":""), amt));
+      dr.appendChild(row);
     });
-    var tot = el("div","rtotal");
-    tot.appendChild(el("div","rl","Total"));
-    tot.appendChild(el("div","amt" + (avail.total==="TBD" ? " tbd" : ""), avail.total));
-    drawer.appendChild(tot);
 
-    var ck = el("div","checked");
-    ck.appendChild(el("i"));
-    ck.appendChild(el("span",null, CROSS.status==="unverified" ? "Flights checked 2 Aug 2026 \u00b7 crossing costs not yet verified" : "Checked " + CROSS.updated));
-    drawer.appendChild(ck);
+    /* a subtotal containing any TBD row renders TBD — never a partial sum */
+    var tot = el("div","rtotal"), tl = el("div");
+    tl.appendChild(el("div","t","Trip total, per couple"));
+    tl.appendChild(el("div","s", pending
+      ? pending + " figure" + (pending>1?"s":"") + " still unconfirmed"
+      : "low end of the quoted ranges"));
+    tot.appendChild(tl);
+    tot.appendChild(el("div","v"+(pending?" tbd":""), pending ? "TBD"
+      : (anyRange?"from $":"$") + Math.round(sum).toLocaleString()));
+    dr.appendChild(tot);
 
-    card.appendChild(drawer);
+    var ck = el("div","checked"); ck.appendChild(el("i"));
+    ck.appendChild(el("span",null, CROSS.status==="unverified"
+      ? "Flights checked 2 Aug 2026 · crossing costs pending"
+      : "Checked " + CROSS.updated));
+    dr.appendChild(ck);
+
+    card.appendChild(dr);
     wrap.appendChild(card);
   });
 }
 
-/* CHAT badge — n>0 numbered (caps at 9+), -1 dot only, 0 hidden */
+document.getElementById("sbEis").onclick = function(){ state.sheet = state.sheet==="eis"?null:"eis"; render(); };
+document.getElementById("sbStt").onclick = function(){ state.sheet = state.sheet==="stt"?null:"stt"; render(); };
+
+/* CHAT badge — n>0 numbered (caps 9+), -1 dot only, 0 hidden */
 window.setChatBadge = function(n){
   var b = document.getElementById("chatBadge");
-  if(n === 0){ b.hidden = true; return; }
+  if(n===0){ b.hidden = true; return; }
   b.hidden = false;
-  if(n === -1){ b.classList.add("dot"); b.textContent=""; }
-  else { b.classList.remove("dot"); b.textContent = n > 9 ? "9+" : String(n); }
+  if(n===-1){ b.classList.add("dot"); b.textContent=""; }
+  else { b.classList.remove("dot"); b.textContent = n>9 ? "9+" : String(n); }
 };
 
 (function(){
@@ -584,9 +539,12 @@ window.setChatBadge = function(n){
     if (a[0].homes && a[0].homes.length) DEPS = a[0].homes;
     if (a[0].tz) for (var k in a[0].tz) TZ[k] = a[0].tz[k];
     CROSS = a[1];
-    var n = document.getElementById("notice");
-    if (CROSS.notice) { n.textContent = CROSS.notice; n.hidden = false; }
-    buildPaths();
+    if (CROSS.notice){
+      var n = document.getElementById("notice");
+      n.textContent = CROSS.notice; n.hidden = false;
+    }
+    build();
+    if (!DEPHUB[state.dep]) state.dep = DEPS[0][0];
     render();
   }).catch(function(){
     document.getElementById("paths").innerHTML =

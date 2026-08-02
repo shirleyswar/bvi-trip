@@ -154,8 +154,7 @@
   .dock-btn{width:100%;margin-top:13px;border:none;background:var(--pink);color:var(--pink-ink);border-radius:14px;padding:14px;font:800 15px/1 inherit;cursor:pointer;min-height:44px}
 
   .amt.tbd{color:#ff4d8d}
-  .xnotice{margin:0 16px 14px;padding:13px 15px;border:1px dashed rgba(255,77,141,.45);
-           border-radius:14px;font-size:13px;line-height:1.55;color:#ffb8d0}
+  .xnotice{margin:0 16px 12px;padding:12px 14px;border:1px dashed rgba(255,77,141,.45);border-radius:14px;font-size:12.5px;line-height:1.5;color:#ffb8d0}
 </style>
 </head>
 <body>
@@ -170,7 +169,7 @@
 
   <header class="hdr">
     <h1 class="h1">Cost per couple</h1>
-    <p class="sub">Moorings 5000, crewed · Jun 10–15, 2027 · Quote SZ3375</p>
+    <p class="sub">Quote SZ3375 · Jun 10–15, 2027. The boat cost is fixed — everything under <strong style="color:#fff">Your travel</strong> is yours to change.</p>
   </header>
 
   <p class="xnotice" id="xnotice" hidden></p>
@@ -181,7 +180,7 @@
         <button class="paybtn on" id="payAch"><div class="t">ACH / Venmo</div><div class="s">No fee</div></button>
         <button class="paybtn" id="payCc"><div class="t">Credit card</div><div class="s">Adds 3%</div></button>
       </div>
-      <p class="paynote" id="payNote">Bank transfer or Venmo to Genny — no processing fee, so the card-fee line drops off the breakdown entirely.</p>
+      <p class="paynote" id="payNote">Bank transfer or Venmo to Genny. No processing fee.</p>
     </div>
   </section>
 
@@ -189,7 +188,7 @@
     <div class="card-hd"><h2>FIXED BOAT COST</h2></div>
     <div class="row"><div class="rl quiet">Boat, all 4 couples</div><div class="amt quiet">$19,811.10</div></div>
     <div class="row"><div class="rl">Per couple ÷ 4</div><div class="amt">$4,952.77</div></div>
-    <div class="row" id="feeRow" hidden><div><div class="rl">Credit card fee</div><div class="rs">3% — skip it by paying ACH</div></div><div class="amt fee">$148.58</div></div>
+    <div class="row" id="feeRow" hidden><div><div class="rl">Credit card fee</div><div class="rs">3% of the boat cost</div></div><div class="amt fee">$148.58</div></div>
     <div class="row"><div class="rl">Crew tip <span style="color:var(--mute)">20%, cash</span></div><div class="amt">$990.56</div></div>
     <div class="row total"><div class="rl">Fixed subtotal</div><div class="amt" id="fixedSub">$5,943.33</div></div>
   </section>
@@ -203,7 +202,7 @@
 
   <section class="card">
     <div class="card-hd" style="padding-bottom:4px"><h2>NIGHT OF JUN 9</h2><span class="decide">OPEN DECISION</span></div>
-    <p class="stayintro">We board Jun 10 — everyone needs somewhere to sleep the night before. Not priced yet and <strong style="color:#fff">not included in the total below.</strong></p>
+    <p class="stayintro">We board Jun 10 — you need a bed the night before. <strong style="color:#fff">Not in the total below.</strong></p>
 
     <div class="stay"><span class="radio"><i></i></span>
       <span style="flex:1"><span class="sname">Sleep aboard</span><span class="sblurb" style="display:block">Board the night before instead of a room ashore.</span></span>
@@ -258,7 +257,7 @@
       <div class="static">5</div>
     </div>
     <div class="row">
-      <div><div class="rl">Additional nights</div><div class="rs">Jun 9 lodging — see the open decision above</div></div>
+      <div><div class="rl">Additional nights</div><div class="rs">Jun 9 — see the open decision above</div></div>
       <div class="tbdchip">TBD</div>
     </div>
     <div class="row"><div><div class="rl">Spending total</div><div class="rs" id="dailyNote">$100/day × 5 nights</div></div><div class="amt" id="dailyTotal">$500.00</div></div>
@@ -267,10 +266,10 @@
 
   <div class="resetwrap">
     <button class="reset" id="reset">RESET MY TRAVEL NUMBERS</button>
-    <p class="resetnote">Clears the seven fields above back to their defaults. Your payment method and the boat cost stay put.</p>
+    <p class="resetnote">Payment method and boat cost stay put.</p>
   </div>
 
-  <p class="note">Fixed figures from Quote SZ3375. Travel numbers are your estimates — nobody else sees them. The Moorings <a href="tel:8005357289">800.535.7289</a>.</p>
+  <p class="note">Travel numbers are yours — nobody else sees them. The Moorings <a href="tel:8005357289">800.535.7289</a>.</p>
 </div>
 
 <div class="dock" role="region" aria-label="Trip total">
@@ -293,7 +292,7 @@
 <script>
 (function(){
   var BOAT_PP = 4952.77, FEE = 148.58, TIP = 990.56;
-  var CROSSING = null;   /* per couple, from crossings.json — null = not yet verified */
+  var CROSSING = null;   /* per couple, from crossings.json — null until verified */
   var pay = "ach";
 
   var $ = function(id){ return document.getElementById(id); };
@@ -328,8 +327,8 @@
     $("payCc").classList.toggle("on", !ach);
     $("feeRow").hidden = ach;
     $("payNote").textContent = ach
-      ? "Bank transfer or Venmo to Genny — no processing fee, so the card-fee line drops off the breakdown entirely."
-      : "The Moorings adds 3% to every card payment. That's $148.58 a couple, split across the deposit and the balance.";
+      ? "Bank transfer or Venmo to Genny. No processing fee."
+      : "3% on every card payment, split across the deposit and the balance.";
     $("depNote").textContent = ach ? "50% · non-refundable" : "50% + card fee · non-refundable";
 
     var fixed = BOAT_PP + TIP + (ach ? 0 : FEE);
@@ -351,8 +350,8 @@
     $("waterVal").textContent = waterTBD ? "TBD" : (water ? money(water) : "N/A");
     $("waterVal").classList.toggle("tbd", waterTBD);
     $("waterNote").textContent = waterTBD
-      ? "getting to Tortola from St. Thomas \u2014 being priced, not in the total"
-      : (water ? "crossing from St. Thomas, per couple" : "not needed \u2014 flying into Tortola");
+      ? "crossing from St. Thomas — being priced, not in the total"
+      : (water ? "crossing from St. Thomas, per couple" : "not needed — flying into Tortola");
     $("dailyNote").textContent = "$" + daily + "/day × " + nights + (nights === 1 ? " night" : " nights");
     $("dailyTotal").textContent = money(dailyTotal);
     $("varSub").textContent = $("brVar").textContent = money(varSub);
@@ -399,8 +398,7 @@
   fetch("crossings.json?v=" + Date.now())
     .then(function(r){ return r.json(); })
     .then(function(j){
-      var f = j.ferry && j.ferry.perCouple;
-      if (f != null) CROSSING = f;
+      if (j.ferry && j.ferry.perCouple != null) CROSSING = j.ferry.perCouple;
       if (j.notice){
         var n = document.getElementById("xnotice");
         n.textContent = j.notice; n.hidden = false;
