@@ -1,7 +1,7 @@
 {
  "updated": "2026-08-02",
- "status": "unverified",
- "notice": "Crossing costs are being confirmed. Matthew is getting real quotes from the ferry operators, the water-taxi companies and The Moorings. Until those land, every figure below is TBD — don't budget off this section yet.",
+ "status": "estimated",
+ "notice": "These are estimates built from traveller reports and published fees, not quotes. Matthew is still confirming with the ferry operators and the boat companies. Budget off them, but verify your own before you book.",
  "ferrySchedule": {
   "outbound": {
    "label": "Charlotte Amalie → Road Town",
@@ -31,62 +31,59 @@
  },
  "ferry": {
   "label": "Public ferry",
-  "perCouple": null,
+  "perCouple": 400,
   "rows": [
    {
     "label": "Ferry fare",
-    "sub": "per couple, round trip",
-    "amount": null
-   },
-   {
-    "label": "BVI environmental levy",
-    "sub": "per person, on arrival",
-    "amount": null
-   },
-   {
-    "label": "BVI departure tax",
-    "sub": "per person, leaving by sea",
-    "amount": null
-   },
-   {
-    "label": "Port fees",
-    "sub": "both directions",
-    "amount": null
+    "sub": "per couple, round trip, with bags",
+    "amount": "$140–190"
    },
    {
     "label": "Taxi, STT airport → ferry dock",
-    "sub": "10 min",
-    "amount": null
+    "sub": "10 min · $20 each + bags, both ways",
+    "amount": "$80–100"
    },
    {
     "label": "Taxi, Road Town dock → marina",
-    "sub": "10 min",
-    "amount": null
+    "sub": "10 min, shared, both ways",
+    "amount": "$40–60"
+   },
+   {
+    "label": "BVI levy, departure tax, USVI port fee",
+    "sub": "$40 per person, round trip",
+    "amount": "$80"
    }
-  ]
+  ],
+  "perCoupleRange": "$340–430",
+  "sharedNote": "Road Town Fast Ferry runs Charlotte Amalie to Road Town direct. Smith's and Native Son rotate the other slots and have been intermittent — check the day before."
  },
  "watertaxi": {
-  "label": "Private water taxi",
-  "perCouple": null,
-  "sharedNote": "Priced per boat up to 5–8 passengers, so this only makes sense if couples coordinate. Split eight ways it lands much closer to the ferry than the sticker suggests.",
+  "label": "Private boat",
+  "perCouple": 650,
+  "sharedNote": "Priced per boat, 5–8 passengers. Split four ways it lands about $250 above the ferry. One couple booking alone pays the whole boat — roughly $1,700 round trip.",
   "rows": [
    {
     "label": "Boat charter",
     "sub": "round trip, split 4 ways",
-    "amount": null
-   },
-   {
-    "label": "Customs / processing",
-    "sub": "per person, cash",
-    "amount": null
+    "amount": "$400–500"
    },
    {
     "label": "Taxi, STT airport → marina",
-    "sub": "Red Hook or Crown Bay",
-    "amount": null
+    "sub": "Red Hook or Crown Bay, both ways",
+    "amount": "$120–140"
+   },
+   {
+    "label": "BVI levy and departure tax",
+    "sub": "$30 per person, round trip",
+    "amount": "$60"
    }
   ],
   "operators": [
+   {
+    "name": "Dolphin Water Taxi",
+    "sub": "meet-and-greet at baggage claim",
+    "amount": null
+   },
    {
     "name": "The Last Mile",
     "sub": "45 min Red Hook → Nanny Cay, customs cleared aboard",
@@ -94,31 +91,33 @@
    },
    {
     "name": "Island Time BVI",
-    "sub": "Nanny Cay based, monitors flights",
+    "sub": "land taxi from STT included, monitors flights",
     "amount": null
    },
    {
     "name": "Chillout Charters",
     "sub": "processing fees included in quote",
     "amount": null
-   },
-   {
-    "name": "Dolphin Water Taxi",
-    "sub": "meet-and-greet at baggage claim",
-    "amount": null
    }
-  ]
+  ],
+  "perCoupleRange": "$600–720"
  },
  "eis": {
-  "label": "No crossing",
-  "perCouple": null,
+  "label": "No boat",
+  "perCouple": 120,
   "rows": [
    {
     "label": "Taxi, EIS → marina",
-    "sub": "25 min, shared",
-    "amount": null
+    "sub": "25 min, shared, both ways",
+    "amount": "$80–120"
+   },
+   {
+    "label": "BVI environmental levy",
+    "sub": "$10 per person, on arrival",
+    "amount": "$20"
    }
-  ]
+  ],
+  "perCoupleRange": "$100–140"
  },
  "boat": {
   "perCouple": 4952.77,
@@ -132,5 +131,11 @@
   "airportFood": 75,
   "dailySpendMid": 100,
   "nights": 5
+ },
+ "fees": {
+  "bviEnvironmentalLevy": 10,
+  "bviFerryDepartureTax": 20,
+  "usviPortFee": 10,
+  "note": "Per person. Levy is charged on arrival in the BVI by air or sea. The $20 departure tax applies when you leave the BVI by ferry; leaving by air it's $50 and is normally in the ticket."
  }
 }
