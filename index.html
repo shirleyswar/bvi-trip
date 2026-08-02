@@ -178,7 +178,7 @@
   <p class="notice" id="notice" hidden></p>
   <div id="paths"></div>
 
-  <p class="foot">Sample figures. Recovery counts are for Jun 9 schedules and change with the timetable.</p>
+  <p class="foot">Airfares are the lowest listed on Google Flights, checked 2 Aug 2026 — expect to pay more at booking once bags and seats are added. Recovery counts are Jun 9 schedules and change with the timetable. Nothing is held; everyone books their own.</p>
 </div>
 
 <script>
@@ -349,6 +349,14 @@ function buildPaths(){
     PATHS[key]=p;
   });
 }
+
+var state = { dep:"MSY", open:"ferry", pick:{ eis:0, ferry:0, taxi:0 } };
+
+function fade(hex, a){
+  var n = parseInt(hex.slice(1),16);
+  return "rgba(" + ((n>>16)&255) + "," + ((n>>8)&255) + "," + (n&255) + "," + a + ")";
+}
+
 
 function el(tag, cls, txt){ var n=document.createElement(tag); if(cls) n.className=cls; if(txt!=null) n.textContent=txt; return n; }
 
