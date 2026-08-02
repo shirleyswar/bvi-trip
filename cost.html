@@ -28,23 +28,31 @@
   *{box-sizing:border-box}
   html,body{margin:0;padding:0}
   body{background:var(--bg);color:var(--ink);font-family:Outfit,system-ui,sans-serif;-webkit-text-size-adjust:100%;
-       padding-bottom:calc(292px + env(safe-area-inset-bottom))}
+       padding-bottom:calc(152px + env(safe-area-inset-bottom))}
   .wrap{max-width:520px;margin:0 auto}
   h1,h2{margin:0}
   a{color:var(--soft)}a:hover{color:#fff}
   button,input,select{font-family:inherit}
   input:focus,select:focus{outline:none}
 
-  /* tabs + chat badge */
-  .tabs{display:flex;gap:7px;margin-bottom:20px}
-  .tab{display:inline-block;text-decoration:none;padding:10px 15px;border:none;border-radius:var(--r-tab);background:var(--idle);color:var(--idle-ink);font-size:11.5px;font-weight:700;letter-spacing:.1em;cursor:pointer}
-  .tab.on{background:var(--pink);color:var(--pink-ink);font-weight:800}
-  .tab-wrap{position:relative}
-  .badge{position:absolute;top:-6px;right:-6px;min-width:21px;height:21px;padding:0 6px;border-radius:11px;background:var(--pink);border:2px solid var(--bg);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:var(--pink-ink);font-variant-numeric:tabular-nums}
-  .badge.dot{top:-3px;right:-3px;min-width:0;width:11px;height:11px;padding:0;border-radius:6px}
+
+
+  /* tab bar — full-bleed band, clears the Dynamic Island */
+  .tabbar{position:sticky;top:0;z-index:20;background:rgba(4,38,60,.92);backdrop-filter:saturate(1.4) blur(14px);
+          -webkit-backdrop-filter:saturate(1.4) blur(14px);border-bottom:1px solid rgba(255,255,255,.12);
+          padding:calc(14px + env(safe-area-inset-top)) 20px 12px}
+  .tabs{display:flex;gap:6px;margin:0;padding:5px;background:rgba(255,255,255,.07);border-radius:16px}
+  .tab{flex:1;display:flex;align-items:center;justify-content:center;text-align:center;text-decoration:none;
+       padding:12px 6px;border:none;border-radius:12px;background:transparent;color:var(--idle-ink);
+       font-size:11px;font-weight:700;letter-spacing:.08em;min-height:44px}
+  .tab.on{background:var(--pink);color:var(--pink-ink);font-weight:800;box-shadow:0 2px 10px rgba(255,77,141,.35)}
+  .tab-wrap{position:relative;flex:1;display:flex}
+  .tab-wrap .tab{flex:1}
+  .badge{position:absolute;top:-5px;right:-4px;min-width:21px;height:21px;padding:0 6px;border-radius:11px;background:var(--pink);border:2px solid #04263c;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:var(--pink-ink);font-variant-numeric:tabular-nums;z-index:2}
+  .badge.dot{top:-2px;right:-2px;min-width:0;width:11px;height:11px;padding:0;border-radius:6px}
   .badge[hidden]{display:none}
 
-  .hdr{padding:10px 20px 4px}
+  .hdr{padding:16px 20px 4px}
   .h1{font-family:'Bricolage Grotesque',Outfit,sans-serif;font-size:38px;line-height:.98;font-weight:800;letter-spacing:-.035em}
   .sub{font-size:14.5px;line-height:1.5;color:var(--soft);margin-top:10px}
 
@@ -81,6 +89,25 @@
   #payCc.on .t{color:var(--amber-ink)} #payCc.on .s{color:rgba(67,41,10,.78)}
   .paynote{font-size:13px;line-height:1.5;color:var(--soft);margin:12px 0 0}
 
+  /* Jun 9 lodging */
+  .decide{font-size:11.5px;font-weight:700;color:var(--pink)}
+  .stayintro{font-size:13.5px;line-height:1.5;color:var(--soft);padding:0 18px 13px;margin:0}
+  .stay{display:flex;width:100%;align-items:flex-start;gap:12px;text-align:left;border:none;border-top:1px solid var(--hairline);background:transparent;padding:13px 18px;min-height:44px;cursor:pointer;color:inherit;font-family:inherit}
+  .stay.on{background:rgba(62,230,196,.1)}
+  .stay .radio{flex:none;width:20px;height:20px;margin-top:2px;border-radius:10px;border:2px solid rgba(255,255,255,.28);display:flex;align-items:center;justify-content:center}
+  .stay .radio i{width:8px;height:8px;border-radius:4px;background:transparent;display:block}
+  .stay.on .radio{border-color:var(--aqua)}
+  .stay.on .radio i{background:var(--aqua)}
+  .stay .sname{font-size:16px;font-weight:400;color:var(--ink)}
+  .stay.on .sname{font-weight:700}
+  .stay .sblurb{font-size:12.5px;line-height:1.45;color:var(--mute);margin-top:3px}
+  .stay .sprice{font-size:13px;font-weight:800;letter-spacing:.08em;color:var(--mute);text-align:right}
+  .stay.on .sprice{color:var(--aqua)}
+  .stay .sper{font-size:11.5px;color:var(--mute);margin-top:3px;text-align:right}
+  .openrow{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:13px 18px;border-top:1px solid var(--rule);background:var(--raise);border-radius:0 0 var(--r-card) var(--r-card)}
+  .openrow .rl{font-size:15px;font-weight:800}
+  .openrow .tbd{font-size:15px;font-weight:800;letter-spacing:.08em;color:var(--pink)}
+
   /* editable fields — aqua means "you can change this" */
   .field{display:flex;align-items:center;justify-content:flex-end;gap:1px;min-width:96px;background:var(--aqua);border:none;border-radius:var(--r-field);padding:0 14px;min-height:44px}
   .field .pre{font-size:16px;font-weight:800;color:var(--aqua-ink)}
@@ -89,6 +116,21 @@
     background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='16' viewBox='0 0 11 16' fill='none' stroke='%2304332a' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M2 6.2 5.5 2.7 9 6.2'/%3E%3Cpath d='M2 9.8 5.5 13.3 9 9.8'/%3E%3C/svg%3E");
     background-repeat:no-repeat;background-position:right 11px center;background-size:11px 16px}
   .field:focus-within{box-shadow:0 0 0 3px rgba(62,230,196,.35)}
+
+  /* stepper — aqua chip with −/+ on either side of a typeable value */
+  .step{display:flex;align-items:stretch;background:var(--aqua);border-radius:var(--r-field);overflow:hidden;min-height:44px}
+  .step button{flex:none;width:38px;border:none;background:transparent;color:var(--aqua-ink);font:800 20px/1 inherit;cursor:pointer;
+               display:flex;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent}
+  .step button:active{background:rgba(4,51,42,.14)}
+  .step button:disabled{opacity:.3}
+  .step .val{flex:1;display:flex;align-items:center;justify-content:center;gap:1px;padding:0 4px;
+             border-left:1px solid rgba(4,51,42,.18);border-right:1px solid rgba(4,51,42,.18)}
+  .step .pre{font-size:16px;font-weight:800;color:var(--aqua-ink)}
+  .step input{width:4ch;border:none;background:transparent;padding:12px 0;font:800 16px/1 inherit;color:var(--aqua-ink);text-align:center;font-variant-numeric:tabular-nums}
+  .step .stepnote{font-size:10.5px;font-weight:700;letter-spacing:.06em;color:rgba(4,51,42,.62);padding-right:10px;display:flex;align-items:center}
+  .row.editable .step{min-width:172px}
+  .static{font-size:16px;font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums}
+  .tbdchip{font-size:13px;font-weight:800;letter-spacing:.08em;color:var(--pink)}
 
   .resetwrap{padding:16px 16px 0}
   .reset{width:100%;border:1px solid rgba(255,77,141,.5);background:rgba(255,77,141,.1);color:var(--pink);
@@ -110,20 +152,28 @@
   .dock-break span{font-size:14px;color:var(--dock-2)}
   .dock-break b{font-size:14px;font-weight:700;color:var(--dock-ink);font-variant-numeric:tabular-nums}
   .dock-btn{width:100%;margin-top:13px;border:none;background:var(--pink);color:var(--pink-ink);border-radius:14px;padding:14px;font:800 15px/1 inherit;cursor:pointer;min-height:44px}
+
+  .amt.tbd{color:#ff4d8d}
+  .xnotice{margin:0 16px 14px;padding:13px 15px;border:1px dashed rgba(255,77,141,.45);
+           border-radius:14px;font-size:13px;line-height:1.55;color:#ffb8d0}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <header class="hdr">
-    <nav class="tabs">
+  <div class="tabbar">
+    <nav class="tabs" aria-label="Sections">
       <a class="tab" href="index.html">FLIGHTS</a>
-      <a class="tab on" href="cost.html">COST ESTIMATOR</a>
+      <a class="tab on" href="cost.html">ESTIMATOR</a>
       <span class="tab-wrap"><a class="tab" href="https://padlet.com/contactmrshirley/beanland-bvi-t5mmxgl5c6kl5ezh" target="_blank" rel="noopener">CHAT</a><span class="badge" id="chatBadge" hidden></span></span>
     </nav>
+  </div>
+
+  <header class="hdr">
     <h1 class="h1">Cost per couple</h1>
     <p class="sub">Moorings 5000, crewed · Jun 10–15, 2027 · Quote SZ3375</p>
   </header>
 
+  <p class="xnotice" id="xnotice" hidden></p>
   <section class="card">
     <div class="pay">
       <h2 class="plabel">PAYING BY</h2>
@@ -152,6 +202,23 @@
   </section>
 
   <section class="card">
+    <div class="card-hd" style="padding-bottom:4px"><h2>NIGHT OF JUN 9</h2><span class="decide">OPEN DECISION</span></div>
+    <p class="stayintro">We board Jun 10 — everyone needs somewhere to sleep the night before. Not priced yet and <strong style="color:#fff">not included in the total below.</strong></p>
+
+    <div class="stay"><span class="radio"><i></i></span>
+      <span style="flex:1"><span class="sname">Sleep aboard</span><span class="sblurb" style="display:block">Board the night before instead of a room ashore.</span></span>
+      <span class="sprice">TBD</span></div>
+    <div class="stay"><span class="radio"><i></i></span>
+      <span style="flex:1"><span class="sname">Moorings hotel</span><span class="sblurb" style="display:block">Mariner Inn, at the base.</span></span>
+      <span class="sprice">TBD</span></div>
+    <div class="stay"><span class="radio"><i></i></span>
+      <span style="flex:1"><span class="sname">Airbnb</span><span class="sblurb" style="display:block">Off-site, taxi to the marina in the morning.</span></span>
+      <span class="sprice">TBD</span></div>
+
+    <div class="openrow"><div class="rl">Jun 9 lodging</div><div class="tbd">TBD</div></div>
+  </section>
+
+  <section class="card">
     <div class="card-hd"><h2>YOUR TRAVEL</h2><span class="hint">tap aqua to edit</span></div>
 
     <div class="row editable">
@@ -159,32 +226,40 @@
       <select class="field" id="airport"><option>EIS</option><option>STT</option></select>
     </div>
     <div class="row editable">
-      <div><label class="rl" for="airfare">Airfare</label><div class="rs">round trip, both of you</div></div>
-      <div class="field"><span class="pre">$</span><input id="airfare" inputmode="numeric" value="1,750" /></div>
+      <div><label class="rl" for="airfare">Airfare</label><div class="rs">round trip, both of you · $25 steps</div></div>
+      <div class="step" data-step="25"><button type="button" data-dir="-1" aria-label="Decrease">−</button><span class="val"><span class="pre">$</span><input id="airfare" inputmode="numeric" value="1,750" /></span><button type="button" data-dir="1" aria-label="Increase">+</button></div>
     </div>
     <div class="row editable">
-      <div><label class="rl" for="taxis">Car taxis</label><div class="rs">$30 each way</div></div>
-      <div class="field"><span class="pre">$</span><input id="taxis" inputmode="numeric" value="60" /></div>
+      <div><label class="rl" for="taxis">Car taxis</label><div class="rs">$30 each way · $10 steps</div></div>
+      <div class="step" data-step="10"><button type="button" data-dir="-1" aria-label="Decrease">−</button><span class="val"><span class="pre">$</span><input id="taxis" inputmode="numeric" value="60" /></span><button type="button" data-dir="1" aria-label="Increase">+</button></div>
     </div>
     <div class="row">
       <div><div class="rl quiet" style="font-size:16px">Water taxi</div><div class="rs" id="waterNote">not needed — flying into Tortola</div></div>
       <div class="amt quiet" id="waterVal" style="font-size:16px">N/A</div>
     </div>
     <div class="row editable">
-      <div><label class="rl" for="parking">Airport parking</label><div class="rs">MSY ≈ $100 for the week</div></div>
-      <div class="field"><span class="pre">$</span><input id="parking" inputmode="numeric" value="100" /></div>
+      <div><label class="rl" for="parking">Airport parking</label><div class="rs">MSY ≈ $100 for the week · $10 steps</div></div>
+      <div class="step" data-step="10"><button type="button" data-dir="-1" aria-label="Decrease">−</button><span class="val"><span class="pre">$</span><input id="parking" inputmode="numeric" value="100" /></span><button type="button" data-dir="1" aria-label="Increase">+</button></div>
     </div>
     <div class="row editable">
-      <label class="rl" for="food">Airport food &amp; drink</label>
-      <div class="field"><span class="pre">$</span><input id="food" inputmode="numeric" value="75" /></div>
+      <div><label class="rl" for="food">Airport food &amp; drink</label><div class="rs">$10 steps</div></div>
+      <div class="step" data-step="10"><button type="button" data-dir="-1" aria-label="Decrease">−</button><span class="val"><span class="pre">$</span><input id="food" inputmode="numeric" value="75" /></span><button type="button" data-dir="1" aria-label="Increase">+</button></div>
     </div>
     <div class="row editable">
       <div><label class="rl" for="level">Daily spending</label><div class="rs">Low $50 · Mid $100 · High $150</div></div>
-      <select class="field" id="level"><option>Low</option><option selected>Mid</option><option>High</option></select>
+      <select class="field" id="level"><option>Low</option><option selected>Mid</option><option>High</option><option>Custom</option></select>
     </div>
-    <div class="row editable">
-      <label class="rl" for="nights">Nights</label>
-      <div class="field"><input id="nights" inputmode="numeric" value="5" /></div>
+    <div class="row editable" id="customRow" hidden>
+      <div><label class="rl" for="custom">Custom daily rate</label><div class="rs">per couple, per day · $10 steps</div></div>
+      <div class="step" data-step="10"><button type="button" data-dir="-1" aria-label="Decrease">−</button><span class="val"><span class="pre">$</span><input id="custom" inputmode="numeric" value="100" /></span><button type="button" data-dir="1" aria-label="Increase">+</button></div>
+    </div>
+    <div class="row">
+      <div><div class="rl">Nights on board</div><div class="rs">Jun 10–15, set by the charter</div></div>
+      <div class="static">5</div>
+    </div>
+    <div class="row">
+      <div><div class="rl">Additional nights</div><div class="rs">Jun 9 lodging — see the open decision above</div></div>
+      <div class="tbdchip">TBD</div>
     </div>
     <div class="row"><div><div class="rl">Spending total</div><div class="rs" id="dailyNote">$100/day × 5 nights</div></div><div class="amt" id="dailyTotal">$500.00</div></div>
     <div class="row total"><div class="rl">Travel subtotal</div><div class="amt" id="varSub">$2,485.00</div></div>
@@ -206,23 +281,40 @@
     </div>
     <div class="dock-total" id="allIn" aria-live="polite">$8,428</div>
   </div>
-  <div class="dock-break" id="breakdown">
+  <div class="dock-break" id="breakdown" hidden>
     <div><span>Deposit due now</span><b id="brDep">$2,476.39</b></div>
     <div><span>Balance Feb 10, 2027</span><b id="brBal">$2,476.39</b></div>
     <div><span>Cash on the boat</span><b>$990.56</b></div>
     <div><span>Your travel</span><b id="brVar">$2,485.00</b></div>
   </div>
-  <button class="dock-btn" id="toggle" aria-expanded="true" aria-controls="breakdown">Hide breakdown</button>
+  <button class="dock-btn" id="toggle" aria-expanded="false" aria-controls="breakdown">Show breakdown</button>
 </div>
 
 <script>
 (function(){
-  var BOAT_PP = 4952.77, FEE = 148.58, TIP = 990.56, WATER_TAXI = 120;
+  var BOAT_PP = 4952.77, FEE = 148.58, TIP = 990.56;
+  var CROSSING = null;   /* per couple, from crossings.json — null = not yet verified */
   var pay = "ach";
+
   var $ = function(id){ return document.getElementById(id); };
   var num = function(v){ var n = parseFloat(String(v).replace(/[^0-9.]/g,"")); return isNaN(n) ? 0 : n; };
   var money = function(n){ return "$" + n.toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2}); };
   var money0 = function(n){ return "$" + Math.round(n).toLocaleString("en-US"); };
+
+  function bumpAll(){
+    document.querySelectorAll(".step").forEach(function(w){
+      var input = w.querySelector("input"), step = +w.dataset.step;
+      w.querySelectorAll("button").forEach(function(b){
+        b.onclick = function(){
+          var v = num(input.value) + step * (+b.dataset.dir);
+          if (v < 0) v = 0;
+          input.value = v.toLocaleString("en-US");
+          fmtField(input);
+          render();
+        };
+      });
+    });
+  }
 
   function fmtField(el){
     var d = el.value.replace(/[^0-9]/g,"").replace(/^0+(?=\d)/,"");
@@ -243,16 +335,24 @@
     var fixed = BOAT_PP + TIP + (ach ? 0 : FEE);
     var half = (BOAT_PP + (ach ? 0 : FEE)) / 2;
 
-    var daily = $("level").value === "Low" ? 50 : $("level").value === "High" ? 150 : 100;
-    var nights = num($("nights").value);
+    var lvl = $("level").value, custom = lvl === "Custom";
+    $("customRow").hidden = !custom;
+    var daily = custom ? num($("custom").value) : lvl === "Low" ? 50 : lvl === "High" ? 150 : 100;
+    var nights = 5;
     var dailyTotal = daily * nights;
-    var water = $("airport").value === "STT" ? WATER_TAXI : 0;
+    var stt = $("airport").value === "STT";
+    var water = (stt && CROSSING != null) ? CROSSING : 0;
+    var waterTBD = stt && CROSSING == null;
     var varSub = num($("airfare").value) + num($("taxis").value) + num($("parking").value) + num($("food").value) + dailyTotal + water;
+
 
     $("fixedSub").textContent = money(fixed);
     $("deposit").textContent = $("balance").textContent = $("brDep").textContent = $("brBal").textContent = money(half);
-    $("waterVal").textContent = water ? money(water) : "N/A";
-    $("waterNote").textContent = water ? "ferry from St. Thomas, per couple" : "not needed — flying into Tortola";
+    $("waterVal").textContent = waterTBD ? "TBD" : (water ? money(water) : "N/A");
+    $("waterVal").classList.toggle("tbd", waterTBD);
+    $("waterNote").textContent = waterTBD
+      ? "getting to Tortola from St. Thomas \u2014 being priced, not in the total"
+      : (water ? "crossing from St. Thomas, per couple" : "not needed \u2014 flying into Tortola");
     $("dailyNote").textContent = "$" + daily + "/day × " + nights + (nights === 1 ? " night" : " nights");
     $("dailyTotal").textContent = money(dailyTotal);
     $("varSub").textContent = $("brVar").textContent = money(varSub);
@@ -263,10 +363,11 @@
   $("payAch").onclick = function(){ pay = "ach"; render(); };
   $("payCc").onclick = function(){ pay = "cc"; render(); };
 
-  ["airfare","taxis","parking","food","nights"].forEach(function(id){
+  ["airfare","taxis","parking","food","custom"].forEach(function(id){
     var el = $(id); fmtField(el);
     el.addEventListener("input", function(){ fmtField(el); render(); });
   });
+  bumpAll();
   ["airport","level"].forEach(function(id){ $(id).addEventListener("change", render); });
 
   $("toggle").onclick = function(){
@@ -277,9 +378,9 @@
     document.body.style.paddingBottom = "calc(" + (open ? 292 : 152) + "px + env(safe-area-inset-bottom))";
   };
 
-  var DEFAULTS = { airfare:"1,750", taxis:"60", parking:"100", food:"75", nights:"5", airport:"EIS", level:"Mid" };
+  var DEFAULTS = { airfare:"1,750", taxis:"60", parking:"100", food:"75", custom:"100", airport:"EIS", level:"Mid" };
   $("reset").onclick = function(){
-    ["airfare","taxis","parking","food","nights"].forEach(function(id){ $(id).value = DEFAULTS[id]; fmtField($(id)); });
+    ["airfare","taxis","parking","food","custom"].forEach(function(id){ $(id).value = DEFAULTS[id]; fmtField($(id)); });
     $("airport").value = DEFAULTS.airport;
     $("level").value = DEFAULTS.level;
     render();
@@ -294,6 +395,19 @@
     if (n === -1){ b.classList.add("dot"); b.textContent = ""; }
     else { b.classList.remove("dot"); b.textContent = n > 9 ? "9+" : String(n); }
   };
+
+  fetch("crossings.json?v=" + Date.now())
+    .then(function(r){ return r.json(); })
+    .then(function(j){
+      var f = j.ferry && j.ferry.perCouple;
+      if (f != null) CROSSING = f;
+      if (j.notice){
+        var n = document.getElementById("xnotice");
+        n.textContent = j.notice; n.hidden = false;
+      }
+      render();
+    })
+    .catch(function(){ render(); });
 
   render();
 })();

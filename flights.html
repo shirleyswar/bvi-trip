@@ -1,0 +1,428 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#04263c" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="BEANLAND + BVI" />
+<link rel="apple-touch-icon" href="apple-touch-icon.png" />
+<link rel="icon" href="apple-touch-icon.png" />
+<title>BEANLAND + BVI — Flights</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#04263c; --surface:rgba(255,255,255,.055); --border:rgba(255,255,255,.1);
+    --hairline:rgba(255,255,255,.08); --rule:rgba(255,255,255,.22);
+    --ink:#ffffff; --soft:#b3d7e8; --mute:#7ba6bd;
+    --pink:#ff4d8d; --pink-ink:#3d0620; --pink-soft:rgba(255,77,141,.16); --pink-soft-ink:#ff9dbe;
+    --aqua:#3ee6c4; --aqua-ink:#04332a;
+    --amber:#ffb03a; --amber-ink:#43290a;
+    --idle:rgba(255,255,255,.06); --idle-line:rgba(255,255,255,.12); --idle-ink:#9dc4d6;
+    --r-card:22px; --r-ctl:15px; --r-tab:12px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);font-family:Outfit,system-ui,sans-serif;-webkit-text-size-adjust:100%}
+  .wrap{max-width:520px;margin:0 auto;padding-bottom:calc(30px + env(safe-area-inset-bottom))}
+  h1,h2{margin:0}
+  a{color:var(--soft)}a:hover{color:#fff}
+  button{font-family:inherit;cursor:pointer}
+
+
+
+  /* tab bar — full-bleed band, clears the Dynamic Island */
+  .tabbar{position:sticky;top:0;z-index:20;background:rgba(4,38,60,.92);backdrop-filter:saturate(1.4) blur(14px);
+          -webkit-backdrop-filter:saturate(1.4) blur(14px);border-bottom:1px solid rgba(255,255,255,.12);
+          padding:calc(14px + env(safe-area-inset-top)) 20px 12px}
+  .tabs{display:flex;gap:6px;margin:0;padding:5px;background:rgba(255,255,255,.07);border-radius:16px}
+  .tab{flex:1;display:flex;align-items:center;justify-content:center;text-align:center;text-decoration:none;
+       padding:12px 6px;border:none;border-radius:12px;background:transparent;color:var(--idle-ink);
+       font-size:11px;font-weight:700;letter-spacing:.08em;min-height:44px}
+  .tab.on{background:var(--pink);color:var(--pink-ink);font-weight:800;box-shadow:0 2px 10px rgba(255,77,141,.35)}
+  .tab-wrap{position:relative;flex:1;display:flex}
+  .tab-wrap .tab{flex:1}
+  .badge{position:absolute;top:-5px;right:-4px;min-width:21px;height:21px;padding:0 6px;border-radius:11px;background:var(--pink);border:2px solid #04263c;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:var(--pink-ink);font-variant-numeric:tabular-nums;z-index:2}
+  .badge.dot{top:-2px;right:-2px;min-width:0;width:11px;height:11px;padding:0;border-radius:6px}
+  .badge[hidden]{display:none}
+
+  .hdr{padding:16px 20px 4px}
+  .h1{font-family:'Bricolage Grotesque',Outfit,sans-serif;font-size:31px;line-height:1;font-weight:800;letter-spacing:-.02em;white-space:nowrap}
+  .sub{font-size:14px;line-height:1.5;color:var(--soft);margin-top:11px}
+  .sub strong{color:#fff;font-weight:700}
+  .sub.rule{margin-top:13px;padding-top:13px;border-top:1px solid var(--border)}
+  .sub.rule strong{color:var(--pink)}
+
+  /* ABOUT EIS / ABOUT STT */
+  .abouts{display:flex;gap:8px;padding:18px 20px 0}
+  .about{flex:1;display:flex;align-items:center;justify-content:center;gap:7px;border:1px solid rgba(255,77,141,.45);background:var(--idle);border-radius:13px;padding:12px 10px;min-height:44px;
+         font-size:12px;font-weight:800;letter-spacing:.09em;color:var(--pink)}
+  .about .caret{font-size:11px;line-height:1;transition:transform .18s ease}
+  .about.on{background:var(--pink);border-color:var(--pink);color:var(--pink-ink)}
+  .about.on .caret{transform:rotate(180deg)}
+  .panel{margin:10px 20px 0;border-radius:18px;padding:16px 17px 15px}
+  .panel[hidden]{display:none}
+  .panel.eis{border:1px solid rgba(62,230,196,.45);background:rgba(62,230,196,.09)}
+  .panel.stt{border:1px solid rgba(255,176,58,.45);background:rgba(255,176,58,.09)}
+  .panel .ptop{display:flex;align-items:baseline;gap:9px}
+  .panel .pcode{font-family:'Bricolage Grotesque',Outfit,sans-serif;font-size:22px;line-height:1;font-weight:800}
+  .panel.eis .pcode{color:var(--aqua)} .panel.stt .pcode{color:var(--amber)}
+  .panel .pname{font-size:13px;font-weight:600;color:var(--soft)}
+  .panel .plead{font-size:14px;line-height:1.55;margin:11px 0 0}
+  .panel.eis .plead{color:#dcf1f9} .panel.stt .plead{color:#f7ead9}
+  .panel .plead strong{color:#fff}
+  .panel .facts{display:flex;flex-direction:column;gap:9px;margin-top:14px;padding-top:13px}
+  .panel.eis .facts{border-top:1px solid rgba(62,230,196,.28)}
+  .panel.stt .facts{border-top:1px solid rgba(255,176,58,.28)}
+  .panel .fact{display:flex;gap:10px}
+  .panel .fk{font-size:13px;font-weight:800;width:52px;flex:none}
+  .panel.eis .fk{color:var(--aqua)} .panel.stt .fk{color:var(--amber)}
+  .panel .fk.cost{color:var(--mute)}
+  .panel .fv{font-size:13.5px;line-height:1.5;color:var(--soft)}
+  .panel .fv strong{color:#fff}
+
+  /* direction segmented control */
+  .seg{display:flex;gap:5px;margin:20px 20px 0;padding:5px;background:rgba(255,255,255,.07);border-radius:16px}
+  .seg button{flex:1;border:none;border-radius:var(--r-tab);padding:12px 4px;background:transparent;color:#9dc4d6;font-size:12px;font-weight:800;letter-spacing:.09em}
+  #segOut.on{background:var(--aqua);color:var(--aqua-ink)}
+  #segRet.on{background:var(--amber);color:var(--amber-ink)}
+
+  .picker{padding:20px 20px 0}
+  .picker + .picker{padding-top:18px}
+  .plabel{font-size:11.5px;font-weight:800;letter-spacing:.13em;color:var(--mute)}
+  .prow{display:flex;gap:6px;margin-top:11px}
+  .prow.islands{gap:9px}
+  .chip{flex:1;min-width:0;border:1px solid var(--idle-line);background:var(--idle);border-radius:var(--r-ctl);padding:12px 4px;text-align:center;min-height:44px}
+  .chip .code{font-size:16px;font-weight:800;letter-spacing:-.01em;color:var(--ink)}
+  .chip .city{font-size:10.5px;font-weight:600;color:var(--idle-ink);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .chip.on{background:var(--pink);border-color:var(--pink)}
+  .chip.on .code{color:var(--pink-ink)}
+  .chip.on .city{color:rgba(61,6,32,.75)}
+
+  .isl{flex:1;border:1px solid var(--idle-line);background:var(--idle);border-radius:17px;padding:14px 15px;text-align:left;min-height:44px}
+  .isl .top{display:flex;align-items:baseline;gap:8px}
+  .isl .code{font-family:'Bricolage Grotesque',Outfit,sans-serif;font-size:24px;line-height:1;font-weight:800;color:var(--ink)}
+  .isl .city{font-size:12.5px;font-weight:600;color:var(--idle-ink)}
+  .isl .blurb{font-size:12.5px;line-height:1.4;color:var(--idle-ink);margin-top:7px}
+  .isl.on[data-code="EIS"]{background:var(--aqua);border-color:var(--aqua)}
+  .isl.on[data-code="EIS"] .code,.isl.on[data-code="EIS"] .city,.isl.on[data-code="EIS"] .blurb{color:var(--aqua-ink)}
+  .isl.on[data-code="STT"]{background:var(--amber);border-color:var(--amber)}
+  .isl.on[data-code="STT"] .code,.isl.on[data-code="STT"] .city,.isl.on[data-code="STT"] .blurb{color:var(--amber-ink)}
+
+  .ctx{margin:18px 20px 6px;padding:13px 15px;border-radius:14px;border:1px solid var(--aqua);background:transparent;font-size:13px;line-height:1.5;color:var(--soft)}
+  .ctx b{color:var(--aqua)}
+  .ctx.stt{border-color:var(--amber)}
+  .ctx.stt b{color:var(--amber)}
+
+  .listhd{display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:16px 20px 12px;font-size:11.5px;font-weight:800;letter-spacing:.13em;color:var(--mute)}
+  .listhd span{font-size:12px;font-weight:400;letter-spacing:0}
+
+  .card{margin:0 16px 12px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-card);padding:16px 18px 15px}
+  .ribbon{display:inline-block;margin-bottom:12px;font-size:10.5px;font-weight:800;letter-spacing:.09em;color:var(--pink-ink);background:var(--pink);padding:5px 9px;border-radius:7px}
+  .ctop{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+  .times{display:flex;align-items:flex-start;gap:12px}
+  .t{font-family:'Bricolage Grotesque',Outfit,sans-serif;font-size:25px;line-height:1;font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+  .apt{font-size:11.5px;font-weight:700;letter-spacing:.06em;color:var(--mute);margin-top:5px}
+  .mid{padding-top:4px;text-align:center;font-size:11.5px;color:var(--mute)}
+  .mid .arrow{font-size:15px;line-height:1;margin-top:2px}
+  .price{font-size:20px;font-weight:800;letter-spacing:-.01em;color:var(--pink);font-variant-numeric:tabular-nums;text-align:right}
+  .psub{font-size:11.5px;color:var(--mute);margin-top:3px;text-align:right}
+
+  .route{margin-top:17px}
+  .dots{display:flex;align-items:center}
+  .dots .seg2{display:flex;align-items:center;flex:1}
+  .dot{width:9px;height:9px;border-radius:5px;background:rgba(255,255,255,.5);flex:none}
+  .dot.end{background:var(--aqua)}
+  .dot.end.stt{background:var(--amber)}
+  .dot.end.ret{background:var(--pink)}
+  .bar{flex:1;height:2px;background:rgba(255,255,255,.22)}
+  .nodes{display:flex;justify-content:space-between;margin-top:8px}
+  .nodes .n{font-size:13.5px;font-weight:700}
+  .nodes .nt{font-size:11.5px;color:var(--mute);margin-top:2px;font-variant-numeric:tabular-nums}
+
+  .lays{display:flex;flex-wrap:wrap;gap:6px;margin-top:15px}
+  .lay{font-size:12px;font-weight:600;color:var(--pink-soft-ink);background:var(--pink-soft);padding:6px 10px;border-radius:9px}
+
+  .cfoot{margin-top:14px;padding-top:12px;border-top:1px solid var(--border);display:flex;align-items:baseline;justify-content:space-between;gap:12px;font-size:13px;color:var(--soft)}
+  .cfoot .fns{font-size:12px;color:var(--mute);text-align:right}
+  .note{padding:8px 20px 10px;font-size:12.5px;line-height:1.6;color:var(--mute)}
+
+  .empty{margin:0 16px;border:1px dashed rgba(255,255,255,.18);border-radius:22px;
+         padding:26px 20px;text-align:center}
+  .empty .ecode{font-family:"Bricolage Grotesque",sans-serif;font-size:26px;font-weight:800;color:#7ba6bd}
+  .empty .etxt{margin-top:8px;font-size:13.5px;line-height:1.55;color:#7ba6bd}
+  .cnote{margin-top:10px;font-size:12.5px;line-height:1.5;color:#7ba6bd}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="tabbar">
+    <nav class="tabs" aria-label="Sections">
+      <a class="tab on" href="index.html">FLIGHTS</a>
+      <a class="tab" href="cost.html">ESTIMATOR</a>
+      <span class="tab-wrap"><a class="tab" href="https://padlet.com/contactmrshirley/beanland-bvi-t5mmxgl5c6kl5ezh" target="_blank" rel="noopener">CHAT</a><span class="badge" id="chatBadge" hidden></span></span>
+    </nav>
+  </div>
+
+  <header class="hdr">
+    <h1 class="h1" id="title">GETTING TO ROAD TOWN</h1>
+    <p class="sub"><strong>Road Town</strong> is the capital of the British Virgin Islands, on Tortola — the largest island in the chain. The Moorings base sits just north of the town center at Wickhams Cay II, and that's where our boat will be waiting.</p>
+    <p class="sub rule">Each couple books their own airfare. <strong>Read both airport explainers first</strong> — service and what it takes to reach the boat differ <strong>drastically</strong>.</p>
+  </header>
+
+  <div class="abouts">
+    <button class="about" id="aboutEis">ABOUT EIS <span class="caret">▾</span></button>
+    <button class="about" id="aboutStt">ABOUT STT <span class="caret">▾</span></button>
+  </div>
+
+  <section class="panel eis" id="panelEis" hidden>
+    <div class="ptop"><div class="pcode">EIS</div><div class="pname">Terrance B. Lettsome · Beef Island, Tortola</div></div>
+    <p class="plead">A small island airport with a short runway — no widebodies, so the schedule is thin. One US nonstop: <strong>American out of Miami</strong>. Everything else connects through San Juan on a turboprop or a 9-seater.</p>
+    <div class="facts">
+      <div class="fact"><div class="fk">GOOD</div><div class="fv">You land on Tortola. 25-minute taxi to the marina, aboard the same afternoon. No boat, no second island, no extra $500.</div></div>
+      <div class="fact"><div class="fk cost">COST</div><div class="fv">Fares run roughly $100–260 more per person, and from Jackson or Chattanooga it's usually two layovers. Small planes mean tighter bag limits.</div></div>
+    </div>
+  </section>
+
+  <section class="panel stt" id="panelStt" hidden>
+    <div class="ptop"><div class="pcode">STT</div><div class="pname">Cyril E. King · St. Thomas, USVI</div></div>
+    <p class="plead">The region's big airport. Full-size jets and nonstops from <strong>Miami, Atlanta, Charlotte and Houston</strong> on American, Delta and United — more departures, more seats, cheaper fares.</p>
+    <div class="facts">
+      <div class="fact"><div class="fk">GOOD</div><div class="fv">Cheapest and most frequent way into the region, often a single layover from all three home airports.</div></div>
+      <div class="fact"><div class="fk">CATCH</div><div class="fv">It's a different island and a different country. You still have to cross to Road Town: public ferry, 45 min, about <strong>$60 a couple</strong>, last one <strong>3:30p</strong>. Land later and it's a private water taxi, <strong>≈$500 a couple</strong>. Either way you clear BVI customs on arrival.</div></div>
+    </div>
+  </section>
+
+  <div class="seg" role="tablist">
+    <button id="segOut" class="on">OUTBOUND · JUN 9</button>
+    <button id="segRet">RETURN · JUN 16</button>
+  </div>
+
+  <section class="picker">
+    <h2 class="plabel" id="homeLabel">FLYING OUT OF</h2>
+    <div class="prow" id="deps"></div>
+  </section>
+
+  <section class="picker">
+    <h2 class="plabel" id="islandLabel">LANDING AT</h2>
+    <div class="prow islands" id="isls"></div>
+  </section>
+
+  <p class="ctx" id="ctx"></p>
+
+  <div class="listhd"><span id="listLabel"></span><span id="sortNote">cheapest first</span></div>
+  <div id="list"></div>
+
+  <p class="note" id="note">Loading…</p>
+</div>
+
+<script>
+/* ---- data ------------------------------------------------------------- */
+var DEPS = [["MSY","New Orleans"],["JAN","Jackson"],["BHM","Birmingham"],["CHA","Chattanooga"]];
+var TRIPS = [];
+
+var TZ = {MSY:-5,BHM:-5,JAN:-5,IAH:-5,DFW:-5,ORD:-5,BNA:-5,CHA:-4,CLT:-4,MIA:-4,ATL:-4,
+          JFK:-4,EWR:-4,PHL:-4,DCA:-4,BOS:-4,DTW:-4,RDU:-4,SJU:-4,STT:-4,EIS:-4,DEN:-6};
+var CITY = {MIA:"Miami",ATL:"Atlanta",CLT:"Charlotte",SJU:"San Juan",IAH:"Houston",
+            DFW:"Dallas",ORD:"Chicago",BHM:"Birmingham"};
+
+function toMin(t){
+  var m=String(t).trim().toLowerCase().match(/^(\d{1,2}):(\d{2})\s*([ap])/);
+  if(!m) return null;
+  var h=+m[1]%12; if(m[3]==="p") h+=12;
+  return h*60+(+m[2]);
+}
+function fmtDur(n){
+  if(n==null) return "\u2014";
+  var h=Math.floor(n/60), m=n%60;
+  return h?h+"h "+(m<10?"0":"")+m+"m":m+"m";
+}
+/* Duration and layovers are computed, never stored, so they can't contradict
+   the flight times. Timezones matter: MSY 6:00a to EIS 1:42p is 6h42m, not 7h42m. */
+function durMins(legs){
+  if(!legs||!legs.length) return null;
+  var f=legs[0], l=legs[legs.length-1], d=toMin(f.dep), a=toMin(l.arr);
+  if(d==null||a==null) return null;
+  var oD=TZ[f.from]===undefined?-4:TZ[f.from], oA=TZ[l.to]===undefined?-4:TZ[l.to];
+  var uD=d-oD*60, uA=a-oA*60;
+  while(uA<uD) uA+=1440;
+  return uA-uD;
+}
+function layovers(legs){
+  var out=[];
+  for(var i=1;i<legs.length;i++){
+    var arr=toMin(legs[i-1].arr), dep=toMin(legs[i].dep);
+    if(arr==null||dep==null) continue;
+    var gap=dep-arr; if(gap<0) gap+=1440;
+    var c=legs[i].from;
+    out.push(fmtDur(gap)+" in "+(CITY[c]||c));
+  }
+  return out;
+}
+
+function render(){
+  var out = state.dir === "out", eis = state.isl === "EIS";
+
+  document.getElementById("title").textContent = out ? "GETTING TO ROAD TOWN" : "GETTING HOME";
+  document.getElementById("segOut").classList.toggle("on", out);
+  document.getElementById("segRet").classList.toggle("on", !out);
+  document.getElementById("homeLabel").textContent = out ? "FLYING OUT OF" : "FLYING HOME TO";
+  document.getElementById("islandLabel").textContent = out ? "LANDING AT" : "LEAVING FROM";
+  document.getElementById("sortNote").textContent = out ? "cheapest first" : "home earliest first";
+
+  /* departure chips */
+  var d = document.getElementById("deps"); d.innerHTML = "";
+  DEPS.forEach(function(x){
+    var b = el("button", "chip" + (x[0] === state.home ? " on" : ""));
+    b.appendChild(el("div", "code", x[0]));
+    b.appendChild(el("div", "city", x[1]));
+    b.onclick = function(){ state.home = x[0]; render(); };
+    d.appendChild(b);
+  });
+
+  /* island cards */
+  var ISL = [
+    ["EIS","Tortola", out ? "Land on the island — 25 min taxi, no boat." : "Leave straight from Tortola. No boat."],
+    ["STT","St. Thomas", out ? "Cheaper fares, then a crossing to Tortola." : "Ferry over the night before or at dawn."]
+  ];
+  var i = document.getElementById("isls"); i.innerHTML = "";
+  ISL.forEach(function(x){
+    var b = el("button", "isl" + (x[0] === state.isl ? " on" : ""));
+    b.dataset.code = x[0];
+    var top = el("div", "top");
+    top.appendChild(el("div", "code", x[0]));
+    top.appendChild(el("div", "city", x[1]));
+    b.appendChild(top);
+    b.appendChild(el("div", "blurb", x[2]));
+    b.onclick = function(){ state.isl = x[0]; render(); };
+    i.appendChild(b);
+  });
+
+  /* context line */
+  var ctx = document.getElementById("ctx");
+  ctx.className = "ctx" + (eis ? "" : " stt");
+  ctx.innerHTML = "<b>" + (out
+      ? (eis ? "No boat needed." : "Add the crossing.")
+      : (eis ? "Roll straight off the boat." : "Cross back first.")) + "</b> " + (out
+      ? (eis ? "Beef Island is a 25-minute taxi from the marina, so the fare is the whole cost of getting there."
+             : "Public ferry to Road Town runs until 3:30p (~$60 a couple). Land later and it's a private water taxi, \u2248$500.")
+      : (eis ? "Beef Island is 25 minutes from the marina — leave the boat at 8a and you're at the gate by 9."
+             : "Ferries leave Road Town 6:15a and 8:00a and take 45 min. Anything before a 1:30p flight is tight."));
+
+  /* itineraries */
+  var rows = TRIPS.filter(function(t){ return t.home === state.home && t.island === state.isl; })
+    .map(function(t){
+      var legs = (out ? t.out : t.back).map(function(l){
+        return { from:l.from, dep:l.dep, to:l.to, arr:l.arr, fn:l.flight };
+      });
+      var d = durMins(legs);
+      return { pp:t.price, dur:fmtDur(d), air:t.airline, lays:layovers(legs), isl:t.island,
+               note:t.note, legs:legs, arrMin:toMin(legs[legs.length-1].arr), durMin:d };
+    });
+  rows.sort(function(a,b){ return out ? a.pp - b.pp : a.arrMin - b.arrMin; });
+  var short = rows.slice().sort(function(a,b){ return a.durMin - b.durMin; })[0];
+
+  var pair = out ? state.home + " \u2192 " + state.isl : state.isl + " \u2192 " + state.home;
+  document.getElementById("listLabel").textContent = rows.length
+    ? rows.length + (rows.length === 1 ? " ITINERARY " : " ITINERARIES ") + pair
+    : pair;
+  document.getElementById("sortNote").textContent =
+    rows.length > 1 ? (out ? "cheapest first" : "home earliest first") : "";
+
+  var wrap = document.getElementById("list"); wrap.innerHTML = "";
+
+  if (!rows.length){
+    var e = el("div","empty");
+    e.appendChild(el("div","ecode","\u2014"));
+    e.appendChild(el("div","etxt", state.isl === "EIS"
+      ? "No practical routing from " + state.home + " to Tortola on these dates. Tortola's only US nonstop is from Miami, and " + state.home + " doesn't connect to it."
+      : "Nothing logged yet for this pairing."));
+    wrap.appendChild(e);
+    return;
+  }
+
+  rows.forEach(function(f, idx){
+    var c = el("div", "card");
+    if (rows.length > 1){
+      var ribbon = out ? (idx === 0 ? "CHEAPEST" : f === short ? "SHORTEST DAY" : "")
+                       : (idx === 0 ? "HOME EARLIEST" : f === short ? "SHORTEST DAY" : "");
+      if (ribbon) c.appendChild(el("div", "ribbon", ribbon));
+    }
+
+    var top = el("div", "ctop"), times = el("div", "times");
+    var a = el("div"); a.appendChild(el("div", "t", f.legs[0].dep)); a.appendChild(el("div", "apt", f.legs[0].from));
+    var m = el("div", "mid"); m.appendChild(el("div", null, f.dur)); m.appendChild(el("div", "arrow", "\u2192"));
+    var z = el("div"); z.appendChild(el("div", "t", f.legs[f.legs.length-1].arr)); z.appendChild(el("div", "apt", f.legs[f.legs.length-1].to));
+    times.appendChild(a); times.appendChild(m); times.appendChild(z);
+    var p = el("div");
+    p.appendChild(el("div", "price", "$" + f.pp.toLocaleString("en-US")));
+    p.appendChild(el("div", "psub", out ? "each, round trip" : "same round trip"));
+    top.appendChild(times); top.appendChild(p);
+    c.appendChild(top);
+
+    var route = el("div", "route"), dots = el("div", "dots");
+    f.legs.forEach(function(){ var s = el("div", "seg2"); s.appendChild(el("div", "dot")); s.appendChild(el("div", "bar")); dots.appendChild(s); });
+    dots.appendChild(el("div", "dot end " + (out ? (f.isl === "EIS" ? "" : "stt") : "ret")));
+    route.appendChild(dots);
+    var nodes = el("div", "nodes");
+    var pts = [[f.legs[0].from, f.legs[0].dep]];
+    f.legs.forEach(function(l){ pts.push([l.to, l.arr]); });
+    pts.forEach(function(pt, k){
+      var n = el("div"); n.style.textAlign = k === 0 ? "left" : k === pts.length-1 ? "right" : "center";
+      n.appendChild(el("div", "n", pt[0])); n.appendChild(el("div", "nt", pt[1])); nodes.appendChild(n);
+    });
+    route.appendChild(nodes);
+    c.appendChild(route);
+
+    var lays = el("div", "lays");
+    f.lays.forEach(function(l){ lays.appendChild(el("div", "lay", l)); });
+    c.appendChild(lays);
+
+    var cf = el("div", "cfoot");
+    cf.appendChild(el("div", null, f.air));
+    cf.appendChild(el("div", "fns", f.legs.map(function(l){ return l.fn; }).join(" \u00b7 ")));
+    c.appendChild(cf);
+    wrap.appendChild(c);
+  });
+}
+
+/* ABOUT panels — inline accordion, one open at a time */
+(function(){
+  var pairs = [["aboutEis","panelEis"],["aboutStt","panelStt"]];
+  pairs.forEach(function(p, i){
+    document.getElementById(p[0]).onclick = function(){
+      var openNow = document.getElementById(p[1]).hidden;
+      pairs.forEach(function(q, j){
+        var on = (i === j) && openNow;
+        document.getElementById(q[1]).hidden = !on;
+        document.getElementById(q[0]).classList.toggle("on", on);
+      });
+    };
+  });
+})();
+
+(function(){
+  var note = document.getElementById("note");
+  fetch("flights.json?v=" + Date.now())
+    .then(function(r){ if(!r.ok) throw new Error(r.status); return r.json(); })
+    .then(function(j){
+      TRIPS = j.trips || [];
+      if (j.homes && j.homes.length) DEPS = j.homes;
+      if (j.tz) for (var k in j.tz) TZ[k] = j.tz[k];
+      note.textContent = j.checkedNote || "";
+      render();
+    })
+    .catch(function(){
+      note.textContent = "Couldn\u2019t load the flight list. Pull down to refresh.";
+      render();
+    });
+})();
+
+document.getElementById("segOut").onclick = function(){ state.dir = "out"; render(); };
+document.getElementById("segRet").onclick = function(){ state.dir = "ret"; render(); };
+</script>
+</body>
+</html>

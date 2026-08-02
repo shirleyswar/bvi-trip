@@ -1,0 +1,60 @@
+{
+ "updated": "2026-08-02",
+ "status": "unverified",
+ "notice": "Crossing costs are being confirmed. Matthew is getting real quotes from the ferry operators, the water-taxi companies and The Moorings. Until those land, every figure below is TBD — don't budget off this section yet.",
+ "ferrySchedule": {
+  "outbound": {
+   "label": "Charlotte Amalie \u2192 Road Town",
+   "departures": ["9:00a", "2:00p", "4:00p", "5:30p"],
+   "crossingMins": 50,
+   "note": "Three companies rotate the slots. Buy at the terminal \u2014 tickets are non-refundable if you miss one."
+  },
+  "return": {
+   "label": "Road Town \u2192 Charlotte Amalie",
+   "departures": ["7:30a", "10:00a", "11:30a", "3:30p"],
+   "crossingMins": 50
+  },
+  "bufferMins": 75,
+  "bufferNote": "Bags, taxi to the terminal and buying a ticket. An arrival less than 75 minutes before a sailing doesn't realistically make it."
+ },
+ "ferry": {
+  "label": "Public ferry",
+  "perCouple": null,
+  "rows": [
+   {"label": "Ferry fare", "sub": "per couple, round trip", "amount": null},
+   {"label": "BVI environmental levy", "sub": "per person, on arrival", "amount": null},
+   {"label": "BVI departure tax", "sub": "per person, leaving by sea", "amount": null},
+   {"label": "Port fees", "sub": "both directions", "amount": null},
+   {"label": "Taxi, STT airport \u2192 ferry dock", "sub": "10 min", "amount": null},
+   {"label": "Taxi, Road Town dock \u2192 marina", "sub": "10 min", "amount": null}
+  ]
+ },
+ "watertaxi": {
+  "label": "Private water taxi",
+  "perCouple": null,
+  "sharedNote": "Priced per boat up to 5\u20138 passengers, so this only makes sense if couples coordinate. Split eight ways it lands much closer to the ferry than the sticker suggests.",
+  "rows": [
+   {"label": "Boat charter", "sub": "round trip, split 4 ways", "amount": null},
+   {"label": "Customs / processing", "sub": "per person, cash", "amount": null},
+   {"label": "Taxi, STT airport \u2192 marina", "sub": "Red Hook or Crown Bay", "amount": null}
+  ],
+  "operators": [
+   {"name": "The Last Mile", "sub": "45 min Red Hook \u2192 Nanny Cay, customs cleared aboard", "amount": null},
+   {"name": "Island Time BVI", "sub": "Nanny Cay based, monitors flights", "amount": null},
+   {"name": "Chillout Charters", "sub": "processing fees included in quote", "amount": null},
+   {"name": "Dolphin Water Taxi", "sub": "meet-and-greet at baggage claim", "amount": null}
+  ]
+ },
+ "eis": {
+  "label": "No crossing",
+  "perCouple": null,
+  "rows": [
+   {"label": "Taxi, EIS \u2192 marina", "sub": "25 min, shared", "amount": null}
+  ]
+ },
+ "boat": {
+  "perCouple": 4952.77,
+  "tip": 990.56,
+  "cardFee": 148.58
+ }
+}

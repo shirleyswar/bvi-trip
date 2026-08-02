@@ -9,439 +9,573 @@
 <meta name="apple-mobile-web-app-title" content="BEANLAND + BVI" />
 <link rel="apple-touch-icon" href="apple-touch-icon.png" />
 <link rel="icon" href="apple-touch-icon.png" />
-<title>BEANLAND + BVI</title>
-<meta property="og:type" content="website" />
+<title>BEANLAND + BVI</title><meta property="og:type" content="website" />
 <meta property="og:url" content="https://shirleyswar.github.io/bvi-trip/" />
 <meta property="og:title" content="BEANLAND + BVI" />
-<meta property="og:description" content="Crewed sailing trip · Jun 10–15, 2027 · flights, costs and the trip board." />
+<meta property="og:description" content="Crewed sailing trip · Jun 10–15, 2027 · three ways in, flights, and the numbers." />
 <meta property="og:image" content="https://shirleyswar.github.io/bvi-trip/preview.jpg" />
 <meta property="og:image:secure_url" content="https://shirleyswar.github.io/bvi-trip/preview.jpg" />
 <meta property="og:image:type" content="image/jpeg" />
 <meta property="og:image:width" content="1168" />
 <meta property="og:image:height" content="784" />
-<meta property="og:image:alt" content="Moorings catamaran anchored in turquoise BVI water — BEANLAND + BVI" />
 <meta property="og:site_name" content="BEANLAND + BVI" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="BEANLAND + BVI" />
-<meta name="twitter:description" content="Crewed sailing trip · Jun 10–15, 2027 · flights, costs and the trip board." />
+<meta name="twitter:description" content="Crewed sailing trip · Jun 10–15, 2027 · three ways in, flights, and the numbers." />
 <meta name="twitter:image" content="https://shirleyswar.github.io/bvi-trip/preview.jpg" />
+
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&display=swap" rel="stylesheet" />
 <style>
   :root{
-    --bg:#04263c; --surface:rgba(255,255,255,.055); --border:rgba(255,255,255,.1);
-    --hairline:rgba(255,255,255,.08); --rule:rgba(255,255,255,.22);
-    --ink:#ffffff; --soft:#b3d7e8; --mute:#7ba6bd;
-    --pink:#ff4d8d; --pink-ink:#3d0620; --pink-soft:rgba(255,77,141,.16); --pink-soft-ink:#ff9dbe;
+    --bg:#04263c; --surface:rgba(255,255,255,.055); --surface-open:rgba(255,255,255,.075);
+    --border:rgba(255,255,255,.1); --hairline:rgba(255,255,255,.08); --rule:rgba(255,255,255,.22);
+    --ink:#ffffff; --soft:#b3d7e8; --mute:#7ba6bd; --dim:#dceceb;
+    --pink:#ff4d8d; --pink-ink:#3d0620; --pink-lift:#ff8fb6;
     --aqua:#3ee6c4; --aqua-ink:#04332a;
     --amber:#ffb03a; --amber-ink:#43290a;
-    --idle:rgba(255,255,255,.06); --idle-line:rgba(255,255,255,.12); --idle-ink:#9dc4d6;
+    --idle:rgba(255,255,255,.06); --idle-line:rgba(255,255,255,.12); --idle-ink:#9dc4d6; --idle-sub:#a8cadb;
     --r-card:22px; --r-ctl:15px; --r-tab:12px;
   }
   *{box-sizing:border-box}
   html,body{margin:0;padding:0}
   body{background:var(--bg);color:var(--ink);font-family:Outfit,system-ui,sans-serif;-webkit-text-size-adjust:100%}
   .wrap{max-width:520px;margin:0 auto;padding-bottom:calc(30px + env(safe-area-inset-bottom))}
-  h1,h2{margin:0}
+  h1,h2,h3,p{margin:0}
   a{color:var(--soft)}a:hover{color:#fff}
   button{font-family:inherit;cursor:pointer}
 
-  /* tabs */
-  .tabs{display:flex;gap:7px;margin-bottom:20px}
-  .tab{display:inline-block;text-decoration:none;padding:10px 15px;border:none;border-radius:var(--r-tab);background:var(--idle);color:var(--idle-ink);font-size:11.5px;font-weight:700;letter-spacing:.1em}
-  .tab.on{background:var(--pink);color:var(--pink-ink);font-weight:800}
-  .tab-wrap{position:relative}
-  .badge{position:absolute;top:-6px;right:-6px;min-width:21px;height:21px;padding:0 6px;border-radius:11px;background:var(--pink);border:2px solid var(--bg);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:var(--pink-ink);font-variant-numeric:tabular-nums}
-  .badge.dot{top:-3px;right:-3px;min-width:0;width:11px;height:11px;padding:0;border-radius:6px}
+  /* tab bar */
+  .tabbar{position:sticky;top:0;z-index:20;background:rgba(4,38,60,.92);backdrop-filter:saturate(1.4) blur(14px);
+          -webkit-backdrop-filter:saturate(1.4) blur(14px);border-bottom:1px solid rgba(255,255,255,.12);
+          padding:calc(14px + env(safe-area-inset-top)) 20px 12px}
+  .tabs{display:flex;gap:6px;padding:5px;background:rgba(255,255,255,.07);border-radius:16px}
+  .tab{flex:1;display:flex;align-items:center;justify-content:center;text-align:center;text-decoration:none;
+       padding:12px 6px;border:none;border-radius:var(--r-tab);background:transparent;color:var(--idle-ink);
+       font-size:11px;font-weight:700;letter-spacing:.08em;min-height:44px}
+  .tab.on{background:var(--pink);color:var(--pink-ink);font-weight:800;box-shadow:0 2px 10px rgba(255,77,141,.35)}
+  .tab-wrap{position:relative;flex:1;display:flex}
+  .badge{position:absolute;top:-5px;right:-4px;min-width:21px;height:21px;padding:0 6px;border-radius:11px;background:var(--pink);border:2px solid var(--bg);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:var(--pink-ink);font-variant-numeric:tabular-nums;z-index:2}
   .badge[hidden]{display:none}
 
-  .hdr{padding:10px 20px 4px}
+  .hdr{padding:16px 20px 4px}
   .h1{font-family:'Bricolage Grotesque',Outfit,sans-serif;font-size:31px;line-height:1;font-weight:800;letter-spacing:-.02em;white-space:nowrap}
   .sub{font-size:14px;line-height:1.5;color:var(--soft);margin-top:11px}
   .sub strong{color:#fff;font-weight:700}
-  .sub.rule{margin-top:13px;padding-top:13px;border-top:1px solid var(--border)}
-  .sub.rule strong{color:var(--pink)}
 
-  /* ABOUT EIS / ABOUT STT */
-  .abouts{display:flex;gap:8px;padding:18px 20px 0}
-  .about{flex:1;display:flex;align-items:center;justify-content:center;gap:7px;border:1px solid rgba(255,77,141,.45);background:var(--idle);border-radius:13px;padding:12px 10px;min-height:44px;
-         font-size:12px;font-weight:800;letter-spacing:.09em;color:var(--pink)}
-  .about .caret{font-size:11px;line-height:1;transition:transform .18s ease}
-  .about.on{background:var(--pink);border-color:var(--pink);color:var(--pink-ink)}
-  .about.on .caret{transform:rotate(180deg)}
-  .panel{margin:10px 20px 0;border-radius:18px;padding:16px 17px 15px}
-  .panel[hidden]{display:none}
-  .panel.eis{border:1px solid rgba(62,230,196,.45);background:rgba(62,230,196,.09)}
-  .panel.stt{border:1px solid rgba(255,176,58,.45);background:rgba(255,176,58,.09)}
-  .panel .ptop{display:flex;align-items:baseline;gap:9px}
-  .panel .pcode{font-family:'Bricolage Grotesque',Outfit,sans-serif;font-size:22px;line-height:1;font-weight:800}
-  .panel.eis .pcode{color:var(--aqua)} .panel.stt .pcode{color:var(--amber)}
-  .panel .pname{font-size:13px;font-weight:600;color:var(--soft)}
-  .panel .plead{font-size:14px;line-height:1.55;margin:11px 0 0}
-  .panel.eis .plead{color:#dcf1f9} .panel.stt .plead{color:#f7ead9}
-  .panel .plead strong{color:#fff}
-  .panel .facts{display:flex;flex-direction:column;gap:9px;margin-top:14px;padding-top:13px}
-  .panel.eis .facts{border-top:1px solid rgba(62,230,196,.28)}
-  .panel.stt .facts{border-top:1px solid rgba(255,176,58,.28)}
-  .panel .fact{display:flex;gap:10px}
-  .panel .fk{font-size:13px;font-weight:800;width:52px;flex:none}
-  .panel.eis .fk{color:var(--aqua)} .panel.stt .fk{color:var(--amber)}
-  .panel .fk.cost{color:var(--mute)}
-  .panel .fv{font-size:13.5px;line-height:1.5;color:var(--soft)}
-  .panel .fv strong{color:#fff}
-
-  /* direction segmented control */
-  .seg{display:flex;gap:5px;margin:20px 20px 0;padding:5px;background:rgba(255,255,255,.07);border-radius:16px}
-  .seg button{flex:1;border:none;border-radius:var(--r-tab);padding:12px 4px;background:transparent;color:#9dc4d6;font-size:12px;font-weight:800;letter-spacing:.09em}
-  #segOut.on{background:var(--aqua);color:var(--aqua-ink)}
-  #segRet.on{background:var(--amber);color:var(--amber-ink)}
-
-  .picker{padding:20px 20px 0}
-  .picker + .picker{padding-top:18px}
+  /* home-airport picker */
+  .picker{padding:18px 20px 0}
   .plabel{font-size:11.5px;font-weight:800;letter-spacing:.13em;color:var(--mute)}
-  .prow{display:flex;gap:7px;margin-top:11px}
-  .prow.islands{gap:9px}
-  .chip{flex:1;border:1px solid var(--idle-line);background:var(--idle);border-radius:var(--r-ctl);padding:12px 6px;text-align:center;min-height:44px}
-  .chip .code{font-size:17px;font-weight:800;letter-spacing:-.01em;color:var(--ink)}
-  .chip .city{font-size:11.5px;font-weight:600;color:var(--idle-ink);margin-top:3px}
+  .prow{display:flex;gap:6px;margin-top:11px}
+  .chip{flex:1;min-width:0;border:1px solid var(--idle-line);background:var(--idle);border-radius:var(--r-ctl);padding:12px 4px;text-align:center;min-height:44px}
+  .chip .code{font-size:16px;font-weight:800;letter-spacing:-.01em;color:var(--ink)}
+  .chip .city{font-size:10.5px;font-weight:600;color:var(--idle-sub);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .chip.on{background:var(--pink);border-color:var(--pink)}
   .chip.on .code{color:var(--pink-ink)}
   .chip.on .city{color:rgba(61,6,32,.75)}
 
-  .isl{flex:1;border:1px solid var(--idle-line);background:var(--idle);border-radius:17px;padding:14px 15px;text-align:left;min-height:44px}
-  .isl .top{display:flex;align-items:baseline;gap:8px}
-  .isl .code{font-family:'Bricolage Grotesque',Outfit,sans-serif;font-size:24px;line-height:1;font-weight:800;color:var(--ink)}
-  .isl .city{font-size:12.5px;font-weight:600;color:var(--idle-ink)}
-  .isl .blurb{font-size:12.5px;line-height:1.4;color:var(--idle-ink);margin-top:7px}
-  .isl.on[data-code="EIS"]{background:var(--aqua);border-color:var(--aqua)}
-  .isl.on[data-code="EIS"] .code,.isl.on[data-code="EIS"] .city,.isl.on[data-code="EIS"] .blurb{color:var(--aqua-ink)}
-  .isl.on[data-code="STT"]{background:var(--amber);border-color:var(--amber)}
-  .isl.on[data-code="STT"] .code,.isl.on[data-code="STT"] .city,.isl.on[data-code="STT"] .blurb{color:var(--amber-ink)}
+  /* path card */
+  .path{margin:14px 16px 0;border:1px solid var(--border);border-radius:var(--r-card);background:var(--surface);overflow:hidden}
+  .path.open{background:var(--surface-open)}
+  .phd{padding:16px 18px 0}
+  .kick{display:flex;align-items:center;justify-content:space-between;gap:10px}
+  .kickl{display:flex;align-items:center;gap:8px}
+  .dot{width:9px;height:9px;border-radius:5px}
+  .kicker{font-size:11.5px;font-weight:800;letter-spacing:.11em}
+  .flag{font-size:10.5px;font-weight:800;letter-spacing:.07em;padding:4px 8px;border-radius:6px}
+  .flag.out{color:var(--soft);border:1px solid rgba(255,255,255,.28)}
+  .ptop{display:flex;align-items:flex-end;justify-content:space-between;gap:14px;margin-top:9px}
+  .pname{font-size:19px;font-weight:700;line-height:1.2}
+  .proute{font-size:12.5px;line-height:1.45;color:var(--mute);margin-top:4px}
+  .ptotal{font-family:'Bricolage Grotesque',Outfit,sans-serif;font-size:29px;line-height:1;font-weight:800;letter-spacing:-.025em;font-variant-numeric:tabular-nums;text-align:right}
+  .ptotal.na{font-weight:400;color:var(--mute)}
+  .ptotalsub{font-size:11.5px;color:var(--mute);margin-top:4px;text-align:right}
 
-  .ctx{margin:18px 20px 6px;padding:13px 15px;border-radius:14px;border:1px solid var(--aqua);background:transparent;font-size:13px;line-height:1.5;color:var(--soft)}
-  .ctx b{color:var(--aqua)}
-  .ctx.stt{border-color:var(--amber)}
-  .ctx.stt b{color:var(--amber)}
+  .meta{display:flex;margin:14px 18px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+  .meta div{flex:1;padding:11px 0}
+  .meta div + div{padding-left:14px;border-left:1px solid var(--border)}
+  .mk{font-size:10.5px;font-weight:800;letter-spacing:.1em;color:var(--mute)}
+  .mv{font-size:16px;font-weight:700;margin-top:5px;font-variant-numeric:tabular-nums}
 
-  .listhd{display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:16px 20px 12px;font-size:11.5px;font-weight:800;letter-spacing:.13em;color:var(--mute)}
-  .listhd span{font-size:12px;font-weight:400;letter-spacing:0}
+  /* recovery strip */
+  .risk{padding:13px 18px 0}
+  .riskhd{display:flex;align-items:center;justify-content:space-between;gap:10px}
+  .riskhd .k{font-size:10.5px;font-weight:800;letter-spacing:.1em;color:var(--mute)}
+  .leg{display:flex;align-items:center;gap:11px;margin-top:11px}
+  .leg .ln{flex:none;width:74px;font-size:12px;color:var(--soft)}
+  .pips{flex:none;display:flex;gap:4px}
+  .pip{width:16px;height:6px;border-radius:3px;background:transparent}
+  .leg .note{flex:1;font-size:12px;color:var(--mute);text-align:right}
+  .conseq{font-size:13px;line-height:1.5;color:var(--dim);margin-top:12px;padding:11px 13px;border-radius:12px}
 
-  .card{margin:0 16px 12px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-card);padding:16px 18px 15px}
-  .ribbon{display:inline-block;margin-bottom:12px;font-size:10.5px;font-weight:800;letter-spacing:.09em;color:var(--pink-ink);background:var(--pink);padding:5px 9px;border-radius:7px}
-  .ctop{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
-  .times{display:flex;align-items:flex-start;gap:12px}
-  .t{font-family:'Bricolage Grotesque',Outfit,sans-serif;font-size:25px;line-height:1;font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
-  .apt{font-size:11.5px;font-weight:700;letter-spacing:.06em;color:var(--mute);margin-top:5px}
-  .mid{padding-top:4px;text-align:center;font-size:11.5px;color:var(--mute)}
-  .mid .arrow{font-size:15px;line-height:1;margin-top:2px}
-  .price{font-size:20px;font-weight:800;letter-spacing:-.01em;color:var(--pink);font-variant-numeric:tabular-nums;text-align:right}
-  .psub{font-size:11.5px;color:var(--mute);margin-top:3px;text-align:right}
+  .toggle{width:100%;margin-top:14px;border:none;border-top:1px solid var(--border);background:transparent;color:var(--idle-ink);
+          padding:14px;font-size:12.5px;font-weight:700;letter-spacing:.06em;min-height:44px;
+          display:flex;align-items:center;justify-content:center;gap:7px}
+  .toggle .caret{font-size:10px;line-height:1;transition:transform .18s ease}
+  .path.open .toggle .caret{transform:rotate(180deg)}
 
-  .route{margin-top:17px}
-  .dots{display:flex;align-items:center}
-  .dots .seg2{display:flex;align-items:center;flex:1}
-  .dot{width:9px;height:9px;border-radius:5px;background:rgba(255,255,255,.5);flex:none}
-  .dot.end{background:var(--aqua)}
-  .dot.end.stt{background:var(--amber)}
-  .dot.end.ret{background:var(--pink)}
-  .bar{flex:1;height:2px;background:rgba(255,255,255,.22)}
-  .nodes{display:flex;justify-content:space-between;margin-top:8px}
-  .nodes .n{font-size:13.5px;font-weight:700}
-  .nodes .nt{font-size:11.5px;color:var(--mute);margin-top:2px;font-variant-numeric:tabular-nums}
+  .drawer{background:rgba(0,0,0,.16)}
+  .drawer[hidden]{display:none}
+  .dhd{padding:14px 18px 4px;font-size:10.5px;font-weight:800;letter-spacing:.1em;color:var(--mute)}
+  .itin{display:block;width:100%;text-align:left;border:none;border-top:1px solid var(--hairline);background:transparent;padding:13px 18px;color:inherit}
+  .itin.on{background:rgba(255,255,255,.05)}
+  .itop{display:flex;align-items:baseline;justify-content:space-between;gap:12px}
+  .iarr{font-size:17px;font-weight:800;font-variant-numeric:tabular-nums}
+  .ilab{font-size:12.5px;color:var(--mute)}
+  .ibody[hidden]{display:none}
 
-  .lays{display:flex;flex-wrap:wrap;gap:6px;margin-top:15px}
-  .lay{font-size:12px;font-weight:600;color:var(--pink-soft-ink);background:var(--pink-soft);padding:6px 10px;border-radius:9px}
+  /* cost rows — shared spec */
+  .r{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:10px 18px;border-top:1px solid var(--hairline)}
+  .rl{font-size:15px;color:var(--ink)}
+  .rl.na{color:var(--mute)}
+  .rs{font-size:12.5px;line-height:1.4;color:var(--mute);margin-top:2px}
+  .amt{font-size:15px;font-weight:600;color:#fff;font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap}
+  .amt.tbd{font-size:13px;font-weight:800;letter-spacing:.08em;color:var(--pink)}
+  .amt.na{font-weight:400;color:var(--mute)}
+  .rtotal{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:12px 18px;border-top:1px solid var(--rule);background:rgba(255,255,255,.06)}
+  .rtotal .rl{font-size:14.5px;font-weight:800}
+  .rtotal .amt{font-size:18px;font-weight:800}
+  .checked{display:flex;align-items:center;gap:8px;padding:11px 18px 12px}
+  .checked i{width:6px;height:6px;border-radius:3px;background:var(--mute);flex:none;display:block}
+  .checked span{font-size:12px;color:var(--mute)}
 
-  .cfoot{margin-top:14px;padding-top:12px;border-top:1px solid var(--border);display:flex;align-items:baseline;justify-content:space-between;gap:12px;font-size:13px;color:var(--soft)}
-  .cfoot .fns{font-size:12px;color:var(--mute);text-align:right}
-  .note{padding:8px 20px 10px;font-size:12.5px;line-height:1.6;color:var(--mute)}
+  /* unavailable state — per-element de-emphasis, never group opacity */
+  .why{margin:14px 18px 0;padding:13px 15px;border-radius:14px;border:1px dashed rgba(255,255,255,.22);
+       font-size:13.5px;line-height:1.55;color:var(--soft)}
+  .next{display:flex;align-items:center;gap:9px;padding:13px 18px 16px}
+  .next .arrow{font-size:15px;color:var(--mute);line-height:1}
+  .next p{font-size:13px;line-height:1.45;color:var(--mute)}
 
-  .empty{margin:0 16px;border:1px dashed rgba(255,255,255,.18);border-radius:var(--r-card);
-         padding:26px 20px;text-align:center}
-  .empty .ecode{font-family:"Bricolage Grotesque",sans-serif;font-size:24px;font-weight:800;
-                color:var(--mute);letter-spacing:-.02em}
-  .empty .etxt{margin-top:8px;font-size:13.5px;line-height:1.55;color:var(--mute)}
-  .cnote{margin-top:10px;font-size:12.5px;line-height:1.5;color:var(--mute)}
+  .foot{padding:16px 20px 10px;font-size:12.5px;line-height:1.6;color:var(--mute)}
+
+  .notice{margin:0 16px 14px;padding:13px 15px;border:1px dashed rgba(255,77,141,.45);
+          border-radius:14px;font-size:13px;line-height:1.55;color:#ffb8d0;background:none}
+  .ptotal.tbd{color:#ff4d8d}
+  .amt.tbd{color:#ff4d8d}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <header class="hdr">
-    <nav class="tabs">
+  <div class="tabbar">
+    <nav class="tabs" aria-label="Sections">
       <a class="tab on" href="index.html">FLIGHTS</a>
-      <a class="tab" href="cost.html">COST ESTIMATOR</a>
+      <a class="tab" href="cost.html">ESTIMATOR</a>
       <span class="tab-wrap"><a class="tab" href="https://padlet.com/contactmrshirley/beanland-bvi-t5mmxgl5c6kl5ezh" target="_blank" rel="noopener">CHAT</a><span class="badge" id="chatBadge" hidden></span></span>
     </nav>
-    <h1 class="h1" id="title">GETTING TO ROAD TOWN</h1>
-    <p class="sub"><strong>Road Town</strong> is the capital of the British Virgin Islands, on Tortola — the largest island in the chain. The Moorings base sits just north of the town center at Wickhams Cay II, and that's where our boat will be waiting.</p>
-    <p class="sub rule">Each couple books their own airfare. <strong>Read both airport explainers first</strong> — service and what it takes to reach the boat differ <strong>drastically</strong>.</p>
+  </div>
+
+  <header class="hdr">
+    <h1 class="h1">THREE WAYS IN</h1>
+    <p class="sub">Same destination, Jun 9. They differ in what you pay, how long the day is, and <strong>how much room you have if something slips.</strong></p>
   </header>
 
-  <div class="abouts">
-    <button class="about" id="aboutEis">ABOUT EIS <span class="caret">▾</span></button>
-    <button class="about" id="aboutStt">ABOUT STT <span class="caret">▾</span></button>
-  </div>
-
-  <section class="panel eis" id="panelEis" hidden>
-    <div class="ptop"><div class="pcode">EIS</div><div class="pname">Terrance B. Lettsome · Beef Island, Tortola</div></div>
-    <p class="plead">A small island airport with a short runway — no widebodies, so the schedule is thin. One US nonstop: <strong>American out of Miami</strong>. Everything else connects through San Juan on a turboprop or a 9-seater.</p>
-    <div class="facts">
-      <div class="fact"><div class="fk">GOOD</div><div class="fv">You land on Tortola. 25-minute taxi to the marina, aboard the same afternoon. No boat, no second island, no extra $500.</div></div>
-      <div class="fact"><div class="fk cost">COST</div><div class="fv">One carrier, one hub — if Miami goes down, there's no backup that day. From Jackson or Chattanooga it's usually two layovers. Small planes mean tighter bag limits. Fares are often higher than St. Thomas, though on the dates we've checked they've come in about the same.</div></div>
-    </div>
-  </section>
-
-  <section class="panel stt" id="panelStt" hidden>
-    <div class="ptop"><div class="pcode">STT</div><div class="pname">Cyril E. King · St. Thomas, USVI</div></div>
-    <p class="plead">The region's big airport. Full-size jets and nonstops from <strong>Miami, Charlotte and Atlanta</strong> on American and Delta, plus seasonal service from other hubs — more departures, more seats, more ways to fix a bad day.</p>
-    <div class="facts">
-      <div class="fact"><div class="fk">GOOD</div><div class="fv">Cheapest and most frequent way into the region, often a single layover from all three home airports.</div></div>
-      <div class="fact"><div class="fk">CATCH</div><div class="fv">It's a different island and a different country. You still have to cross to Road Town: public ferry, 45 min, about <strong>$60 a couple</strong>, last one <strong>3:30p</strong>. Land later and it's a private water taxi, <strong>≈$500 a couple</strong>. Either way you clear BVI customs on arrival.</div></div>
-    </div>
-  </section>
-
-  <div class="seg" role="tablist">
-    <button id="segOut" class="on">OUTBOUND · JUN 9</button>
-    <button id="segRet">RETURN · JUN 16</button>
-  </div>
-
   <section class="picker">
-    <h2 class="plabel" id="homeLabel">FLYING OUT OF</h2>
+    <h2 class="plabel">FLYING OUT OF</h2>
     <div class="prow" id="deps"></div>
   </section>
 
-  <section class="picker">
-    <h2 class="plabel" id="islandLabel">LANDING AT</h2>
-    <div class="prow islands" id="isls"></div>
-  </section>
+  <p class="notice" id="notice" hidden></p>
+  <div id="paths"></div>
 
-  <p class="ctx" id="ctx"></p>
-
-  <div class="listhd"><span id="listLabel"></span><span id="sortNote">cheapest first</span></div>
-  <div id="list"></div>
-
-  <p class="note" id="note">Loading…</p>
+  <p class="foot">Sample figures. Recovery counts are for Jun 9 schedules and change with the timetable.</p>
 </div>
 
 <script>
-/* ---- data: fetched from flights.json --------------------------------- */
-var DEPS = [["MSY","New Orleans"],["JAN","Jackson"],["CHA","Chattanooga"]];
-var TRIPS = [];
+/* ---------------------------------------------------------------------------
+   Recovery is a property of the ITINERARY, not the path.
+   A path card shows the RANGE across its itineraries; the verdict chip always
+   takes the worst case. Pip vocabulary:
+     solid  — guaranteed on every itinerary in this path
+     hollow — a real remaining alternative        (itinerary level only)
+     dashed — exists only on earlier departures   (path level only)
+--------------------------------------------------------------------------- */
+var AQUA = "#3ee6c4", AMBER = "#ffb03a", PINK = "#ff4d8d";
+var SEV = {
+  room:  { color: AQUA,  ink: "#04332a", label: "ROOM TO RECOVER" },
+  tight: { color: AMBER, ink: "#43290a", label: "TIGHT" },
+  none:  { color: PINK,  ink: "#3d0620", label: "NO SECOND CHANCE" }
+};
+var RANK = { room: 0, tight: 1, none: 2 };
 
-/* June offsets from UTC. Durations are wrong without these — MSY 6:00a to
-   EIS 1:42p is 6h42m, not 7h42m. */
-var TZ = {
-  MSY:-5, JAN:-5, IAH:-5, DFW:-5, ORD:-5, MSP:-5, STL:-5, BNA:-5, AUS:-5, MEM:-5,
-  CHA:-4, CLT:-4, MIA:-4, ATL:-4, FLL:-4, MCO:-4, TPA:-4, JFK:-4, LGA:-4, EWR:-4,
-  PHL:-4, DCA:-4, IAD:-4, BOS:-4, DTW:-4, CVG:-4, RDU:-4, PIT:-4, BWI:-4,
-  SJU:-4, STT:-4, EIS:-4, STX:-4, SXM:-4, BQN:-4, ANU:-4,
-  DEN:-6, SLC:-6, PHX:-7, LAS:-7, LAX:-7, SFO:-7, SEA:-7, SAN:-7
-};
-var CITY = {
-  MIA:"Miami", ATL:"Atlanta", CLT:"Charlotte", SJU:"San Juan", IAH:"Houston",
-  DFW:"Dallas", ORD:"Chicago", JFK:"New York", EWR:"Newark", PHL:"Philadelphia",
-  FLL:"Fort Lauderdale", MCO:"Orlando", TPA:"Tampa", DCA:"Washington", IAD:"Washington",
-  BOS:"Boston", DTW:"Detroit", CVG:"Cincinnati", RDU:"Raleigh", DEN:"Denver"
-};
+var DEPS = [["MSY","New Orleans"],["JAN","Jackson"],["BHM","Birmingham"],["CHA","Chattanooga"]];
+var TRIPS = [], CROSS = null, PATHS = {};
+
+var TZ = {MSY:-5,BHM:-5,JAN:-5,IAH:-5,DFW:-5,ORD:-5,BNA:-5,CHA:-4,CLT:-4,MIA:-4,ATL:-4,
+          JFK:-4,EWR:-4,PHL:-4,DCA:-4,BOS:-4,DTW:-4,RDU:-4,SJU:-4,STT:-4,EIS:-4,DEN:-6};
+var CITY = {MIA:"MIA",ATL:"ATL",CLT:"CLT",IAH:"IAH",DFW:"DFW",SJU:"SJU"};
 
 function toMin(t){
-  var m = String(t).trim().toLowerCase().match(/^(\d{1,2}):(\d{2})\s*([ap])/);
-  if (!m) return null;
-  var h = +m[1] % 12; if (m[3] === "p") h += 12;
-  return h * 60 + (+m[2]);
+  var m=String(t).trim().toLowerCase().match(/^(\d{1,2}):(\d{2})\s*([ap])/);
+  if(!m) return null;
+  var h=+m[1]%12; if(m[3]==="p") h+=12;
+  return h*60+(+m[2]);
+}
+function fromMin(n){
+  n=((n%1440)+1440)%1440;
+  var h=Math.floor(n/60), m=n%60, ap=h<12?"a":"p", hh=h%12; if(!hh) hh=12;
+  return hh+":"+(m<10?"0":"")+m+ap;
 }
 function fmtDur(n){
-  if (n == null) return "\u2014";
-  var h = Math.floor(n/60), m = n%60;
-  if (!h) return m + "m";
-  return h + "h " + (m<10 ? "0" : "") + m + "m";
+  if(n==null) return "\u2014";
+  var h=Math.floor(n/60), m=n%60;
+  return h?h+"h "+(m<10?"0":"")+m+"m":m+"m";
 }
 function durMins(legs){
-  if (!legs || !legs.length) return null;
-  var f = legs[0], l = legs[legs.length-1];
-  var d = toMin(f.dep), a = toMin(l.arr);
-  if (d == null || a == null) return null;
-  var oD = TZ[f.from] === undefined ? -4 : TZ[f.from];
-  var oA = TZ[l.to]   === undefined ? -4 : TZ[l.to];
-  var uD = d - oD*60, uA = a - oA*60;
-  while (uA < uD) uA += 1440;
-  return uA - uD;
+  if(!legs||!legs.length) return null;
+  var f=legs[0], l=legs[legs.length-1], d=toMin(f.dep), a=toMin(l.arr);
+  if(d==null||a==null) return null;
+  var oD=TZ[f.from]===undefined?-4:TZ[f.from], oA=TZ[l.to]===undefined?-4:TZ[l.to];
+  var uD=d-oD*60, uA=a-oA*60;
+  while(uA<uD) uA+=1440;
+  return uA-uD;
 }
-function layovers(legs){
-  var out = [];
-  for (var i = 1; i < legs.length; i++){
-    var arr = toMin(legs[i-1].arr), dep = toMin(legs[i].dep);
-    if (arr == null || dep == null) continue;
-    var gap = dep - arr; if (gap < 0) gap += 1440;
-    var c = legs[i].from;
-    out.push(fmtDur(gap) + " in " + (CITY[c] || c));
+function money(n){ return "$"+Math.round(n).toLocaleString("en-US"); }
+
+/* Which ferries can you still catch after landing at `arr`? */
+function ferriesAfter(arrMin){
+  var f=CROSS.ferrySchedule, buf=f.bufferMins;
+  return f.outbound.departures.map(toMin).filter(function(d){ return d>=arrMin+buf; });
+}
+function sevFor(alts){ return alts>=2?"room":alts===1?"tight":"none"; }
+function worseOf(a,b){ return RANK[a]>=RANK[b]?a:b; }
+
+/* Build the three paths for every home airport out of the real data. */
+function buildPaths(){
+  var ferryLast=Math.max.apply(null,CROSS.ferrySchedule.outbound.departures.map(toMin));
+  var buf=CROSS.ferrySchedule.bufferMins, cross=CROSS.ferrySchedule.outbound.crossingMins;
+
+  function itinsFor(dep, island, mode){
+    var rows=TRIPS.filter(function(t){ return t.home===dep && t.island===island; })
+      .map(function(t){
+        var legs=t.out, last=legs[legs.length-1];
+        return { arrMin:toMin(last.arr), arr:last.arr, price:t.price, airline:t.airline,
+                 label:last.flight+" via "+(CITY[last.from]||last.from), dur:durMins(legs) };
+      });
+    if(mode==="ferry") rows=rows.filter(function(r){ return r.arrMin+buf<=ferryLast; });
+    /* Several fares can share one outbound. Recovery is about the flight, not the
+       ticket, so collapse to unique departures and keep the cheapest fare. */
+    var seen={};
+    rows = rows.filter(function(r){
+      var k=r.arr+"|"+r.label;
+      if(seen[k]){ if(r.price<seen[k].price) seen[k].price=r.price; return false; }
+      seen[k]=r; return true;
+    });
+    rows.sort(function(a,b){ return a.arrMin-b.arrMin; });
+
+    return rows.map(function(r){
+      /* flights still departing after this one, same path */
+      var later=rows.filter(function(x){ return x.arrMin>r.arrMin; }).length;
+      var fSev=sevFor(later);
+      var legsOut=[{name:"Flights",solid:1,hollow:later,
+                    note:later?later+" more that day":"only one that day"}];
+      var sev=fSev, conseq;
+
+      if(mode==="eis"){
+        legsOut.push({name:"Crossings",solid:0,hollow:0,note:"none needed",off:true});
+        conseq=later
+          ? "Miss it and there's a later flight the same day \u2014 you still make the boat."
+          : "No later flight exists. A delay upstream costs you the first night aboard.";
+      } else if(mode==="ferry"){
+        var after=ferriesAfter(r.arrMin), spare=Math.max(0,after.length-1);
+        sev=worseOf(fSev,sevFor(spare));
+        legsOut.push({name:"Crossings",solid:1,hollow:spare,
+          note:spare?spare+" more, last at "+fromMin(ferryLast):"last ferry of the day"});
+        conseq=spare
+          ? "Catch the "+fromMin(after[0])+" with "+spare+" sailing"+(spare>1?"s":"")+" behind it."
+          : "The "+fromMin(after[0])+" is the last boat. Miss it and it's a charter or a hotel.";
+      } else {
+        legsOut.push({name:"Crossings",solid:1,hollow:2,note:"runs on demand"});
+        sev=fSev==="none"?"tight":fSev;
+        conseq=later
+          ? "A later flight and a boat that waits for you \u2014 the most forgiving way in."
+          : "Only one flight, but the crossing is booked to your arrival, not a timetable.";
+      }
+      r.sev=sev; r.legs=legsOut; r.consequence=conseq;
+      return r;
+    });
   }
-  return out;
+
+  function costRows(mode, medianFare){
+    var rows=[["Airfare, both of you","round trip, lowest listed fare",
+               medianFare==null?"TBD":money(medianFare*2)]];
+    var src=mode==="eis"?CROSS.eis:mode==="ferry"?CROSS.ferry:CROSS.watertaxi;
+    src.rows.forEach(function(x){
+      rows.push([x.label,x.sub,x.amount==null?"TBD":money(x.amount)]);
+    });
+    rows.push(["Boat, deposit + balance","per couple, fixed",
+               "$"+CROSS.boat.perCouple.toLocaleString("en-US",{minimumFractionDigits:2})]);
+    rows.push(["Crew tip","20%, cash on board",
+               "$"+CROSS.boat.tip.toLocaleString("en-US",{minimumFractionDigits:2})]);
+    rows.push(["Jun 9 lodging","open decision","TBD"]);
+    return rows;
+  }
+
+  var defs=[
+    ["eis","PATH A \u00b7 NO BOAT","Fly into EIS",AQUA,"EIS","eis"],
+    ["ferry","PATH B \u00b7 PUBLIC FERRY","STT, then the ferry",AMBER,"STT","ferry"],
+    ["taxi","PATH C \u00b7 PRIVATE CROSSING","STT, then a water taxi",PINK,"STT","taxi"]
+  ];
+  PATHS={};
+  defs.forEach(function(d){
+    var key=d[0], island=d[4], mode=d[5];
+    var p={kicker:d[1],name:d[2],accent:d[3],from:{},itins:{},rows:{},
+      goneWhy:function(c){
+        return island==="EIS"
+          ? "Tortola's only US nonstop is from Miami, and there's no routing from "+c+" that connects to it on Jun 9."
+          : "No routing from "+c+" on Jun 9.";
+      }};
+    DEPS.forEach(function(dp){
+      var dep=dp[0], its=itinsFor(dep,island,mode);
+      if(!its.length) return;
+      var cheapest=its.reduce(function(a,b){ return b.price<a.price?b:a; });
+      var earliest=its[0];
+      var aboard, doorMin;
+      if(mode==="eis"){
+        aboard=fromMin(earliest.arrMin+25); doorMin=earliest.dur+25;
+      } else if(mode==="ferry"){
+        var f=ferriesAfter(earliest.arrMin)[0];
+        aboard=fromMin(f+cross+15); doorMin=earliest.dur+(f-earliest.arrMin)+cross+15;
+      } else {
+        aboard=fromMin(earliest.arrMin+30+45+10); doorMin=earliest.dur+85;
+      }
+      var legs=TRIPS.filter(function(t){ return t.home===dep&&t.island===island; })[0].out;
+      var via=legs.map(function(l){ return l.from; }).concat(legs[legs.length-1].to);
+      p.from[dep]={ route:via.join(" \u2192 ")+(island==="STT"?" \u2192 Road Town":" \u00b7 Tortola"),
+                    total:"TBD", dur:fmtDur(doorMin), aboard:aboard, fare:cheapest.price };
+      p.itins[dep]=its;
+      p.rows[dep]=costRows(mode,cheapest.price);
+    });
+    PATHS[key]=p;
+  });
 }
 
-var state = { dir: "out", home: "MSY", isl: "EIS" };
+function el(tag, cls, txt){ var n=document.createElement(tag); if(cls) n.className=cls; if(txt!=null) n.textContent=txt; return n; }
 
-function el(tag, cls, txt){ var n = document.createElement(tag); if (cls) n.className = cls; if (txt != null) n.textContent = txt; return n; }
+/* solid + hollow + dashed, capped at 5; a leg that doesn't apply gets ONE grey hollow pip */
+function pipRow(solid, hollow, dashed, color){
+  var out=[], i;
+  for(i=0;i<solid;i++)  out.push({bg:color, line:color, style:"solid"});
+  for(i=0;i<hollow;i++) out.push({bg:"transparent", line:fade(color,.5), style:"solid"});
+  for(i=0;i<dashed;i++) out.push({bg:"transparent", line:fade(AQUA,.75), style:"dashed"});
+  if(!out.length) out.push({bg:"transparent", line:"rgba(255,255,255,.22)", style:"solid"});
+  return out.slice(0,5);
+}
+function pipEls(list){
+  var box = el("div","pips");
+  list.forEach(function(p){
+    var d = el("div","pip");
+    d.style.background = p.bg;
+    d.style.border = "1px " + p.style + " " + p.line;
+    box.appendChild(d);
+  });
+  return box;
+}
+function legRow(name, pips, note, ink){
+  var row = el("div","leg");
+  row.appendChild(el("div","ln",name));
+  row.appendChild(pipEls(pips));
+  var n = el("div","note",note);
+  if(ink) n.style.color = ink;
+  row.appendChild(n);
+  return row;
+}
 
 function render(){
-  var out = state.dir === "out", eis = state.isl === "EIS";
-
-  document.getElementById("title").textContent = out ? "GETTING TO ROAD TOWN" : "GETTING HOME";
-  document.getElementById("segOut").classList.toggle("on", out);
-  document.getElementById("segRet").classList.toggle("on", !out);
-  document.getElementById("homeLabel").textContent = out ? "FLYING OUT OF" : "FLYING HOME TO";
-  document.getElementById("islandLabel").textContent = out ? "LANDING AT" : "LEAVING FROM";
-
-  /* departure chips */
-  var d = document.getElementById("deps"); d.innerHTML = "";
-  DEPS.forEach(function(x){
-    var b = el("button", "chip" + (x[0] === state.home ? " on" : ""));
-    b.appendChild(el("div", "code", x[0]));
-    b.appendChild(el("div", "city", x[1]));
-    b.onclick = function(){ state.home = x[0]; render(); };
-    d.appendChild(b);
+  /* home-airport chips */
+  var dw = document.getElementById("deps"); dw.innerHTML="";
+  DEPS.forEach(function(d){
+    var b = el("button","chip" + (d[0]===state.dep ? " on" : ""));
+    b.appendChild(el("div","code",d[0]));
+    b.appendChild(el("div","city",d[1]));
+    b.onclick = function(){ state.dep = d[0]; render(); };
+    dw.appendChild(b);
   });
 
-  /* island cards */
-  var ISL = [
-    ["EIS","Tortola", out ? "Land on the island \u2014 25 min taxi, no boat." : "Leave straight from Tortola. No boat."],
-    ["STT","St. Thomas", out ? "Cheaper fares, then a crossing to Tortola." : "Ferry over the night before or at dawn."]
-  ];
-  var i = document.getElementById("isls"); i.innerHTML = "";
-  ISL.forEach(function(x){
-    var b = el("button", "isl" + (x[0] === state.isl ? " on" : ""));
-    b.dataset.code = x[0];
-    var top = el("div", "top");
-    top.appendChild(el("div", "code", x[0]));
-    top.appendChild(el("div", "city", x[1]));
-    b.appendChild(top);
-    b.appendChild(el("div", "blurb", x[2]));
-    b.onclick = function(){ state.isl = x[0]; render(); };
-    i.appendChild(b);
-  });
+  var city = (DEPS.filter(function(d){ return d[0]===state.dep; })[0] || DEPS[0])[1];
+  var wrap = document.getElementById("paths"); wrap.innerHTML="";
 
-  /* context line */
-  var ctx = document.getElementById("ctx");
-  ctx.className = "ctx" + (eis ? "" : " stt");
-  ctx.innerHTML = "<b>" + (out
-      ? (eis ? "No boat needed." : "Add the crossing.")
-      : (eis ? "Roll straight off the boat." : "Cross back first.")) + "</b> " + (out
-      ? (eis ? "Beef Island is a 25-minute taxi from the marina, so the fare is the whole cost of getting there."
-             : "Public ferry to Road Town runs until 3:30p (~$60 a couple). Land later and it's a private water taxi, \u2248$500.")
-      : (eis ? "Beef Island is 25 minutes from the marina \u2014 leave the boat at 8a and you're at the gate by 9."
-             : "Ferries leave Road Town 6:15a and 8:00a and take 45 min. Anything before a 1:30p flight is tight."));
+  ["eis","ferry","taxi"].forEach(function(key){
+    var p = PATHS[key], avail = p.from[state.dep];
+    var ITINS = p.itins[state.dep] || [], ROWS = p.rows[state.dep] || [];
+    var card = el("section","path");
 
-  /* itineraries */
-  var rows = TRIPS.filter(function(t){ return t.home === state.home && t.island === state.isl; })
-    .map(function(t){
-      var legs = out ? t.out : t.back;
-      return { pp:t.price, air:t.airline, note:t.note, isl:t.island, legs:legs,
-               lays: layovers(legs), durMin: durMins(legs), arrMin: toMin(legs[legs.length-1].arr) };
-    });
-  rows.sort(function(a,b){ return out ? a.pp - b.pp : a.arrMin - b.arrMin; });
-  var short = rows.slice().sort(function(a,b){ return a.durMin - b.durMin; })[0];
+    /* ---------- UNAVAILABLE ----------
+       Holds its slot and order. De-emphasis is per element — a group opacity
+       would composite the text toward the page navy and fail contrast. */
+    if(!avail){
+      var hd = el("div","phd");
+      var k = el("div","kick"), kl = el("div","kickl");
+      var dot = el("div","dot"); dot.style.background = "rgba(255,255,255,.28)";
+      var kick = el("div","kicker", p.kicker); kick.style.color = "#7ba6bd";
+      kl.appendChild(dot); kl.appendChild(kick);
+      var flag = el("div","flag out","NOT FROM " + state.dep);
+      k.appendChild(kl); k.appendChild(flag); hd.appendChild(k);
 
-  document.getElementById("listLabel").textContent = rows.length
-    ? rows.length + (rows.length === 1 ? " ITINERARY " : " ITINERARIES ") +
-      (out ? state.home + " \u2192 " + state.isl : state.isl + " \u2192 " + state.home)
-    : (out ? state.home + " \u2192 " + state.isl : state.isl + " \u2192 " + state.home);
-  document.getElementById("sortNote").textContent =
-    rows.length > 1 ? (out ? "cheapest first" : "home earliest first") : "";
+      var top = el("div","ptop"), left = el("div");
+      var nm = el("div","pname", p.name); nm.style.color = "#7ba6bd";
+      left.style.flex = "1"; left.appendChild(nm);
+      left.appendChild(el("div","proute","No routing from " + city + " on Jun 9"));
+      var right = el("div");
+      right.appendChild(el("div","ptotal na","—"));
+      right.appendChild(el("div","ptotalsub","not available"));
+      top.appendChild(left); top.appendChild(right); hd.appendChild(top);
+      card.appendChild(hd);
 
-  var wrap = document.getElementById("list"); wrap.innerHTML = "";
-
-  if (!rows.length){
-    var e = el("div", "empty");
-    e.appendChild(el("div", "ecode", "N/A"));
-    e.appendChild(el("div", "etxt",
-      "Nothing logged yet for this pairing. Options are being added as they're checked \u2014 try another airport, or ask on the trip board."));
-    wrap.appendChild(e);
-    return;
-  }
-
-  rows.forEach(function(f, idx){
-    var c = el("div", "card");
-    if (rows.length > 1){
-      var ribbon = out ? (idx === 0 ? "CHEAPEST" : f === short ? "SHORTEST DAY" : "")
-                       : (idx === 0 ? "HOME EARLIEST" : f === short ? "SHORTEST DAY" : "");
-      if (ribbon) c.appendChild(el("div", "ribbon", ribbon));
+      card.appendChild(el("p","why", p.goneWhy(city)));
+      var nx = el("div","next");
+      nx.appendChild(el("div","arrow","↓"));
+      nx.appendChild(el("p",null,"Your options from " + city + " are Path B and Path C."));
+      card.appendChild(nx);
+      wrap.appendChild(card);
+      return;
     }
 
-    var top = el("div", "ctop"), times = el("div", "times");
-    var a = el("div"); a.appendChild(el("div", "t", f.legs[0].dep)); a.appendChild(el("div", "apt", f.legs[0].from));
-    var m = el("div", "mid"); m.appendChild(el("div", null, fmtDur(f.durMin))); m.appendChild(el("div", "arrow", "\u2192"));
-    var z = el("div"); z.appendChild(el("div", "t", f.legs[f.legs.length-1].arr)); z.appendChild(el("div", "apt", f.legs[f.legs.length-1].to));
-    times.appendChild(a); times.appendChild(m); times.appendChild(z);
-    var p = el("div");
-    p.appendChild(el("div", "price", "$" + f.pp.toLocaleString("en-US")));
-    p.appendChild(el("div", "psub", out ? "each, round trip" : "same round trip"));
-    top.appendChild(times); top.appendChild(p);
-    c.appendChild(top);
+    /* ---------- AVAILABLE ---------- */
+    var open = state.open === key;
+    if(open){ card.classList.add("open"); card.style.borderColor = fade(p.accent,.38); }
 
-    var route = el("div", "route"), dots = el("div", "dots");
-    f.legs.forEach(function(){ var s = el("div", "seg2"); s.appendChild(el("div", "dot")); s.appendChild(el("div", "bar")); dots.appendChild(s); });
-    dots.appendChild(el("div", "dot end " + (out ? (f.isl === "EIS" ? "" : "stt") : "ret")));
-    route.appendChild(dots);
-    var nodes = el("div", "nodes");
-    var pts = [[f.legs[0].from, f.legs[0].dep]];
-    f.legs.forEach(function(l){ pts.push([l.to, l.arr]); });
-    pts.forEach(function(pt, k){
-      var n = el("div"); n.style.textAlign = k === 0 ? "left" : k === pts.length-1 ? "right" : "center";
-      n.appendChild(el("div", "n", pt[0])); n.appendChild(el("div", "nt", pt[1])); nodes.appendChild(n);
+    var worst = ITINS.reduce(function(a,b){ return RANK[b.sev] > RANK[a.sev] ? b : a; });
+    var best  = ITINS.reduce(function(a,b){ return RANK[b.sev] < RANK[a.sev] ? b : a; });
+    var varies = worst.sev !== best.sev;
+    var sev = SEV[worst.sev];
+
+    var hd2 = el("div","phd");
+    var k2 = el("div","kick"), kl2 = el("div","kickl");
+    var dot2 = el("div","dot"); dot2.style.background = p.accent;
+    var kick2 = el("div","kicker", p.kicker); kick2.style.color = p.accent;
+    kl2.appendChild(dot2); kl2.appendChild(kick2); k2.appendChild(kl2); hd2.appendChild(k2);
+
+    var top2 = el("div","ptop"), l2 = el("div");
+    l2.style.flex = "1";
+    l2.appendChild(el("div","pname", p.name));
+    l2.appendChild(el("div","proute", avail.route));
+    var r2 = el("div");
+    var tEl = el("div","ptotal" + (avail.total==="TBD" ? " tbd" : ""), avail.total);
+    r2.appendChild(tEl);
+    r2.appendChild(el("div","ptotalsub", avail.total==="TBD" ? "airfare " + money(avail.fare*2) + " \u00b7 rest pending" : "all-in, per couple"));
+    top2.appendChild(l2); top2.appendChild(r2); hd2.appendChild(top2);
+    card.appendChild(hd2);
+
+    var meta = el("div","meta");
+    [["DOOR TO DOCK", avail.dur],["ABOARD BY", avail.aboard]].forEach(function(m){
+      var d = el("div"); d.appendChild(el("div","mk",m[0])); d.appendChild(el("div","mv",m[1])); meta.appendChild(d);
     });
-    route.appendChild(nodes);
-    c.appendChild(route);
+    card.appendChild(meta);
 
-    var lays = el("div", "lays");
-    f.lays.forEach(function(l){ lays.appendChild(el("div", "lay", l)); });
-    c.appendChild(lays);
+    /* path-level RANGE strip */
+    var risk = el("div","risk");
+    var rh = el("div","riskhd");
+    rh.appendChild(el("div","k","IF SOMETHING SLIPS"));
+    var chip = el("div","flag", varies ? "VARIES — WORST IS " + (worst.sev==="none" ? "NONE" : "TIGHT") : sev.label);
+    chip.style.background = sev.color; chip.style.color = sev.ink;   /* solid fill + its own ink */
+    rh.appendChild(chip); risk.appendChild(rh);
 
-    if (f.note) c.appendChild(el("div", "cnote", f.note));
+    worst.legs.forEach(function(g, i){
+      var bl = best.legs[i];
+      var extra = Math.max(0, (bl.solid + bl.hollow) - (g.solid + g.hollow));
+      var lo = Math.max(0, g.solid + g.hollow - 1), hi = lo + extra;
+      var pips = g.off ? pipRow(0,0,0,sev.color) : pipRow(g.solid, g.hollow, varies ? extra : 0, sev.color);
+      var note = g.off ? "none needed" : (varies && extra ? lo + "–" + hi + ", by arrival" : g.note);
+      var ink = (!g.off && lo === 0 && worst.sev === "none") ? "#ff8fb6" : null;
+      risk.appendChild(legRow(g.name, pips, note, ink));
+    });
 
-    var cf = el("div", "cfoot");
-    cf.appendChild(el("div", null, f.air));
-    cf.appendChild(el("div", "fns", f.legs.map(function(l){ return l.flight; }).join(" \u00b7 ")));
-    c.appendChild(cf);
-    wrap.appendChild(c);
+    var cq = el("div","conseq", varies
+      ? "Land at " + best.arr + " and you have room. Land at " + worst.arr + " and you don't — pick the flight before you price the path."
+      : worst.consequence);
+    cq.style.background = fade(sev.color,.14);
+    risk.appendChild(cq);
+    card.appendChild(risk);
+
+    var tg = el("button","toggle");
+    tg.appendChild(el("span",null, open ? "Hide flights and costs" : "See flights and costs"));
+    tg.appendChild(el("span","caret","▾"));
+    tg.setAttribute("aria-expanded", String(open));
+    tg.onclick = function(){ state.open = open ? null : key; render(); };
+    card.appendChild(tg);
+
+    var drawer = el("div","drawer");
+    drawer.hidden = !open;
+
+    drawer.appendChild(el("div","dhd","PICK A FLIGHT — RECOVERY CHANGES"));
+    ITINS.forEach(function(it, i){
+      var on = state.pick[key] === i, s = SEV[it.sev];
+      var b = el("button","itin" + (on ? " on" : ""));
+      var itop = el("div","itop"), lft = el("div");
+      lft.style.display="flex"; lft.style.alignItems="baseline"; lft.style.gap="8px";
+      lft.appendChild(el("div","iarr", it.arr));
+      lft.appendChild(el("div","ilab", it.label));
+      var vf = el("div","flag", s.label);
+      vf.style.background = s.color; vf.style.color = s.ink;
+      itop.appendChild(lft); itop.appendChild(vf); b.appendChild(itop);
+
+      var body = el("div","ibody");
+      body.hidden = !on;
+      it.legs.forEach(function(g){
+        var pips = g.off ? pipRow(0,0,0,s.color) : pipRow(g.solid, g.hollow, 0, s.color);
+        var ink = (!g.off && g.hollow === 0 && it.sev === "none") ? "#ff8fb6" : null;
+        body.appendChild(legRow(g.name, pips, g.note, ink));
+      });
+      var ic = el("div","conseq", it.consequence);
+      ic.style.background = fade(s.color,.14);
+      body.appendChild(ic);
+      b.appendChild(body);
+      b.onclick = function(){ state.pick[key] = i; render(); };
+      drawer.appendChild(b);
+    });
+
+    drawer.appendChild(el("div","dhd","WHAT IT COSTS"));
+    ROWS.forEach(function(row){
+      var tbd = row[2] === "TBD", na = row[2] === "—";
+      var r = el("div","r"), left3 = el("div");
+      left3.appendChild(el("div","rl" + (na ? " na" : ""), row[0]));
+      left3.appendChild(el("div","rs", row[1]));
+      r.appendChild(left3);
+      r.appendChild(el("div","amt" + (tbd ? " tbd" : na ? " na" : ""), row[2]));
+      drawer.appendChild(r);
+    });
+    var tot = el("div","rtotal");
+    tot.appendChild(el("div","rl","Total"));
+    tot.appendChild(el("div","amt" + (avail.total==="TBD" ? " tbd" : ""), avail.total));
+    drawer.appendChild(tot);
+
+    var ck = el("div","checked");
+    ck.appendChild(el("i"));
+    ck.appendChild(el("span",null, CROSS.status==="unverified" ? "Flights checked 2 Aug 2026 \u00b7 crossing costs not yet verified" : "Checked " + CROSS.updated));
+    drawer.appendChild(ck);
+
+    card.appendChild(drawer);
+    wrap.appendChild(card);
   });
 }
 
-/* ABOUT panels — inline accordion, one open at a time */
+/* CHAT badge — n>0 numbered (caps at 9+), -1 dot only, 0 hidden */
+window.setChatBadge = function(n){
+  var b = document.getElementById("chatBadge");
+  if(n === 0){ b.hidden = true; return; }
+  b.hidden = false;
+  if(n === -1){ b.classList.add("dot"); b.textContent=""; }
+  else { b.classList.remove("dot"); b.textContent = n > 9 ? "9+" : String(n); }
+};
+
 (function(){
-  var pairs = [["aboutEis","panelEis"],["aboutStt","panelStt"]];
-  pairs.forEach(function(p, i){
-    document.getElementById(p[0]).onclick = function(){
-      var openNow = document.getElementById(p[1]).hidden;
-      pairs.forEach(function(q, j){
-        var on = (i === j) && openNow;
-        document.getElementById(q[1]).hidden = !on;
-        document.getElementById(q[0]).classList.toggle("on", on);
-      });
-    };
+  Promise.all([
+    fetch("flights.json?v="+Date.now()).then(function(r){ return r.json(); }),
+    fetch("crossings.json?v="+Date.now()).then(function(r){ return r.json(); })
+  ]).then(function(a){
+    TRIPS = a[0].trips || [];
+    if (a[0].homes && a[0].homes.length) DEPS = a[0].homes;
+    if (a[0].tz) for (var k in a[0].tz) TZ[k] = a[0].tz[k];
+    CROSS = a[1];
+    var n = document.getElementById("notice");
+    if (CROSS.notice) { n.textContent = CROSS.notice; n.hidden = false; }
+    buildPaths();
+    render();
+  }).catch(function(){
+    document.getElementById("paths").innerHTML =
+      '<p style="margin:0 16px;color:#7ba6bd;font-size:14px">Couldn\u2019t load the trip data. Pull down to refresh.</p>';
   });
-})();
-
-document.getElementById("segOut").onclick = function(){ state.dir = "out"; render(); };
-document.getElementById("segRet").onclick = function(){ state.dir = "ret"; render(); };
-
-/* ---- boot: load the data file, then draw ----------------------------- */
-(function(){
-  var note = document.getElementById("note");
-  fetch("flights.json?v=" + Date.now())
-    .then(function(r){ if (!r.ok) throw new Error(r.status); return r.json(); })
-    .then(function(j){
-      TRIPS = j.trips || [];
-      if (j.homes && j.homes.length) DEPS = j.homes;
-      if (j.outboundLabel) document.getElementById("segOut").textContent = j.outboundLabel;
-      if (j.returnLabel) document.getElementById("segRet").textContent = j.returnLabel;
-      note.textContent = j.checkedNote || "";
-      render();
-    })
-    .catch(function(){
-      note.textContent = "Couldn't load the flight list. Pull down to refresh, or check back in a minute.";
-      render();
-    });
 })();
 </script>
 </body>

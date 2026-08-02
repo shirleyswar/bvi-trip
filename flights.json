@@ -1,39 +1,1274 @@
 {
- "updated": "2026-08-01",
- "checkedNote": "Fares checked Aug 1, 2026 on aa.com. Per person, round trip, Main cabin, non-refundable. Nothing held.",
- "homes": [["MSY", "New Orleans"], ["JAN", "Jackson"], ["CHA", "Chattanooga"]],
- "outboundLabel": "OUTBOUND \u00b7 JUN 9",
- "returnLabel": "RETURN \u00b7 JUN 16",
+ "updated": "2026-08-02",
+ "checkedNote": "Lowest available fare when checked Aug 2, 2026 on Google Flights. Per person, round trip. Expect to pay more at booking — bags, seat selection and Main cabin all add cost. Nothing is held; everyone books their own.",
+ "homes": [
+  [
+   "MSY",
+   "New Orleans"
+  ],
+  [
+   "BHM",
+   "Birmingham"
+  ],
+  [
+   "JAN",
+   "Jackson"
+  ],
+  [
+   "CHA",
+   "Chattanooga"
+  ]
+ ],
+ "outboundLabel": "OUTBOUND · JUN 9",
+ "returnLabel": "RETURN · JUN 16",
  "trips": [
   {
    "home": "MSY",
    "island": "EIS",
    "airline": "American",
-   "price": 833,
-   "note": "MIA\u2013EIS is an Embraer 175 operated by Envoy Air as American Eagle.",
+   "price": 713,
+   "note": "Lands 1:42p — 25-minute taxi to the marina, no boat. MIA–EIS is an Embraer 175 flown by Envoy as American Eagle.",
    "out": [
-    {"from": "MSY", "dep": "6:00a", "to": "MIA", "arr": "9:07a", "flight": "AA 867"},
-    {"from": "MIA", "dep": "10:41a", "to": "EIS", "arr": "1:42p", "flight": "AA 4237"}
+    {
+     "from": "MSY",
+     "dep": "6:00a",
+     "to": "MIA",
+     "arr": "9:07a",
+     "flight": "AA 867"
+    },
+    {
+     "from": "MIA",
+     "dep": "10:41a",
+     "to": "EIS",
+     "arr": "1:42p",
+     "flight": "AA 4237"
+    }
    ],
    "back": [
-    {"from": "EIS", "dep": "2:22p", "to": "MIA", "arr": "5:24p", "flight": "AA 4237"},
-    {"from": "MIA", "dep": "8:13p", "to": "MSY", "arr": "9:20p", "flight": "AA 3278"}
+    {
+     "from": "EIS",
+     "dep": "2:22p",
+     "to": "MIA",
+     "arr": "5:24p",
+     "flight": "AA 4237"
+    },
+    {
+     "from": "MIA",
+     "dep": "8:13p",
+     "to": "MSY",
+     "arr": "9:20p",
+     "flight": "AA 3278"
+    }
+   ]
+  },
+  {
+   "home": "MSY",
+   "island": "EIS",
+   "airline": "American",
+   "price": 803,
+   "note": "Later start, later everything — lands 4:32p, home 11:59p. Same two Envoy flights, one rotation behind.",
+   "out": [
+    {
+     "from": "MSY",
+     "dep": "8:00a",
+     "to": "MIA",
+     "arr": "11:07a",
+     "flight": "AA 1591"
+    },
+    {
+     "from": "MIA",
+     "dep": "1:36p",
+     "to": "EIS",
+     "arr": "4:32p",
+     "flight": "AA 4313"
+    }
+   ],
+   "back": [
+    {
+     "from": "EIS",
+     "dep": "5:12p",
+     "to": "MIA",
+     "arr": "8:10p",
+     "flight": "AA 4313"
+    },
+    {
+     "from": "MIA",
+     "dep": "10:55p",
+     "to": "MSY",
+     "arr": "11:59p",
+     "flight": "AA 2355"
+    }
    ]
   },
   {
    "home": "MSY",
    "island": "STT",
    "airline": "American",
-   "price": 855,
-   "note": "48-minute connection in Miami on the way out \u2014 tight for MIA.",
+   "price": 550,
+   "note": "Lands 12:44p — comfortable for the 2:00p ferry, with the 4:00p as backup. The 48-minute Miami connection is tight. Home at 11:59p.",
    "out": [
-    {"from": "MSY", "dep": "6:00a", "to": "MIA", "arr": "9:07a", "flight": "AA 867"},
-    {"from": "MIA", "dep": "9:55a", "to": "STT", "arr": "12:44p", "flight": "AA 2962"}
+    {
+     "from": "MSY",
+     "dep": "6:00a",
+     "to": "MIA",
+     "arr": "9:07a",
+     "flight": "AA 867"
+    },
+    {
+     "from": "MIA",
+     "dep": "9:55a",
+     "to": "STT",
+     "arr": "12:44p",
+     "flight": "AA 2962"
+    }
    ],
    "back": [
-    {"from": "STT", "dep": "11:43a", "to": "CLT", "arr": "3:48p", "flight": "AA 1466"},
-    {"from": "CLT", "dep": "4:30p", "to": "MSY", "arr": "5:32p", "flight": "AA 1943"}
+    {
+     "from": "STT",
+     "dep": "4:57p",
+     "to": "CLT",
+     "arr": "9:12p",
+     "flight": "AA 2111"
+    },
+    {
+     "from": "CLT",
+     "dep": "11:00p",
+     "to": "MSY",
+     "arr": "11:59p",
+     "flight": "AA 3321"
+    }
+   ]
+  },
+  {
+   "home": "MSY",
+   "island": "STT",
+   "airline": "American",
+   "price": 550,
+   "note": "Same fare as the 6:00a with two more hours of sleep — but lands 3:58p, leaving only the 4:00p and 5:30p ferries.",
+   "out": [
+    {
+     "from": "MSY",
+     "dep": "8:00a",
+     "to": "MIA",
+     "arr": "11:07a",
+     "flight": "AA 1591"
+    },
+    {
+     "from": "MIA",
+     "dep": "1:11p",
+     "to": "STT",
+     "arr": "3:58p",
+     "flight": "AA 2969"
+    }
+   ],
+   "back": [
+    {
+     "from": "STT",
+     "dep": "4:57p",
+     "to": "CLT",
+     "arr": "9:12p",
+     "flight": "AA 2111"
+    },
+    {
+     "from": "CLT",
+     "dep": "11:00p",
+     "to": "MSY",
+     "arr": "11:59p",
+     "flight": "AA 3321"
+    }
+   ]
+  },
+  {
+   "home": "MSY",
+   "island": "STT",
+   "airline": "United",
+   "price": 670,
+   "note": "5:00a departure and a 3h 29m sit in Houston. Bag icons show none included — check the fare rules. Return leaves 1:22p, so the 10:00a ferry works.",
+   "out": [
+    {
+     "from": "MSY",
+     "dep": "5:00a",
+     "to": "IAH",
+     "arr": "6:23a",
+     "flight": "UA 2744"
+    },
+    {
+     "from": "IAH",
+     "dep": "9:52a",
+     "to": "STT",
+     "arr": "3:43p",
+     "flight": "UA 1908"
+    }
+   ],
+   "back": [
+    {
+     "from": "STT",
+     "dep": "1:22p",
+     "to": "IAH",
+     "arr": "5:25p",
+     "flight": "UA 2208"
+    },
+    {
+     "from": "IAH",
+     "dep": "8:00p",
+     "to": "MSY",
+     "arr": "9:15p",
+     "flight": "UA 2161"
+    }
+   ]
+  },
+  {
+   "home": "MSY",
+   "island": "STT",
+   "airline": "United",
+   "price": 689,
+   "note": "$19 more than the other United and home 85 minutes earlier. Google flags the last leg as often delayed 30+ min.",
+   "out": [
+    {
+     "from": "MSY",
+     "dep": "5:00a",
+     "to": "IAH",
+     "arr": "6:23a",
+     "flight": "UA 2744"
+    },
+    {
+     "from": "IAH",
+     "dep": "9:52a",
+     "to": "STT",
+     "arr": "3:43p",
+     "flight": "UA 1908"
+    }
+   ],
+   "back": [
+    {
+     "from": "STT",
+     "dep": "1:22p",
+     "to": "IAH",
+     "arr": "5:25p",
+     "flight": "UA 2208"
+    },
+    {
+     "from": "IAH",
+     "dep": "6:35p",
+     "to": "MSY",
+     "arr": "7:50p",
+     "flight": "UA 2140"
+    }
+   ]
+  },
+  {
+   "home": "MSY",
+   "island": "STT",
+   "airline": "United",
+   "price": 728,
+   "note": "Two more hours of sleep than the 5:00a and a much shorter Houston connection — same 3:43p arrival. Return pairing not yet re-checked.",
+   "out": [
+    {
+     "from": "MSY",
+     "dep": "7:00a",
+     "to": "IAH",
+     "arr": "8:27a",
+     "flight": "UA 2124"
+    },
+    {
+     "from": "IAH",
+     "dep": "9:52a",
+     "to": "STT",
+     "arr": "3:43p",
+     "flight": "UA 1908"
+    }
+   ],
+   "back": [
+    {
+     "from": "STT",
+     "dep": "1:22p",
+     "to": "IAH",
+     "arr": "5:25p",
+     "flight": "UA 2208"
+    },
+    {
+     "from": "IAH",
+     "dep": "8:00p",
+     "to": "MSY",
+     "arr": "9:15p",
+     "flight": "UA 2161"
+    }
+   ]
+  },
+  {
+   "home": "MSY",
+   "island": "STT",
+   "airline": "Delta",
+   "price": 794,
+   "note": "The most civilized version — lands 1:55p, home 6:50p, no midnight arrival and no dawn ferry at either end. Priciest of the bunch.",
+   "out": [
+    {
+     "from": "MSY",
+     "dep": "6:30a",
+     "to": "ATL",
+     "arr": "9:00a",
+     "flight": "DL 1534"
+    },
+    {
+     "from": "ATL",
+     "dep": "10:10a",
+     "to": "STT",
+     "arr": "1:55p",
+     "flight": "DL 1902"
+    }
+   ],
+   "back": [
+    {
+     "from": "STT",
+     "dep": "1:25p",
+     "to": "ATL",
+     "arr": "5:30p",
+     "flight": "DL 1823"
+    },
+    {
+     "from": "ATL",
+     "dep": "6:15p",
+     "to": "MSY",
+     "arr": "6:50p",
+     "flight": "DL 1953"
+    }
+   ]
+  },
+  {
+   "home": "MSY",
+   "island": "STT",
+   "airline": "Delta",
+   "price": 794,
+   "note": "Same fare as the 6:30a Delta, an hour later at both ends. Lands 3:25p — still clears the 4:00p ferry.",
+   "out": [
+    {
+     "from": "MSY",
+     "dep": "7:30a",
+     "to": "ATL",
+     "arr": "10:01a",
+     "flight": "DL 2522"
+    },
+    {
+     "from": "ATL",
+     "dep": "11:40a",
+     "to": "STT",
+     "arr": "3:25p",
+     "flight": "DL 1883"
+    }
+   ],
+   "back": [
+    {
+     "from": "STT",
+     "dep": "3:05p",
+     "to": "ATL",
+     "arr": "7:10p",
+     "flight": "DL 1902"
+    },
+    {
+     "from": "ATL",
+     "dep": "8:05p",
+     "to": "MSY",
+     "arr": "8:42p",
+     "flight": "DL 1450"
+    }
+   ]
+  },
+  {
+   "home": "BHM",
+   "island": "STT",
+   "airline": "American",
+   "price": 561,
+   "note": "Cheapest of the Birmingham options and lands 1:47p — ahead of the 4:00p ferry with room. Home at 11:27p; Google flags that last leg as often delayed.",
+   "out": [
+    {
+     "from": "BHM",
+     "dep": "5:00a",
+     "to": "CLT",
+     "arr": "7:32a",
+     "flight": "AA 3269"
+    },
+    {
+     "from": "CLT",
+     "dep": "9:57a",
+     "to": "STT",
+     "arr": "1:47p",
+     "flight": "AA 2432"
+    }
+   ],
+   "back": [
+    {
+     "from": "STT",
+     "dep": "4:57p",
+     "to": "CLT",
+     "arr": "9:12p",
+     "flight": "AA 2111"
+    },
+    {
+     "from": "CLT",
+     "dep": "10:56p",
+     "to": "BHM",
+     "arr": "11:27p",
+     "flight": "AA 362"
+    }
+   ]
+  },
+  {
+   "home": "BHM",
+   "island": "STT",
+   "airline": "American",
+   "price": 726,
+   "note": "Same outbound, earlier return — home by 6:10p instead of 11:27p. But the 11:43a departure means the 7:30a ferry off Tortola.",
+   "out": [
+    {
+     "from": "BHM",
+     "dep": "5:00a",
+     "to": "CLT",
+     "arr": "7:32a",
+     "flight": "AA 3269"
+    },
+    {
+     "from": "CLT",
+     "dep": "9:57a",
+     "to": "STT",
+     "arr": "1:47p",
+     "flight": "AA 2432"
+    }
+   ],
+   "back": [
+    {
+     "from": "STT",
+     "dep": "11:43a",
+     "to": "CLT",
+     "arr": "3:48p",
+     "flight": "AA 1466"
+    },
+    {
+     "from": "CLT",
+     "dep": "5:32p",
+     "to": "BHM",
+     "arr": "6:10p",
+     "flight": "AA 5104"
+    }
+   ]
+  },
+  {
+   "home": "BHM",
+   "island": "STT",
+   "airline": "American",
+   "price": 780,
+   "note": "Routes home through Dallas — a 5h 47m leg and a 56-minute connection. Home 10:07p.",
+   "out": [
+    {
+     "from": "BHM",
+     "dep": "5:00a",
+     "to": "CLT",
+     "arr": "7:32a",
+     "flight": "AA 3269"
+    },
+    {
+     "from": "CLT",
+     "dep": "9:57a",
+     "to": "STT",
+     "arr": "1:47p",
+     "flight": "AA 2432"
+    }
+   ],
+   "back": [
+    {
+     "from": "STT",
+     "dep": "2:27p",
+     "to": "DFW",
+     "arr": "7:14p",
+     "flight": "AA 1690"
+    },
+    {
+     "from": "DFW",
+     "dep": "8:10p",
+     "to": "BHM",
+     "arr": "10:07p",
+     "flight": "AA 3650"
+    }
+   ]
+  },
+  {
+   "home": "BHM",
+   "island": "STT",
+   "airline": "American",
+   "price": 620,
+   "note": "Through Dallas both directions — a 5-hour second leg for a 4:17p arrival. Return pairing not yet checked.",
+   "out": [
+    {
+     "from": "BHM",
+     "dep": "6:31a",
+     "to": "DFW",
+     "arr": "8:45a",
+     "flight": "AA 1877"
+    },
+    {
+     "from": "DFW",
+     "dep": "10:15a",
+     "to": "STT",
+     "arr": "4:17p",
+     "flight": "AA 1582"
+    }
+   ],
+   "back": [
+    {
+     "from": "STT",
+     "dep": "2:27p",
+     "to": "DFW",
+     "arr": "7:14p",
+     "flight": "AA 1690"
+    },
+    {
+     "from": "DFW",
+     "dep": "8:10p",
+     "to": "BHM",
+     "arr": "10:07p",
+     "flight": "AA 3650"
+    }
+   ]
+  },
+  {
+   "home": "BHM",
+   "island": "STT",
+   "airline": "United",
+   "price": 878,
+   "note": "$317 more than the cheapest American for a later arrival, and the bag icons show none included. Return leaves 1:22p, so the 10:00a ferry works.",
+   "out": [
+    {
+     "from": "BHM",
+     "dep": "6:35a",
+     "to": "IAH",
+     "arr": "8:45a",
+     "flight": "UA 4008"
+    },
+    {
+     "from": "IAH",
+     "dep": "9:52a",
+     "to": "STT",
+     "arr": "3:43p",
+     "flight": "UA 1908"
+    }
+   ],
+   "back": [
+    {
+     "from": "STT",
+     "dep": "1:22p",
+     "to": "IAH",
+     "arr": "5:25p",
+     "flight": "UA 2208"
+    },
+    {
+     "from": "IAH",
+     "dep": "8:00p",
+     "to": "BHM",
+     "arr": "9:45p",
+     "flight": "UA 4944"
+    }
+   ]
+  },
+  {
+   "home": "BHM",
+   "island": "STT",
+   "airline": "Delta",
+   "price": 900,
+   "note": "Lands 1:55p and home 8:05p — no midnight arrival, no dawn ferry at either end.",
+   "out": [
+    {
+     "from": "BHM",
+     "dep": "6:25a",
+     "to": "ATL",
+     "arr": "8:37a",
+     "flight": "DL 1618"
+    },
+    {
+     "from": "ATL",
+     "dep": "10:10a",
+     "to": "STT",
+     "arr": "1:55p",
+     "flight": "DL 1902"
+    }
+   ],
+   "back": [
+    {
+     "from": "STT",
+     "dep": "1:25p",
+     "to": "ATL",
+     "arr": "5:30p",
+     "flight": "DL 1823"
+    },
+    {
+     "from": "ATL",
+     "dep": "8:10p",
+     "to": "BHM",
+     "arr": "8:05p",
+     "flight": "DL 3044"
+    }
+   ]
+  },
+  {
+   "home": "BHM",
+   "island": "STT",
+   "airline": "Delta",
+   "price": 1015,
+   "note": "Same flights out and the same STT departure as the $900, but a tighter Atlanta connection gets you home 6:58p — an hour earlier for $115.",
+   "out": [
+    {
+     "from": "BHM",
+     "dep": "6:25a",
+     "to": "ATL",
+     "arr": "8:37a",
+     "flight": "DL 1618"
+    },
+    {
+     "from": "ATL",
+     "dep": "10:10a",
+     "to": "STT",
+     "arr": "1:55p",
+     "flight": "DL 1902"
+    }
+   ],
+   "back": [
+    {
+     "from": "STT",
+     "dep": "1:25p",
+     "to": "ATL",
+     "arr": "5:30p",
+     "flight": "DL 1823"
+    },
+    {
+     "from": "ATL",
+     "dep": "7:05p",
+     "to": "BHM",
+     "arr": "6:58p",
+     "flight": "DL 2171"
+    }
+   ]
+  },
+  {
+   "home": "BHM",
+   "island": "STT",
+   "airline": "Delta",
+   "price": 900,
+   "note": "An hour later at both ends — lands 3:25p, still clears the 4:00p ferry. Google flags the last leg as often delayed.",
+   "out": [
+    {
+     "from": "BHM",
+     "dep": "7:30a",
+     "to": "ATL",
+     "arr": "9:43a",
+     "flight": "DL 1369"
+    },
+    {
+     "from": "ATL",
+     "dep": "11:40a",
+     "to": "STT",
+     "arr": "3:25p",
+     "flight": "DL 1883"
+    }
+   ],
+   "back": [
+    {
+     "from": "STT",
+     "dep": "3:05p",
+     "to": "ATL",
+     "arr": "7:10p",
+     "flight": "DL 1902"
+    },
+    {
+     "from": "ATL",
+     "dep": "9:35p",
+     "to": "BHM",
+     "arr": "9:29p",
+     "flight": "DL 2257"
+    }
+   ]
+  },
+  {
+   "home": "BHM",
+   "island": "EIS",
+   "airline": "American",
+   "price": 917,
+   "note": "The only Birmingham–Tortola option there is. All four legs are Envoy Embraer 175s. Lands 1:42p — 25-minute taxi, no boat — but home at 11:59p.",
+   "out": [
+    {
+     "from": "BHM",
+     "dep": "6:00a",
+     "to": "MIA",
+     "arr": "9:02a",
+     "flight": "AA 3423"
+    },
+    {
+     "from": "MIA",
+     "dep": "10:41a",
+     "to": "EIS",
+     "arr": "1:42p",
+     "flight": "AA 4237"
+    }
+   ],
+   "back": [
+    {
+     "from": "EIS",
+     "dep": "5:12p",
+     "to": "MIA",
+     "arr": "8:10p",
+     "flight": "AA 4313"
+    },
+    {
+     "from": "MIA",
+     "dep": "10:54p",
+     "to": "BHM",
+     "arr": "11:59p",
+     "flight": "AA 3631"
+    }
+   ]
+  },
+  {
+   "home": "JAN",
+   "island": "STT",
+   "airline": "American",
+   "price": 588,
+   "note": "Cheapest from Jackson and lands 1:47p — ahead of the 4:00p ferry. Home at 11:54p.",
+   "out": [
+    {
+     "from": "JAN",
+     "dep": "5:15a",
+     "to": "CLT",
+     "arr": "8:19a",
+     "flight": "AA 5238"
+    },
+    {
+     "from": "CLT",
+     "dep": "9:57a",
+     "to": "STT",
+     "arr": "1:47p",
+     "flight": "AA 2432"
+    }
+   ],
+   "back": [
+    {
+     "from": "STT",
+     "dep": "4:57p",
+     "to": "CLT",
+     "arr": "9:12p",
+     "flight": "AA 2111"
+    },
+    {
+     "from": "CLT",
+     "dep": "10:50p",
+     "to": "JAN",
+     "arr": "11:54p",
+     "flight": "AA 5592"
+    }
+   ]
+  },
+  {
+   "home": "JAN",
+   "island": "STT",
+   "airline": "American",
+   "price": 807,
+   "note": "Same outbound, home through Dallas by 9:39p instead of midnight — but a 52-minute connection, and Google flags the last leg as often delayed.",
+   "out": [
+    {
+     "from": "JAN",
+     "dep": "5:15a",
+     "to": "CLT",
+     "arr": "8:19a",
+     "flight": "AA 5238"
+    },
+    {
+     "from": "CLT",
+     "dep": "9:57a",
+     "to": "STT",
+     "arr": "1:47p",
+     "flight": "AA 2432"
+    }
+   ],
+   "back": [
+    {
+     "from": "STT",
+     "dep": "2:27p",
+     "to": "DFW",
+     "arr": "7:14p",
+     "flight": "AA 1690"
+    },
+    {
+     "from": "DFW",
+     "dep": "8:06p",
+     "to": "JAN",
+     "arr": "9:39p",
+     "flight": "AA 3868"
+    }
+   ]
+  },
+  {
+   "home": "JAN",
+   "island": "STT",
+   "airline": "American",
+   "price": 620,
+   "note": "Through Dallas outbound — a 5-hour second leg for a 4:17p arrival. Return pairing not yet checked.",
+   "out": [
+    {
+     "from": "JAN",
+     "dep": "7:00a",
+     "to": "DFW",
+     "arr": "8:50a",
+     "flight": "AA 3529"
+    },
+    {
+     "from": "DFW",
+     "dep": "10:15a",
+     "to": "STT",
+     "arr": "4:17p",
+     "flight": "AA 1582"
+    }
+   ],
+   "back": [
+    {
+     "from": "STT",
+     "dep": "2:27p",
+     "to": "DFW",
+     "arr": "7:14p",
+     "flight": "AA 1690"
+    },
+    {
+     "from": "DFW",
+     "dep": "8:06p",
+     "to": "JAN",
+     "arr": "9:39p",
+     "flight": "AA 3868"
+    }
+   ]
+  },
+  {
+   "home": "JAN",
+   "island": "STT",
+   "airline": "United",
+   "price": 794,
+   "note": "Bag icons show none included. Return leaves 1:22p so the 10:00a ferry works, but Google flags the Houston–Jackson leg as often delayed.",
+   "out": [
+    {
+     "from": "JAN",
+     "dep": "7:00a",
+     "to": "IAH",
+     "arr": "8:30a",
+     "flight": "UA 4318"
+    },
+    {
+     "from": "IAH",
+     "dep": "9:52a",
+     "to": "STT",
+     "arr": "3:43p",
+     "flight": "UA 1908"
+    }
+   ],
+   "back": [
+    {
+     "from": "STT",
+     "dep": "1:22p",
+     "to": "IAH",
+     "arr": "5:25p",
+     "flight": "UA 2208"
+    },
+    {
+     "from": "IAH",
+     "dep": "6:30p",
+     "to": "JAN",
+     "arr": "7:48p",
+     "flight": "UA 4334"
+    }
+   ]
+  },
+  {
+   "home": "JAN",
+   "island": "STT",
+   "airline": "Delta",
+   "price": 924,
+   "note": "Lands 1:55p, home 8:06p — no midnight arrival and no dawn ferry at either end. Priciest from Jackson.",
+   "out": [
+    {
+     "from": "JAN",
+     "dep": "5:45a",
+     "to": "ATL",
+     "arr": "8:10a",
+     "flight": "DL 3041"
+    },
+    {
+     "from": "ATL",
+     "dep": "10:10a",
+     "to": "STT",
+     "arr": "1:55p",
+     "flight": "DL 1902"
+    }
+   ],
+   "back": [
+    {
+     "from": "STT",
+     "dep": "1:25p",
+     "to": "ATL",
+     "arr": "5:30p",
+     "flight": "DL 1823"
+    },
+    {
+     "from": "ATL",
+     "dep": "7:43p",
+     "to": "JAN",
+     "arr": "8:06p",
+     "flight": "DL 2136"
+    }
+   ]
+  },
+  {
+   "home": "JAN",
+   "island": "STT",
+   "airline": "Delta",
+   "price": 1082,
+   "note": "Same flights out as the $924 but a 3h 49m Atlanta layover coming home puts you in at 11:23p — more money for a longer day.",
+   "out": [
+    {
+     "from": "JAN",
+     "dep": "5:45a",
+     "to": "ATL",
+     "arr": "8:10a",
+     "flight": "DL 3041"
+    },
+    {
+     "from": "ATL",
+     "dep": "10:10a",
+     "to": "STT",
+     "arr": "1:55p",
+     "flight": "DL 1902"
+    }
+   ],
+   "back": [
+    {
+     "from": "STT",
+     "dep": "3:05p",
+     "to": "ATL",
+     "arr": "7:10p",
+     "flight": "DL 1902"
+    },
+    {
+     "from": "ATL",
+     "dep": "10:59p",
+     "to": "JAN",
+     "arr": "11:23p",
+     "flight": "DL 1083"
+    }
+   ]
+  },
+  {
+   "home": "JAN",
+   "island": "STT",
+   "airline": "Delta",
+   "price": 924,
+   "note": "An hour later at both ends — lands 3:25p, still clears the 4:00p ferry.",
+   "out": [
+    {
+     "from": "JAN",
+     "dep": "7:45a",
+     "to": "ATL",
+     "arr": "10:10a",
+     "flight": "DL 3183"
+    },
+    {
+     "from": "ATL",
+     "dep": "11:40a",
+     "to": "STT",
+     "arr": "3:25p",
+     "flight": "DL 1883"
+    }
+   ],
+   "back": [
+    {
+     "from": "STT",
+     "dep": "1:25p",
+     "to": "ATL",
+     "arr": "5:30p",
+     "flight": "DL 1823"
+    },
+    {
+     "from": "ATL",
+     "dep": "7:43p",
+     "to": "JAN",
+     "arr": "8:06p",
+     "flight": "DL 2136"
+    }
+   ]
+  },
+  {
+   "home": "CHA",
+   "island": "STT",
+   "airline": "American",
+   "price": 561,
+   "note": "Lands 11:03a — the earliest arrival of any option anywhere, hours ahead of the ferry. But a 45-minute Charlotte connection out, and home at 12:19a the next day.",
+   "out": [
+    {
+     "from": "CHA",
+     "dep": "5:00a",
+     "to": "CLT",
+     "arr": "6:33a",
+     "flight": "AA 5946"
+    },
+    {
+     "from": "CLT",
+     "dep": "7:18a",
+     "to": "STT",
+     "arr": "11:03a",
+     "flight": "AA 2431"
+    }
+   ],
+   "back": [
+    {
+     "from": "STT",
+     "dep": "4:57p",
+     "to": "CLT",
+     "arr": "9:12p",
+     "flight": "AA 2111"
+    },
+    {
+     "from": "CLT",
+     "dep": "10:55p",
+     "to": "CHA",
+     "arr": "12:19a",
+     "flight": "AA 6047"
+    }
+   ]
+  },
+  {
+   "home": "CHA",
+   "island": "STT",
+   "airline": "American",
+   "price": 726,
+   "note": "Same outbound, home by 7:46p instead of after midnight — but the 11:43a departure means the 7:30a ferry off Tortola.",
+   "out": [
+    {
+     "from": "CHA",
+     "dep": "5:00a",
+     "to": "CLT",
+     "arr": "6:33a",
+     "flight": "AA 5946"
+    },
+    {
+     "from": "CLT",
+     "dep": "7:18a",
+     "to": "STT",
+     "arr": "11:03a",
+     "flight": "AA 2431"
+    }
+   ],
+   "back": [
+    {
+     "from": "STT",
+     "dep": "11:43a",
+     "to": "CLT",
+     "arr": "3:48p",
+     "flight": "AA 1466"
+    },
+    {
+     "from": "CLT",
+     "dep": "6:16p",
+     "to": "CHA",
+     "arr": "7:46p",
+     "flight": "AA 6102"
+    }
+   ]
+  },
+  {
+   "home": "CHA",
+   "island": "STT",
+   "airline": "American",
+   "price": 699,
+   "note": "Same outbound, home through Dallas at 11:00p. A 42-minute connection, and Google flags the last leg as often delayed.",
+   "out": [
+    {
+     "from": "CHA",
+     "dep": "5:00a",
+     "to": "CLT",
+     "arr": "6:33a",
+     "flight": "AA 5946"
+    },
+    {
+     "from": "CLT",
+     "dep": "7:18a",
+     "to": "STT",
+     "arr": "11:03a",
+     "flight": "AA 2431"
+    }
+   ],
+   "back": [
+    {
+     "from": "STT",
+     "dep": "2:27p",
+     "to": "DFW",
+     "arr": "7:14p",
+     "flight": "AA 1690"
+    },
+    {
+     "from": "DFW",
+     "dep": "7:56p",
+     "to": "CHA",
+     "arr": "11:00p",
+     "flight": "AA 426"
+    }
+   ]
+  },
+  {
+   "home": "CHA",
+   "island": "STT",
+   "airline": "Delta",
+   "price": 888,
+   "note": "Lands 1:55p, plenty of ferry room — but a 3h 41m Atlanta layover on the way out and home at 11:51p.",
+   "out": [
+    {
+     "from": "CHA",
+     "dep": "5:30a",
+     "to": "ATL",
+     "arr": "6:29a",
+     "flight": "DL 1044"
+    },
+    {
+     "from": "ATL",
+     "dep": "10:10a",
+     "to": "STT",
+     "arr": "1:55p",
+     "flight": "DL 1902"
+    }
+   ],
+   "back": [
+    {
+     "from": "STT",
+     "dep": "3:05p",
+     "to": "ATL",
+     "arr": "7:10p",
+     "flight": "DL 1902"
+    },
+    {
+     "from": "ATL",
+     "dep": "10:59p",
+     "to": "CHA",
+     "arr": "11:51p",
+     "flight": "DL 2085"
+    }
+   ]
+  },
+  {
+   "home": "CHA",
+   "island": "STT",
+   "airline": "Delta",
+   "price": 1114,
+   "note": "Nearly two hours more sleep than the $888 and home 10:06p instead of 11:51p — same arrival in St. Thomas, $226 more.",
+   "out": [
+    {
+     "from": "CHA",
+     "dep": "7:15a",
+     "to": "ATL",
+     "arr": "8:14a",
+     "flight": "DL 3039"
+    },
+    {
+     "from": "ATL",
+     "dep": "10:10a",
+     "to": "STT",
+     "arr": "1:55p",
+     "flight": "DL 1902"
+    }
+   ],
+   "back": [
+    {
+     "from": "STT",
+     "dep": "3:05p",
+     "to": "ATL",
+     "arr": "7:10p",
+     "flight": "DL 1902"
+    },
+    {
+     "from": "ATL",
+     "dep": "9:15p",
+     "to": "CHA",
+     "arr": "10:06p",
+     "flight": "DL 1366"
+    }
+   ]
+  },
+  {
+   "home": "CHA",
+   "island": "STT",
+   "airline": "Delta",
+   "price": 1114,
+   "note": "The latest start of any option — 9:50a out of Chattanooga, lands 3:25p, still clears the 4:00p ferry. A 52-minute Atlanta connection.",
+   "out": [
+    {
+     "from": "CHA",
+     "dep": "9:50a",
+     "to": "ATL",
+     "arr": "10:48a",
+     "flight": "DL 5309"
+    },
+    {
+     "from": "ATL",
+     "dep": "11:40a",
+     "to": "STT",
+     "arr": "3:25p",
+     "flight": "DL 1883"
+    }
+   ],
+   "back": [
+    {
+     "from": "STT",
+     "dep": "3:05p",
+     "to": "ATL",
+     "arr": "7:10p",
+     "flight": "DL 1902"
+    },
+    {
+     "from": "ATL",
+     "dep": "9:15p",
+     "to": "CHA",
+     "arr": "10:06p",
+     "flight": "DL 1366"
+    }
    ]
   }
- ]
+ ],
+ "tz": {
+  "MSY": -5,
+  "BHM": -5,
+  "JAN": -5,
+  "CHA": -4,
+  "IAH": -5,
+  "DFW": -5,
+  "ORD": -5,
+  "MSP": -5,
+  "STL": -5,
+  "BNA": -5,
+  "CLT": -4,
+  "MIA": -4,
+  "ATL": -4,
+  "FLL": -4,
+  "MCO": -4,
+  "TPA": -4,
+  "JFK": -4,
+  "LGA": -4,
+  "EWR": -4,
+  "PHL": -4,
+  "DCA": -4,
+  "IAD": -4,
+  "BOS": -4,
+  "DTW": -4,
+  "CVG": -4,
+  "RDU": -4,
+  "BWI": -4,
+  "SJU": -4,
+  "STT": -4,
+  "EIS": -4,
+  "STX": -4,
+  "SXM": -4,
+  "DEN": -6,
+  "PHX": -7,
+  "LAX": -7,
+  "SFO": -7,
+  "SEA": -7
+ }
 }
