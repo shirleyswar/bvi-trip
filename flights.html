@@ -263,6 +263,10 @@ function layovers(legs){
   return out;
 }
 
+var state = { dir: "out", home: "MSY", isl: "EIS" };
+
+function el(tag, cls, txt){ var n = document.createElement(tag); if (cls) n.className = cls; if (txt != null) n.textContent = txt; return n; }
+
 function render(){
   var out = state.dir === "out", eis = state.isl === "EIS";
 
