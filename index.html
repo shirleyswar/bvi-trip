@@ -90,6 +90,7 @@
   .phd.static{cursor:default}
   .ptop{display:flex;align-items:baseline;justify-content:space-between;gap:12px}
   .pname{font-size:18px;font-weight:700;line-height:1.25}
+  .ptag{font-size:13.5px;font-weight:600;line-height:1.35;margin-top:5px}
   .pprice{font-family:'Bricolage Grotesque',Outfit,sans-serif;font-size:25px;line-height:1;font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums;text-align:right}
   .pprice.na{font-weight:400;color:var(--mute)}
   .psub{font-size:10.5px;color:var(--mute);margin-top:4px;text-align:right}
@@ -144,9 +145,6 @@
   .next i{font-size:15px;color:var(--mute);line-height:1;font-style:normal}
   .next p{font-size:12.5px;line-height:1.45;color:var(--mute)}
   .foot{margin:13px 16px 0;padding:11px 14px;border-radius:13px;border:1px dashed rgba(255,255,255,.2);font-size:12.5px;line-height:1.5;color:var(--idle-ink)}
-
-  .notice{margin:0 16px 12px;padding:12px 14px;border:1px dashed rgba(255,77,141,.45);
-          border-radius:14px;font-size:12.5px;line-height:1.5;color:#ffb8d0}
 </style>
 </head>
 <body>
@@ -171,10 +169,9 @@
   </div>
   <div id="sheet"></div>
 
-  <p class="notice" id="notice" hidden></p>
   <div id="paths"></div>
 
-  <p class="foot">Fares are real. Crossings and lodging aren't quoted yet.</p>
+  <p class="foot" id="loadmsg">Loading flights…</p>
 </div>
 
 <script>
@@ -191,147 +188,51 @@
 --------------------------------------------------------------------------- */
 var AQUA = "#3ee6c4", AMBER = "#ffb03a", PINK = "#ff4d8d";
 var SEV = { room:{c:AQUA,ink:"#04332a"}, tight:{c:AMBER,ink:"#43290a"}, none:{c:PINK,ink:"#3d0620"} };
-var RANK = { room:0, tight:1, none:2 };
-var VERDICT = { room:"BACKUPS", tight:"TIGHT", none:"NO BACKUP" };
-var SPREAD  = { room:"WORST TIGHT", tight:"WORST TIGHT", none:"WORST NONE" };
 
-var DEPS = [["MSY","New Orleans"],["JAN","Jackson"],["BHM","Birmingham"],["CHA","Chattanooga"]];
-var TRIPS = [], CROSS = null, DEPHUB = {}, SCHED = {}, ROWS = {};
+var DEPS = [];      /* [[code,city],…]  built from flights.json.homes */
+var DEPHUB = {};    /* { MSY:{eis:true}, … }  built from what routes actually exist */
+var SCHED = {};     /* SCHED[dep][path][dir] = [[time,flightNo,via,layover,farePP,status,note],…] */
+var CHECKED = "";   /* "Checked 2 Aug 2026" — from flights.json.updated */
+var NOTICE = "";    /* crossings.json.notice */
 
-var TZ = {MSY:-5,BHM:-5,JAN:-5,IAH:-5,DFW:-5,ORD:-5,BNA:-5,CHA:-4,CLT:-4,MIA:-4,ATL:-4,
-          JFK:-4,EWR:-4,PHL:-4,DCA:-4,BOS:-4,DTW:-4,RDU:-4,SJU:-4,STT:-4,EIS:-4,DEN:-6};
-
-function toMin(t){
-  var m=String(t).trim().toLowerCase().match(/^(\d{1,2}):(\d{2})\s*([ap])/);
-  if(!m) return null;
-  var h=+m[1]%12; if(m[3]==="p") h+=12;
-  return h*60+(+m[2]);
-}
-function fromMin(n){
-  n=((n%1440)+1440)%1440;
-  var h=Math.floor(n/60),m=n%60,ap=h<12?"a":"p",hh=h%12||12;
-  return hh+":"+(m<10?"0":"")+m+ap;
-}
-function hm(n){ var h=Math.floor(n/60),m=n%60; return h?h+"h"+(m<10?"0":"")+m:m+"m"; }
-function lay(legs){
-  if(legs.length<2) return "nonstop";
-  var a=toMin(legs[0].arr),d=toMin(legs[1].dep),g=d-a; if(g<0)g+=1440;
-  return hm(g);
-}
-
-/* Which sailings are still catchable, each direction. */
-function ferryOutAfter(arr){
-  var f=CROSS.ferrySchedule;
-  return f.outbound.departures.map(toMin).filter(function(d){ return d>=arr+f.bufferMins; });
-}
-/* Coming home: the ferry has to land early enough to make the flight. */
-function ferryRetBefore(dep){
-  var f=CROSS.ferrySchedule, ride=f.return.crossingMins+90;
-  return f.return.departures.map(toMin).filter(function(d){ return d+ride<=dep; });
-}
-function sevFor(n){ return n>=2?"room":n===1?"tight":"none"; }
-function worse(a,b){ return RANK[a]>=RANK[b]?a:b; }
-
-function build(){
-  var f=CROSS.ferrySchedule, lastOut=Math.max.apply(null,f.outbound.departures.map(toMin));
-
-  function pull(dep, island, dir){
-    var rows=TRIPS.filter(function(t){ return t.home===dep && t.island===island; })
-      .map(function(t){
-        var lg = dir==="out" ? t.out : t.back;
-        var edge = dir==="out" ? lg[lg.length-1] : lg[0];
-        var key  = dir==="out" ? toMin(lg[lg.length-1].arr) : toMin(lg[0].dep);
-        return { key:key, time:fromMin(key), fn:edge.flight,
-                 via:(dir==="out"? lg[lg.length-1].from : lg[0].to),
-                 lay:lay(lg), fare:t.price };
-      });
-    var seen={};
-    rows=rows.filter(function(r){
-      var k=r.time+"|"+r.fn;
-      if(seen[k]){ if(r.fare<seen[k].fare) seen[k].fare=r.fare; return false; }
-      seen[k]=r; return true;
-    });
-    rows.sort(function(a,b){ return a.key-b.key; });
-    return rows;
-  }
-
-  function make(dep, mode, dir){
-    var island = mode==="eis" ? "EIS" : "STT";
-    var rows = pull(dep, island, dir);
-    if(mode==="ferry" && dir==="out")
-      rows = rows.filter(function(r){ return r.key+f.bufferMins<=lastOut; });
-    if(mode==="ferry" && dir==="ret")
-      rows = rows.filter(function(r){ return ferryRetBefore(r.key).length>0; });
-
-    return rows.map(function(r,i){
-      var later = rows.length-1-i;                     /* flights behind this one */
-      var sev = sevFor(later), note;
-      if(mode==="eis"){
-        note = later? later+" later flight"+(later>1?"s":"")+" today"
-             : (rows.length===1
-                 ? (dir==="out"?"the only arrival":"the only departure")
-                 : (dir==="out"?"last arrival of the day":"last departure of the day"));
-      } else if(mode==="ferry"){
-        var boats = dir==="out" ? ferryOutAfter(r.key) : ferryRetBefore(r.key);
-        var spare = Math.max(0,boats.length-1);
-        sev = worse(sev, sevFor(spare));
-        note = dir==="out"
-          ? (spare? spare+" later ferr"+(spare>1?"ies":"y")+" behind it"
-                  : "last ferry of the day")
-          : (spare? "makes the "+fromMin(boats[0])+", "+spare+" behind it"
-                  : "only the "+fromMin(boats[0])+" works");
-      } else {
-        sev = sev==="none" ? "tight" : sev;
-        note = "charter runs on demand";
-      }
-      return [r.time, r.fn, r.via, r.lay, r.fare, sev, note];
-    });
-  }
-
-  DEPS.forEach(function(d){
-    var dep=d[0];
-    SCHED[dep]={};
-    ["eis","ferry","taxi"].forEach(function(m){
-      SCHED[dep][m]={ out:make(dep,m,"out"), ret:make(dep,m,"ret") };
-    });
-    DEPHUB[dep]={ eis: SCHED[dep].eis.out.length>0, fare:0 };
-  });
-
-  function fmt(v){ return v==null?"TBD":"$"+v.toLocaleString("en-US"); }
-  ["eis","ferry","taxi"].forEach(function(m){
-    var src = m==="eis"?CROSS.eis : m==="ferry"?CROSS.ferry : CROSS.watertaxi;
-    var r=[["Airfare, both of you","round trip, cheapest listed",null]];
-    src.rows.forEach(function(x){ r.push([x.label,x.sub,fmt(x.amount)]); });
-    r.push(["Boat, deposit + balance","per couple, fixed","$4,952.77"]);
-    r.push(["Crew tip","20%, cash on board","$990.56"]);
-    r.push(["Jun 9 lodging","open decision","TBD"]);
-    ROWS[m]=r;
-  });
-}
-
+/* The chip states the DEADLINE, not a severity grade.
+   A tired reader is asking "if my flight is late, am I fine?" — a deadline answers that in one
+   read with no legend, and it differs per path, so the three chips can never collapse into the
+   same string the way VARIES · WORST NONE did.
+   Chips DERIVE from the visible list per direction — none are constants. `binding` names what
+   runs out if you're late; null means the transfer never does. */
 var PATHS = {
-  eis:   { name:"Fly into EIS",           transfer:"25 min taxi to the marina",        noun:"flight" },
-  ferry: { name:"STT, then the ferry",    transfer:"45 min ferry, then 10 min taxi",   noun:"ferry"  },
-  taxi:  { name:"STT, then a water taxi", transfer:"30 min charter, then 10 min taxi", noun:"boat"   }
+  eis:   { name:"Fly into EIS",            tag:"Land on Tortola. No boat at all.",
+           transfer:"25 min taxi to the marina", sev:"none",  binding:"flight" },
+  ferry: { name:"STT, then the ferry",     tag:"45-min ferry over — on the ferry's clock.",
+           transfer:"45 min ferry, then 10 min taxi", sev:"tight", binding:"ferry" },
+  taxi:  { name:"STT, then a private boat", tag:"30-min boat over — on your clock.",
+           transfer:"30 min boat, then 10 min taxi", sev:"room",  binding:null }
 };
+
+/* Ferry sailings differ by direction: outbound the last boat over is the deadline; coming home
+   the boat is one of four morning options and YOUR FLIGHT is what binds. */
+var FERRIES = { out:"5:30p", ret:null };
 
 /* authored copy is used ONLY where the line names no flight time */
 var FLAT = {
-  eis:   { out:"One flight in. Miss it and you land Jun 10.",              ret:"One flight out. No later option." },
-  ferry: { out:"Every arrival makes a ferry.",                             ret:"Both catch a morning ferry." },
-  taxi:  { out:"Flights are fine. Only one boat operator has quoted.",     ret:"One charter, one flight, no slack." }
+  eis:   { out:"One flight in. Miss it and you land Jun 10.", ret:"One flight out. No later option." },
+  ferry: { out:"Every listed arrival makes the last ferry.",  ret:"Four sailings over. Pick one and go." },
+  taxi:  { out:"Boats run on demand. One operator has quoted.", ret:"Boat leaves when you're ready." }
 };
+
+var ROWS = {};      /* built from crossings.json — one source of truth with the estimator */
 
 /* three facts, decision-changing one last */
 var SHEETS = {
   eis:{ t:"EIS · Tortola", s:"no boat needed", c:AQUA, facts:[
-    "One US nonstop a day, via San Juan.",
+    "One route in — American, through Miami.",
     "25-minute taxi to the marina.",
-    "Miss it and there's no second flight."] },
-  stt:{ t:"STT · St. Thomas", s:"ferry or charter", c:AMBER, facts:[
-    "Four US carriers, flights all day.",
-    "45-minute ferry to Road Town, last one 3:30p.",
-    "After that it's a private boat, roughly $500."] }
+    "Not every home airport connects to it."] },
+  stt:{ t:"STT · St. Thomas", s:"two ways over", c:AMBER, facts:[
+    "Three US airlines, flights all day.",
+    "Ferry to Road Town — 45 min, last one 5:30p.",
+    "Or a private boat, on your schedule."] }
 };
 
 var state = { dep:"MSY", open:"ferry", dir:"out", sheet:null };
@@ -343,8 +244,173 @@ function el(t,c,x){ var n=document.createElement(t); if(c)n.className=c; if(x!=n
 function money(s){ if(s==="TBD"||s==="—") return null;
   var n=parseFloat(String(s).split("–")[0].replace(/[^0-9.]/g,"")); return isNaN(n)?null:n; }
 
+/* ===================== DATA BUILD =========================================
+   Everything below derives SCHED / ROWS / DEPS from flights.json + crossings.json.
+   Nothing about a flight is authored here: add a trip to flights.json (or a new
+   home airport, with its offset in flights.json.tz) and this page picks it up.
+========================================================================== */
+
+/* "1:42p" -> 822 minutes past midnight. 12:44p -> 764. 12:30a -> 30. */
+function mins(s){
+  var t = String(s).trim().toLowerCase(), ap = t.slice(-1);
+  var hm = t.slice(0,-1).split(":"), h = parseInt(hm[0],10) % 12;
+  if(ap === "p") h += 12;
+  return h*60 + parseInt(hm[1],10);
+}
+function clock(t){
+  var h = Math.floor(t/60), m = t%60, ap = h < 12 ? "a" : "p";
+  h = h % 12; if(h === 0) h = 12;
+  return h + ":" + (m<10?"0":"") + m + ap;
+}
+function dur(t){
+  var h = Math.floor(t/60), m = t%60;
+  return h + "h" + (m<10?"0":"") + m;
+}
+function usd(n){
+  return n == null ? "TBD" : "$" + Number(n).toLocaleString("en-US",
+    {minimumFractionDigits: n % 1 ? 2 : 0, maximumFractionDigits:2});
+}
+
+/* A leg pair -> [time, flightNo, via, layover, fare, status, note].
+   Layover is measured at the connecting airport, so both clocks are already in
+   the same zone — no offset math needed. Arrival/departure times are local to
+   their own airport, which is exactly what a traveller reads off a boarding pass. */
+function legRow(legsArr, dirKey, price){
+  var a = legsArr[0], b = legsArr[1];
+  var t  = dirKey === "out" ? b.arr : a.dep;
+  var fl = dirKey === "out" ? b.flight : a.flight;
+  /* [6] note is written later by annotate(); [7] is the other end of the day —
+     what time you leave home outbound, what time you get home on the return.
+     Neither is anywhere else on the row and both change which flight people pick. */
+  var other = dirKey === "out" ? a.dep : b.arr;
+  return [t, fl, a.to, dur(mins(b.dep) - mins(a.arr)), price, "ok", "", other, null];
+}
+
+/* Same flight can appear at several fares (different return pairings). Keep the
+   cheapest per time+flight, then order by the clock. */
+function dedupe(rows){
+  var seen = {};
+  rows.forEach(function(r){
+    var k = r[0] + "|" + r[1];
+    if(!seen[k] || r[4] < seen[k][4]) seen[k] = r;
+  });
+  var out = Object.keys(seen).map(function(k){ return seen[k]; });
+  out.sort(function(x,y){ return mins(x[0]) - mins(y[0]); });
+  return out;
+}
+
+function buildData(F, C){
+  var fs = C.ferrySchedule;
+  var lastSail = mins(fs.outbound.departures[fs.outbound.departures.length-1]);
+  var buffer   = fs.bufferMins;                       /* land -> on the boat */
+  var retSails = fs["return"].departures.map(mins);
+  var retReady = fs["return"].crossingMins + fs.checkinMins;  /* leave Road Town -> at the gate */
+
+  DEPS = F.homes.slice();
+  CHECKED = "Checked " + new Date(F.updated + "T12:00:00Z").toLocaleDateString("en-US",
+    { day:"numeric", month:"short", year:"numeric", timeZone:"UTC" });
+  NOTICE = C.notice || "";
+
+  SCHED = {}; DEPHUB = {};
+  DEPS.forEach(function(h){
+    SCHED[h[0]] = { eis:{out:[],ret:[]}, ferry:{out:[],ret:[]}, taxi:{out:[],ret:[]} };
+  });
+
+  F.trips.forEach(function(t){
+    var S = SCHED[t.home]; if(!S) return;
+    var o = legRow(t.out, "out", t.price), r = legRow(t.back, "ret", t.price);
+
+    if(t.island === "EIS"){ S.eis.out.push(o); S.eis.ret.push(r); return; }
+
+    /* Path C — the boat is on demand, so every STT itinerary qualifies. */
+    S.taxi.out.push(o.slice()); S.taxi.ret.push(r.slice());
+
+    /* Path B — outbound you have to be on the last sailing; the flight that
+       can't make it still gets listed, flagged, because "why isn't my $620
+       fare here" is a worse question than seeing why it doesn't work. */
+    var ob = o.slice();
+    if(mins(ob[0]) + buffer > lastSail) ob[5] = "fail";
+    S.ferry.out.push(ob);
+
+    /* Return: a sailing only counts if it lands early enough to make the flight. */
+    var rb = r.slice(), dep = mins(rb[0]);
+    var good = retSails.filter(function(s){ return s + retReady <= dep; });
+    if(good.length) { rb[8] = Math.max.apply(null, good); S.ferry.ret.push(rb); }
+  });
+
+  DEPS.forEach(function(h){
+    var S = SCHED[h[0]];
+    ["eis","ferry","taxi"].forEach(function(k){
+      S[k].out = dedupe(S[k].out);
+      S[k].ret = dedupe(S[k].ret);
+    });
+    DEPHUB[h[0]] = { eis: S.eis.out.length > 0 };
+    annotate(S, lastSail);
+  });
+
+  buildRows(C);
+}
+
+/* Marks the final usable option in each list and writes the per-flight note.
+   The note says what this flight means FOR THIS PATH — the same 3:43p arrival is
+   "1h47 before the last ferry" on B and "boat waits for you" on C. */
+function annotate(S, lastSail){
+  ["eis","ferry","taxi"].forEach(function(k){
+    ["out","ret"].forEach(function(d){
+      var list = S[k][d];
+      var usable = list.filter(function(r){ return r[5] !== "fail"; });
+      var final = usable[usable.length-1];
+      if(final) final[5] = "last";
+
+      /* The note never repeats the chip or the tagline — those already say which
+         flight is last and what the path is. It carries the two facts the row
+         itself can't show: the other end of the travel day, and (path B only)
+         how much slack you have against the boat. */
+      list.forEach(function(r){
+        if(d === "out"){
+          r[6] = "leaves " + r[7];
+          if(k === "ferry") r[6] += r[5] === "fail" ? " · arrives after the last ferry"
+                                                    : " · " + dur(lastSail - mins(r[0])) + " before the last ferry";
+        } else {
+          r[6] = (k === "ferry" && r[8] != null ? clock(r[8]) + " ferry over · " : "") + "home " + r[7];
+        }
+      });
+    });
+  });
+}
+
+/* Cost rows come out of crossings.json so this page and the estimator can never
+   disagree. Every crossing amount is null until Matt's calls land, which is why
+   the drawer totals read TBD rather than a partial sum. */
+function buildRows(C){
+  var d = C.defaults || {};
+  var airportDay = (d.airportParking||0) + (d.airportFood||0);
+  var spend = (d.dailySpendMid||0) * (d.nights||5);
+
+  function tail(){
+    return [
+      ["Boat, deposit + balance","per couple, fixed", usd(C.boat.perCouple)],
+      ["Crew tip","20%, cash on board", usd(C.boat.tip)],
+      ["Airport day costs","parking, food, drinks", usd(airportDay)],
+      ["On-island spending", usd(d.dailySpendMid) + "/day × " + (d.nights||5), usd(spend)],
+      ["Jun 9 lodging","open decision","TBD"]
+    ];
+  }
+  function head(){ return [["Airfare, both of you","round trip, cheapest listed", null]]; }
+  function fromCross(node){
+    return (node.rows||[]).map(function(r){ return [r.label, r.sub, usd(r.amount)]; });
+  }
+
+  ROWS = {
+    eis:   head().concat(fromCross(C.eis),        tail()),
+    ferry: head().concat(fromCross(C.ferry),      tail()),
+    taxi:  head().concat(fromCross(C.watertaxi),  tail())
+  };
+}
+
 function legs(key,dir){
-  return (SCHED[state.dep] && SCHED[state.dep][key] && SCHED[state.dep][key][dir]) || [];
+  var d = SCHED[state.dep];
+  return (d && d[key] && d[key][dir]) || [];
 }
 
 function render(){
@@ -398,7 +464,7 @@ function render(){
       hd0.appendChild(el("div","verdict out","NOT FROM " + state.dep));
       hd0.appendChild(el("div","pline","Nothing from " + city + " connects in time."));
       card.appendChild(hd0);
-      card.appendChild(el("p","why","No EIS itinerary from " + city + " connects before the last inbound hop on Jun 9."));
+      card.appendChild(el("p","why","EIS has one route in from the US — American, through Miami. Nothing out of " + city + " connects to it on Jun 9."));
       var nx = el("div","next");
       var ar = el("i",null,"↓"); nx.appendChild(ar);
       nx.appendChild(el("p",null,"Your options from " + city + " are the ferry and the water taxi."));
@@ -408,34 +474,61 @@ function render(){
     }
 
     var list = legs(key, state.dir);
-    var worst = list.reduce(function(a,f){ return RANK[f[5]]>RANK[a[5]]?f:a; }, list[0]);
-    var best  = list.reduce(function(a,f){ return RANK[f[5]]<RANK[a[5]]?f:a; }, list[0]);
-    var sevKey = worst ? worst[5] : "none", sev = SEV[sevKey];
-    var varies = !!worst && !!best && worst[5] !== best[5];
+    var fail = list.filter(function(f){ return f[5]==="fail"; })[0];
+    /* A chip whose job is to state a deadline must never render without one — fall back to the
+       final entry rather than trusting a marker to be present in the data. */
+    var last = list.filter(function(f){ return f[5]==="last"; })[0] || list[list.length-1];
+    var sev = SEV[p.sev];
     var open = state.open === key;
-    if(open){ card.classList.add("open"); card.style.borderColor = fade(sev.c,.34); card.style.background = "rgba(255,255,255,.075)"; }
+    if(open){ card.classList.add("open"); card.style.background = "rgba(255,255,255,.075)"; }
 
-    /* round trip, both people — must not move when the direction toggles */
-    /* Our fares are already round trip per person (that's how they're quoted),
-       so a couple is simply the cheapest fare doubled — and it can't move when
-       the direction toggles. */
-    var all = legs(key,"out").concat(legs(key,"ret"));
-    var couple = all.length ? Math.min.apply(null, all.map(function(f){ return f[4]; })) * 2 : 0;
+    /* round trip, both people. Fares are already round trip, so this is cheapest × 2 — summing
+       the two directions would double-count. Uses the outbound list so it holds still when the
+       direction toggles. */
+    var couple = legs(key,"out").filter(function(f){ return f[5] !== "fail"; })
+                 .reduce(function(m,f){ return Math.min(m,f[4]); }, Infinity) * 2;
 
-    var line = varies
-      ? best[0] + " has a later " + p.noun + ". " + worst[0] + " has none."
-      : FLAT[key][state.dir];
+    /* Name whatever is actually scarce for THIS itinerary, not the path's label.
+       A missed deadline runs out of the transfer; a final flight runs out of flights.
+       Private boats never run out, so that path never names a boat as scarce. */
+    var line;
+    if(fail && p.binding)      line = "The " + fail[0] + " arrival misses the last " + p.binding + ".";
+    else if(last && list.length > 1 && last !== list[0]) line = list[0][0] + " has a later flight. " + last[0] + " doesn't.";
+    else                       line = FLAT[key][state.dir];
 
     var btn = el("button","phd");
     var top = el("div","ptop"), lft = el("div");
     lft.style.flex="1"; lft.style.minWidth="0";
     lft.appendChild(el("div","pname", p.name));
     var rgt = el("div");
-    var pr = el("div","pprice","$" + couple.toLocaleString() + "+");
-    rgt.appendChild(pr); rgt.appendChild(el("div","psub","airfare so far"));
+    var pr = el("div","pprice","$" + couple.toLocaleString());
+    rgt.appendChild(pr); rgt.appendChild(el("div","psub","airfare only"));
     top.appendChild(lft); top.appendChild(rgt); btn.appendChild(top);
 
-    var v = el("div","verdict", varies ? "VARIES · " + SPREAD[sevKey] : VERDICT[sevKey]);
+    /* the tagline is the differentiator — it says what this path IS, before any drawer opens */
+    var tag = el("div","ptag", p.tag);
+    tag.style.color = "#fff";
+    btn.appendChild(tag);
+
+    /* Chip derives from the visible list AND the direction — no path hardcodes its deadline.
+       Outbound the transfer can be the binding constraint; on the return your flight always is. */
+    var chip, chipSev = p.sev;
+    if(key === "eis"){
+      chip = list.length === 1 ? "ONE FLIGHT ONLY" : "LAST FLIGHT " + last[0].toUpperCase();
+      if(list.length === 1) chipSev = "tight";   // a single route is a fact, not a failure
+    } else if(key === "ferry"){
+      chip = FERRIES[state.dir]
+        ? "LAST FERRY " + FERRIES[state.dir].toUpperCase()
+        : "LAST FLIGHT " + last[0].toUpperCase();
+      if(!FERRIES[state.dir]) chipSev = "none";
+    } else {
+      /* boats never run out — but the flights into STT do, and no boat rescues a missed flight */
+      chip = "NO BOAT CUTOFF";
+    }
+    var sev = SEV[chipSev];
+    if(open){ card.style.borderColor = fade(sev.c,.34); }
+
+    var v = el("div","verdict", chip);
     v.style.background = sev.c; v.style.color = sev.ink; v.style.border = "1px solid " + sev.c;
     btn.appendChild(v);
     btn.appendChild(el("div","pline", line));
@@ -462,20 +555,13 @@ function render(){
     dr.appendChild(dirs);
     dr.appendChild(el("div","farecap","fares below are per person, round trip"));
 
-    if(!list.length){
-      var none = el("div","fl");
-      none.appendChild(el("div","fl-n warn", state.dir==="out"
-        ? "No " + p.noun + " works with any arrival from " + city + " that day."
-        : "No " + p.noun + " gets you to a flight home from " + city + " that day."));
-      dr.appendChild(none);
-    }
     list.forEach(function(f){
       var row = el("div","fl"), t = el("div","fl-top");
       t.appendChild(el("div","fl-t", f[0]));
       t.appendChild(el("div","fl-l", f[1] + " · " + f[2] + " " + f[3]));
-      t.appendChild(el("div","fl-f", "$" + f[4]));
+      t.appendChild(el("div","fl-f", "$" + f[4].toLocaleString()));
       row.appendChild(t);
-      row.appendChild(el("div","fl-n" + (f[5]==="none" ? " warn" : ""), f[6]));
+      row.appendChild(el("div","fl-n" + (f[5]==="fail" ? " warn" : ""), f[6]));
       dr.appendChild(row);
     });
 
@@ -508,9 +594,7 @@ function render(){
     dr.appendChild(tot);
 
     var ck = el("div","checked"); ck.appendChild(el("i"));
-    ck.appendChild(el("span",null, CROSS.status==="unverified"
-      ? "Flights checked 2 Aug 2026 · crossing costs pending"
-      : "Checked " + CROSS.updated));
+    ck.appendChild(el("span",null,CHECKED));
     dr.appendChild(ck);
 
     card.appendChild(dr);
@@ -530,27 +614,25 @@ window.setChatBadge = function(n){
   else { b.classList.remove("dot"); b.textContent = n>9 ? "9+" : String(n); }
 };
 
-(function(){
+/* ---- boot: real data, then render. The in-chat preview and file:// can't run
+   fetch(), so this will only ever succeed on the live Pages URL. ---- */
+function boot(){
+  var bust = "?v=" + Date.now();
   Promise.all([
-    fetch("flights.json?v="+Date.now()).then(function(r){ return r.json(); }),
-    fetch("crossings.json?v="+Date.now()).then(function(r){ return r.json(); })
-  ]).then(function(a){
-    TRIPS = a[0].trips || [];
-    if (a[0].homes && a[0].homes.length) DEPS = a[0].homes;
-    if (a[0].tz) for (var k in a[0].tz) TZ[k] = a[0].tz[k];
-    CROSS = a[1];
-    if (CROSS.notice){
-      var n = document.getElementById("notice");
-      n.textContent = CROSS.notice; n.hidden = false;
-    }
-    build();
-    if (!DEPHUB[state.dep]) state.dep = DEPS[0][0];
+    fetch("flights.json" + bust).then(function(r){ if(!r.ok) throw 0; return r.json(); }),
+    fetch("crossings.json" + bust).then(function(r){ if(!r.ok) throw 0; return r.json(); })
+  ]).then(function(res){
+    buildData(res[0], res[1]);
+    if(DEPS.length && !SCHED[state.dep]) state.dep = DEPS[0][0];
+    document.getElementById("loadmsg").textContent =
+      "Fares are real. Crossings and lodging aren't quoted yet.";
     render();
   }).catch(function(){
-    document.getElementById("paths").innerHTML =
-      '<p style="margin:0 16px;color:#7ba6bd;font-size:14px">Couldn\u2019t load the trip data. Pull down to refresh.</p>';
+    document.getElementById("loadmsg").textContent =
+      "Couldn't load the flight data. If you're offline, try again on a signal.";
   });
-})();
+}
+boot();
 </script>
 </body>
 </html>

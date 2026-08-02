@@ -9,7 +9,7 @@
 <meta name="apple-mobile-web-app-title" content="BEANLAND + BVI" />
 <link rel="apple-touch-icon" href="apple-touch-icon.png" />
 <link rel="icon" href="apple-touch-icon.png" />
-<title>BEANLAND + BVI — Cost</title>
+<title>BEANLAND + BVI — Cost estimator</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&display=swap" rel="stylesheet" />
@@ -152,9 +152,7 @@
   .dock-break span{font-size:14px;color:var(--dock-2)}
   .dock-break b{font-size:14px;font-weight:700;color:var(--dock-ink);font-variant-numeric:tabular-nums}
   .dock-btn{width:100%;margin-top:13px;border:none;background:var(--pink);color:var(--pink-ink);border-radius:14px;padding:14px;font:800 15px/1 inherit;cursor:pointer;min-height:44px}
-
-  .amt.tbd{color:#ff4d8d}
-  .xnotice{margin:0 16px 12px;padding:12px 14px;border:1px dashed rgba(255,77,141,.45);border-radius:14px;font-size:12.5px;line-height:1.5;color:#ffb8d0}
+  .amt.tbd{color:var(--pink)}
 </style>
 </head>
 <body>
@@ -172,7 +170,6 @@
     <p class="sub">Quote SZ3375 · Jun 10–15, 2027. The boat cost is fixed — everything under <strong style="color:#fff">Your travel</strong> is yours to change.</p>
   </header>
 
-  <p class="xnotice" id="xnotice" hidden></p>
   <section class="card">
     <div class="pay">
       <h2 class="plabel">PAYING BY</h2>
@@ -233,7 +230,7 @@
       <div class="step" data-step="10"><button type="button" data-dir="-1" aria-label="Decrease">−</button><span class="val"><span class="pre">$</span><input id="taxis" inputmode="numeric" value="60" /></span><button type="button" data-dir="1" aria-label="Increase">+</button></div>
     </div>
     <div class="row">
-      <div><div class="rl quiet" style="font-size:16px">Water taxi</div><div class="rs" id="waterNote">not needed — flying into Tortola</div></div>
+      <div><div class="rl quiet" style="font-size:16px" id="waterLabel">Water taxi</div><div class="rs" id="waterNote">not needed — flying into Tortola</div></div>
       <div class="amt quiet" id="waterVal" style="font-size:16px">N/A</div>
     </div>
     <div class="row editable">
@@ -291,8 +288,12 @@
 
 <script>
 (function(){
+  /* Fallbacks only — the real figures come from crossings.json so this page and
+     the arrival paths can never quote different numbers. */
   var BOAT_PP = 4952.77, FEE = 148.58, TIP = 990.56;
-  var CROSSING = null;   /* per couple, from crossings.json — null until verified */
+  var CROSS = null;                      /* crossings.json, once it lands */
+  var DEFAULTS = { airfare:"1,750", taxis:"60", parking:"100", food:"75",
+                   custom:"100", airport:"EIS", level:"Mid" };
   var pay = "ach";
 
   var $ = function(id){ return document.getElementById(id); };
@@ -339,19 +340,26 @@
     var daily = custom ? num($("custom").value) : lvl === "Low" ? 50 : lvl === "High" ? 150 : 100;
     var nights = 5;
     var dailyTotal = daily * nights;
+    /* The crossing is whatever gets you from the airport you land at to the
+       marina. Its price is unquoted until the calls come back, so an unpriced
+       crossing renders TBD and stays OUT of the total — same treatment the
+       Jun 9 lodging gets, rather than a partial sum that looks authoritative. */
     var stt = $("airport").value === "STT";
-    var water = (stt && CROSSING != null) ? CROSSING : 0;
-    var waterTBD = stt && CROSSING == null;
-    var varSub = num($("airfare").value) + num($("taxis").value) + num($("parking").value) + num($("food").value) + dailyTotal + water;
+    var node = CROSS ? (stt ? CROSS.ferry : CROSS.eis) : null;
+    var water = node && node.perCouple != null ? node.perCouple : null;
+    var varSub = num($("airfare").value) + num($("taxis").value) + num($("parking").value)
+               + num($("food").value) + dailyTotal + (water || 0);
 
 
     $("fixedSub").textContent = money(fixed);
     $("deposit").textContent = $("balance").textContent = $("brDep").textContent = $("brBal").textContent = money(half);
-    $("waterVal").textContent = waterTBD ? "TBD" : (water ? money(water) : "N/A");
-    $("waterVal").classList.toggle("tbd", waterTBD);
-    $("waterNote").textContent = waterTBD
-      ? "crossing from St. Thomas — being priced, not in the total"
-      : (water ? "crossing from St. Thomas, per couple" : "not needed — flying into Tortola");
+    $("waterLabel").textContent = stt ? "Ferry from St. Thomas" : "Taxi to the marina";
+    $("waterVal").textContent = water != null ? money(water) : "TBD";
+    $("waterVal").classList.toggle("tbd", water == null);
+    $("waterNote").textContent = water != null
+      ? (stt ? "45 min, per couple" : "25 min from EIS, shared")
+      : (stt ? "45-min ferry, per couple — not in the total below"
+             : "25 min from EIS, shared — not in the total below");
     $("dailyNote").textContent = "$" + daily + "/day × " + nights + (nights === 1 ? " night" : " nights");
     $("dailyTotal").textContent = money(dailyTotal);
     $("varSub").textContent = $("brVar").textContent = money(varSub);
@@ -377,7 +385,6 @@
     document.body.style.paddingBottom = "calc(" + (open ? 292 : 152) + "px + env(safe-area-inset-bottom))";
   };
 
-  var DEFAULTS = { airfare:"1,750", taxis:"60", parking:"100", food:"75", custom:"100", airport:"EIS", level:"Mid" };
   $("reset").onclick = function(){
     ["airfare","taxis","parking","food","custom"].forEach(function(id){ $(id).value = DEFAULTS[id]; fmtField($(id)); });
     $("airport").value = DEFAULTS.airport;
@@ -395,16 +402,32 @@
     else { b.classList.remove("dot"); b.textContent = n > 9 ? "9+" : String(n); }
   };
 
+  /* ---- boot ---------------------------------------------------------------
+     crossings.json carries the boat figures, the crossing prices and the field
+     defaults. If it can't be reached the fallbacks above keep the estimator
+     usable — the boat numbers are the ones that matter and they're fixed. */
+  function apply(C){
+    CROSS = C;
+    if(C.boat){
+      if(C.boat.perCouple != null) BOAT_PP = C.boat.perCouple;
+      if(C.boat.tip       != null) TIP     = C.boat.tip;
+      if(C.boat.cardFee   != null) FEE     = C.boat.cardFee;
+    }
+    var d = C.defaults;
+    if(d){
+      if(d.airfarePerCouple != null) DEFAULTS.airfare = Number(d.airfarePerCouple).toLocaleString("en-US");
+      if(d.carTaxis         != null) DEFAULTS.taxis   = String(d.carTaxis);
+      if(d.airportParking   != null) DEFAULTS.parking = String(d.airportParking);
+      if(d.airportFood      != null) DEFAULTS.food    = String(d.airportFood);
+      if(d.dailySpendMid    != null) DEFAULTS.custom  = String(d.dailySpendMid);
+      ["airfare","taxis","parking","food","custom"].forEach(function(id){
+        $(id).value = DEFAULTS[id]; fmtField($(id));
+      });
+    }
+  }
   fetch("crossings.json?v=" + Date.now())
-    .then(function(r){ return r.json(); })
-    .then(function(j){
-      if (j.ferry && j.ferry.perCouple != null) CROSSING = j.ferry.perCouple;
-      if (j.notice){
-        var n = document.getElementById("xnotice");
-        n.textContent = j.notice; n.hidden = false;
-      }
-      render();
-    })
+    .then(function(r){ if(!r.ok) throw 0; return r.json(); })
+    .then(function(C){ apply(C); render(); })
     .catch(function(){ render(); });
 
   render();
