@@ -41,10 +41,10 @@
   .tabbar{position:sticky;top:0;z-index:20;background:rgba(4,38,60,.92);backdrop-filter:saturate(1.4) blur(14px);
           -webkit-backdrop-filter:saturate(1.4) blur(14px);border-bottom:1px solid rgba(255,255,255,.12);
           padding:calc(14px + env(safe-area-inset-top)) 20px 12px}
-  .tabs{display:flex;gap:6px;margin:0;padding:5px;background:rgba(255,255,255,.07);border-radius:16px}
+  .tabs{display:flex;gap:5px;margin:0;padding:5px;background:rgba(255,255,255,.07);border-radius:16px}
   .tab{flex:1;display:flex;align-items:center;justify-content:center;text-align:center;text-decoration:none;
-       padding:12px 6px;border:none;border-radius:12px;background:transparent;color:var(--idle-ink);
-       font-size:11px;font-weight:700;letter-spacing:.08em;min-height:44px}
+       padding:12px 4px;border:none;border-radius:12px;background:transparent;color:var(--idle-ink);
+       font-size:10.5px;font-weight:700;letter-spacing:.06em;min-height:44px}
   .tab.on{background:var(--pink);color:var(--pink-ink);font-weight:800;box-shadow:0 2px 10px rgba(255,77,141,.35)}
   .tab-wrap{position:relative;flex:1;display:flex}
   .tab-wrap .tab{flex:1}
@@ -159,7 +159,8 @@
 <div class="wrap">
   <div class="tabbar">
     <nav class="tabs" aria-label="Sections">
-      <a class="tab" href="index.html">FLIGHTS</a>
+      <a class="tab" href="index.html">HOME</a>
+      <a class="tab" href="flights.html">FLIGHTS</a>
       <a class="tab on" href="cost.html">ESTIMATOR</a>
       <span class="tab-wrap"><a class="tab" href="https://padlet.com/contactmrshirley/beanland-bvi-t5mmxgl5c6kl5ezh" target="_blank" rel="noopener">CHAT</a><span class="badge" id="chatBadge" hidden></span></span>
     </nav>
