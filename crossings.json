@@ -24,8 +24,8 @@
    ],
    "crossingMins": 50
   },
-  "bufferMins": 75,
-  "bufferNote": "Bags, taxi to the terminal and buying a ticket. An arrival less than 75 minutes before a sailing doesn't realistically make it.",
+  "bufferMins": 90,
+  "bufferNote": "Bags, immigration and the ride from the airport to the ferry dock. At 90 minutes the last useful arrival is 4:00p.",
   "checkinMins": 90,
   "checkinNote": "Time needed on the St. Thomas side between stepping off the ferry and your flight: taxi to the airport, bag drop, security."
  },
@@ -34,28 +34,23 @@
   "perCouple": 400,
   "rows": [
    {
-    "label": "Ferry fare",
-    "sub": "per couple, round trip, with bags",
-    "amount": "$140–190"
+    "label": "Ferry tickets",
+    "sub": "$75 each, round trip, plus checked bags",
+    "amount": "$170–190"
    },
    {
-    "label": "Taxi, STT airport → ferry dock",
-    "sub": "10 min · $20 each + bags, both ways",
-    "amount": "$80–100"
+    "label": "Taxis, both ends",
+    "sub": "airport to the dock, dock to the marina, each way",
+    "amount": "$120–160"
    },
    {
-    "label": "Taxi, Road Town dock → marina",
-    "sub": "10 min, shared, both ways",
-    "amount": "$40–60"
-   },
-   {
-    "label": "BVI levy, departure tax, USVI port fee",
-    "sub": "$40 per person, round trip",
+    "label": "Port fees and taxes",
+    "sub": "USVI port, BVI levy, BVI departure — $40 each",
     "amount": "$80"
    }
   ],
-  "perCoupleRange": "$340–430",
-  "sharedNote": "Road Town Fast Ferry runs Charlotte Amalie to Road Town direct. Smith's and Native Son rotate the other slots and have been intermittent — check the day before."
+  "perCoupleRange": "$370–430",
+  "sharedNote": "Native Son, Smith's and Road Town Fast Ferry all run this route and their base rates are close to identical, so pick on schedule rather than price. Book ahead — since covid the sailings are thinner and they do sell out."
  },
  "watertaxi": {
   "label": "Private boat",
@@ -64,17 +59,17 @@
   "rows": [
    {
     "label": "Boat charter",
-    "sub": "round trip, split 4 ways",
+    "sub": "whole boat, round trip, split four ways",
     "amount": "$400–500"
    },
    {
-    "label": "Taxi, STT airport → marina",
-    "sub": "Red Hook or Crown Bay, both ways",
+    "label": "Taxis, both ends",
+    "sub": "airport to the dock, each way",
     "amount": "$120–140"
    },
    {
-    "label": "BVI levy and departure tax",
-    "sub": "$30 per person, round trip",
+    "label": "Port fees and taxes",
+    "sub": "BVI levy and departure tax — $30 each",
     "amount": "$60"
    }
   ],
@@ -107,13 +102,13 @@
   "perCouple": 120,
   "rows": [
    {
-    "label": "Taxi, EIS → marina",
-    "sub": "25 min, shared, both ways",
+    "label": "Taxi to the marina",
+    "sub": "25 min from the airport, shared, each way",
     "amount": "$80–120"
    },
    {
-    "label": "BVI environmental levy",
-    "sub": "$10 per person, on arrival",
+    "label": "BVI levy",
+    "sub": "$10 each, on arrival",
     "amount": "$20"
    }
   ],
