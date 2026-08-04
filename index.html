@@ -88,6 +88,11 @@
 
   .lede{padding:34px 20px 0;font-size:11px;font-weight:800;letter-spacing:.11em;color:var(--mute)}
 
+  .todo{list-style:none;margin:11px 20px 0;padding:14px 16px 15px;border:1px solid var(--border);border-radius:16px;background:rgba(255,255,255,.05)}
+  .todo li{display:flex;gap:11px;font-size:14.5px;line-height:1.4;color:#dceceb;padding:7px 0}
+  .todo li+li{border-top:1px solid rgba(255,255,255,.08)}
+  .todo li::before{content:"";flex:none;width:16px;height:16px;margin-top:2px;border:1.5px solid rgba(255,255,255,.34);border-radius:5px}
+
   .air{display:flex;flex-direction:column;gap:9px;margin:11px 20px 0}
   .ap{padding:15px 17px 16px;border:1px solid var(--border);background:var(--surface);border-radius:var(--r-card)}
   .ap .top{display:flex;align-items:baseline;gap:9px}
@@ -126,7 +131,7 @@
   <div class="done">
     <i>&#10003;</i>
     <div>
-      <div class="t">The Group&rsquo;s Deposit has been Paid</div>
+      <div class="t">Our Deposit has been Paid</div>
       <div class="s">Thank you Riley for running point!</div>
     </div>
   </div>
@@ -162,6 +167,13 @@
       <p>Different island. Ferry or water taxi over to Tortola.</p>
     </section>
   </div>
+
+  <div class="lede">WHEN YOU GET A CHANCE</div>
+  <ul class="todo">
+    <li>Secure a babysitter or childcare</li>
+    <li>Look into personal travel insurance</li>
+    <li>Finish the charter company&rsquo;s onboarding documents</li>
+  </ul>
 
   <a class="go" href="flights.html">
     <div>
