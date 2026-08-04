@@ -147,36 +147,53 @@
   /* the only unit label the flight list needs — one caption, not one per row */
   .farecap{display:flex;justify-content:flex-end;padding:7px 16px 1px;font-size:10.5px;font-weight:700;letter-spacing:.05em;color:var(--mute)}
 
-  /* ITINERARY. Six of these can stack on a 430px phone, so every line has to earn its height.
-     What earns it: the elapsed total (the number people actually compare), all four clock times,
-     both flight numbers, and the layover — which is the single most likely way Jun 9 goes wrong. */
-  .itin{padding:13px 16px 14px;border-top:1px solid var(--hairline)}
-  .ihd{display:flex;align-items:baseline;justify-content:space-between;gap:10px}
-  .dd{font-family:'Bricolage Grotesque',Outfit,sans-serif;font-size:21px;line-height:1;font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
-  .dd span{font-family:Outfit,sans-serif;font-size:10.5px;font-weight:700;letter-spacing:.07em;color:var(--mute);margin-left:7px}
-  .ifare{flex:none;font-size:16px;font-weight:800;font-variant-numeric:tabular-nums}
-  .ifare span{display:block;font-size:10px;font-weight:600;color:var(--mute);letter-spacing:.04em;margin-top:3px}
+  /* ITINERARY = a timeline. Four moments, top to bottom, one big time each:
+     leave, land at the stop, wait (amber, dashed rail), arrive. */
+  .itin{margin:10px 12px 4px;border:1px solid var(--border);background:var(--surface);border-radius:16px;overflow:hidden}
+  .imeta{display:flex;align-items:center;gap:10px;padding:14px 17px 13px;border-bottom:1px solid var(--hairline)}
+  .imeta .price{font-size:17px;font-weight:800;letter-spacing:-.01em;font-variant-numeric:tabular-nums}
+  .imeta .air{flex:1;font-size:13px;color:var(--mute)}
+  .imeta .tot{display:flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;
+              background:rgba(255,255,255,.07);border:1px solid var(--hairline);
+              font-size:11.5px;font-weight:700;color:var(--soft);white-space:nowrap}
+  .imeta .tot b{font-weight:800;color:#fff;font-variant-numeric:tabular-nums}
 
-  .leg{display:flex;gap:11px;align-items:baseline;margin-top:10px}
-  .leg .tm{flex:none;width:50px;text-align:right;font-size:15px;font-weight:800;font-variant-numeric:tabular-nums}
-  .leg .ap{flex:1;min-width:0;display:flex;align-items:baseline;gap:7px}
-  .leg .cd{font-size:13.5px;font-weight:700;color:var(--ink)}
-  .leg .cy{flex:1;min-width:0;font-size:12px;color:var(--mute);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .leg .fn{flex:none;font-size:11.5px;font-weight:600;color:var(--soft);font-variant-numeric:tabular-nums}
+  .tl{padding:6px 17px 4px}
+  .stop{display:grid;grid-template-columns:78px 20px 1fr;column-gap:12px;align-items:start;padding:13px 0}
+  .stop .t{font-family:'Bricolage Grotesque',Outfit,sans-serif;font-size:27px;line-height:.92;
+           font-weight:800;letter-spacing:-.03em;text-align:right;padding-top:6px;font-variant-numeric:tabular-nums}
+  .stop .t small{display:block;font-family:Outfit,sans-serif;font-size:10.5px;font-weight:800;
+                 letter-spacing:.08em;color:var(--mute);margin-top:6px}
+  .rail{position:relative;justify-self:center;width:20px;align-self:stretch;min-height:44px}
+  .rail::before{content:"";position:absolute;left:9px;top:0;bottom:0;width:2px;background:rgba(255,255,255,.15)}
+  .stop:first-child .rail::before{top:14px}
+  .stop:last-child .rail::before{bottom:calc(100% - 14px)}
+  .dot{position:absolute;left:2px;top:7px;width:16px;height:16px;border-radius:9px;
+       background:var(--bg);border:2.5px solid rgba(255,255,255,.35)}
+  .stop.dep .dot{border-color:var(--pink);background:var(--pink)}
+  .stop.arr .dot{border-color:var(--aqua);background:var(--aqua)}
+  .stop .p{padding-top:3px;min-width:0}
+  .stop .city{font-size:16.5px;font-weight:700;line-height:1.25}
+  .stop .city b{font-family:'Bricolage Grotesque',Outfit,sans-serif;font-weight:800;letter-spacing:-.01em}
+  .stop .fl{font-size:12.5px;color:var(--mute);margin-top:5px}
+  .stop.dep .fl{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:7px;font-size:13px;color:var(--soft)}
+  .stop.dep .fl em{font-style:normal;padding:4px 9px;border-radius:8px;background:rgba(255,77,141,.14);
+                   border:1px solid rgba(255,77,141,.36);color:#ffa8c6;
+                   font-size:13.5px;font-weight:800;letter-spacing:.02em;white-space:nowrap}
 
-  /* A 48-minute connection and a 3h29 sit rendered identically before. They are opposite
-     meanings, so they get opposite treatments — pink and loud, or grey and quiet. */
-  .lay{display:flex;gap:11px;margin-top:7px}
-  .lay .sp{flex:none;width:50px}
-  .lay .bd{flex:1;min-width:0;display:flex;align-items:center;gap:7px;flex-wrap:wrap;
-           border-left:2px solid var(--hairline);padding:4px 0 4px 10px;font-size:12px;color:var(--mute)}
-  .lay .lb{flex:none;font-size:9.5px;font-weight:800;letter-spacing:.07em;padding:2px 5px;border-radius:4px}
-  .lay.tight .bd{border-left-color:var(--pink);color:var(--pink-lift)}
-  .lay.tight .lb{background:var(--pink);color:var(--pink-ink)}
-  .lay.long .bd{border-left-color:rgba(255,255,255,.2)}
-  .lay.long .lb{background:rgba(255,255,255,.12);color:var(--soft)}
+  /* Layover sits between the two flights, amber so the wait reads as a wait. */
+  .lay{display:grid;grid-template-columns:78px 20px 1fr;column-gap:12px}
+  .lay .bar{grid-column:2;position:relative;justify-self:center;width:20px}
+  .lay .bar::before{content:"";position:absolute;left:9px;top:0;bottom:0;width:2px;
+                    background:repeating-linear-gradient(to bottom,var(--amber) 0 4px,transparent 4px 9px)}
+  .lay .b{grid-column:3;margin:2px 0 4px;padding:11px 13px 12px;border-radius:14px;
+          border:1px solid rgba(255,176,58,.3);background:rgba(255,176,58,.09)}
+  .lay .d{font-size:15.5px;font-weight:800;color:var(--amber);letter-spacing:-.01em}
+  .lay .n{font-size:12.5px;line-height:1.45;color:var(--soft);margin-top:4px;text-wrap:pretty}
 
-  .inote{margin-top:10px;padding-left:61px;font-size:12px;line-height:1.45;color:var(--mute)}
+  .inote{display:flex;gap:10px;padding:13px 17px 15px;border-top:1px solid var(--hairline);
+         font-size:13px;line-height:1.5;color:var(--dim);text-wrap:pretty}
+  .inote::before{content:"";flex:none;width:3px;border-radius:2px;background:rgba(255,255,255,.2)}
 
   /* the ride-over line items are a $340–430 expense competing with the flights for the same
      space, and losing. All-in number stays visible; the itemisation goes behind this. */
@@ -556,42 +573,76 @@ function render(){
 
     list.forEach(function(it){
       var box = el("div","itin");
-      var hd = el("div","ihd");
-      var dd = el("div","dd", dur(it.total));
-      dd.appendChild(el("span",null,"DOOR TO DOOR"));
-      var fr = el("div","ifare", "$" + it.price);
-      fr.appendChild(el("span",null, it.airline));
-      hd.appendChild(dd); hd.appendChild(fr); box.appendChild(hd);
-
-      var first = it.legs[0], lastLeg = it.legs[it.legs.length-1];
-      var mkLeg = function(time, code, city, flight){
-        var r = el("div","leg");
-        r.appendChild(el("div","tm", time));
-        var ap = el("div","ap");
-        ap.appendChild(el("div","cd", code));
-        ap.appendChild(el("div","cy", city || ""));
-        if(flight) ap.appendChild(el("div","fn", flight));
-        r.appendChild(ap); return r;
-      };
       var nameOf = function(c){
         var h = DATA.homes.filter(function(x){ return x[0]===c; })[0];
         return h ? h[1] : (APN[c] || c);   /* a hub we haven't named still shows its code */
       };
-      box.appendChild(mkLeg(first.dep, first.from, nameOf(first.from), first.flight));
 
-      if(it.legs.length > 1){
-        var mid = it.legs[0].to;
-        var cls = it.lay < 60 ? " tight" : it.lay >= 180 ? " long" : "";
-        var lay = el("div","lay" + cls);
-        lay.appendChild(el("div","sp"));
-        var bd = el("div","bd");
-        bd.appendChild(el("span",null, it.legs[0].arr + " → " + it.legs[1].dep + " · " + dur(it.lay) + " in " + (APN[mid]||mid)));
-        if(it.lay < 60)        bd.appendChild(el("span","lb","TIGHT"));
-        else if(it.lay >= 180) bd.appendChild(el("span","lb","LONG SIT"));
-        lay.appendChild(bd); box.appendChild(lay);
+      /* secondary bar: price, airline, total — the timeline below is the point */
+      var meta = el("div","imeta");
+      meta.appendChild(el("div","price","$" + it.price));
+      meta.appendChild(el("div","air", it.airline + " \u00b7 " +
+        (it.legs.length > 1 ? (it.legs.length - 1) + " stop" : "nonstop")));
+      var tot = el("div","tot","TOTAL");
+      tot.appendChild(el("b",null,dur(it.total)));
+      meta.appendChild(tot);
+      box.appendChild(meta);
+
+      /* THE TIMELINE. Four moments, top to bottom, one big time per row. */
+      var tl = el("div","tl");
+      var mkStop = function(cls, time, kicker, code, subBuild){
+        var st = el("div","stop " + cls);
+        var t = el("div","t", time);
+        t.appendChild(el("small",null,kicker));
+        st.appendChild(t);
+        var rail = el("div","rail"); rail.appendChild(el("span","dot")); st.appendChild(rail);
+        var p = el("div","p");
+        var city = el("div","city");
+        city.appendChild(el("b",null,code));
+        city.appendChild(document.createTextNode(" \u00b7 " + nameOf(code)));
+        p.appendChild(city);
+        if(subBuild){ var fl = el("div","fl"); subBuild(fl); p.appendChild(fl); }
+        st.appendChild(p);
+        tl.appendChild(st);
+      };
+
+      var first = it.legs[0], lastLeg = it.legs[it.legs.length-1];
+
+      /* 1 — depart home */
+      mkStop("dep", first.dep, "DEPART", first.from, function(fl){
+        fl.appendChild(el("em",null,"Flight " + first.flight));
+        fl.appendChild(document.createTextNode(" to " + nameOf(first.to)));
+      });
+
+      /* 2 + 3 — land at the stop, then the wait (handles any number of stops) */
+      for(var li = 0; li < it.legs.length - 1; li++){
+        (function(a, b){
+          mkStop("mid", a.arr, "LAND AT STOP", a.to, function(fl){
+            fl.textContent = "Get off, change planes";
+          });
+          var wait = span(a.to, a.arr, b.from, b.dep);
+          var lay = el("div","lay");
+          lay.appendChild(el("div","bar"));
+          var bx = el("div","b");
+          bx.appendChild(el("div","d", dur(wait) + " layover in " + nameOf(a.to)));
+          var n = el("div","n","Then board ");
+          n.appendChild(el("b",null,b.flight));
+          n.appendChild(document.createTextNode(" \u2014 departs " + b.dep + " from " + a.to + "."));
+          bx.appendChild(n);
+          lay.appendChild(bx);
+          tl.appendChild(lay);
+        })(it.legs[li], it.legs[li+1]);
       }
 
-      box.appendChild(mkLeg(lastLeg.arr, lastLeg.to, nameOf(lastLeg.to), lastLeg.flight));
+      /* 4 — arrive */
+      var ARR_OUT = { eis:"Off the plane, into a taxi",
+                      ferry:"Off the plane \u2014 ferry over next",
+                      taxi:"Off the plane \u2014 private boat over next" };
+      mkStop("arr", lastLeg.arr, "ARRIVE", lastLeg.to, function(fl){
+        fl.textContent = state.dir === "out" ? ARR_OUT[key] : "Home \u2014 baggage claim and out";
+      });
+
+      box.appendChild(tl);
       if(it.notes.length) box.appendChild(el("div","inote" + (it.status==="fail" ? " warn" : ""), it.notes[0]));
       dr.appendChild(box);
     });
